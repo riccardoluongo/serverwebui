@@ -1,0 +1,108 @@
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <title>Server Dashboard</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://kit.fontawesome.com/0081711c27.js" crossorigin="anonymous"></script>
+    <link rel = "icon" href = "/static/favicon.ico" type = "image/x-icon">
+    <script src="/static/update.js"></script>
+</head>
+
+<body class="body">
+    <div class="time-date">
+        <span class="time" id="time">time</span>
+        <span class="date" id="date">date</span>
+    </div>
+    <div class="search-div">
+        <form action="https://www.google.com/search" class="searchform" method="get" name="searchform" target="_blank">
+            <input autocomplete="on" class="form-control-search" name="q" placeholder="Search Google" required="required" type="text">
+            <button class="search-button" type="submit"><i class="fa fa-search"></i></button>
+        </form>
+    </div>
+    <div class="link-container">
+        <div class="links_wrapper" id="links_wrapper"></div>
+        <a href="/edit_links"><button class="edit-button"><i class="fa fa-pencil-square-o fa-2x edit-icon" aria-hidden="true"></i></button></button></a>
+    </div>
+    <div id="wrapper">
+        <div class="rectangle">
+            <div class="resources-container">
+                <div class="box-titles">Resources</div>
+                <div class="resources-circles">
+                    <div id="dot" class="dot">
+                        <span id="cpu_util_div" class="circle-values"></span>
+                        <span class="circle-titles">CPU</span>
+                    </div>
+                    <div id="ram-dot" class="dot">
+                        <span id="ram_util_div" class="circle-values"></span>
+                        <span class="circle-titles">RAM</span>
+                    </div>
+                    <div id="gpu-dot" class="dot">
+                        <span id="gpu_util_div" class="circle-values"></span>
+                        <span class="circle-titles" id="gpu-dot-title">GPU</span>
+                    </div>  
+                    <div id="vram-dot" class="dot">
+                        <span id="vram_util_div" class="circle-values"></span>
+                        <span class="circle-titles" id="vram-dot-title">VRAM</span>
+                    </div>
+                </div>
+                <div class="fan-rectangle" id="fan-rectangle">
+                    <div class="fan" id="initial-sys-fan-container">
+                        <i class="fa-solid fa-fan fan-icon fa-2xl"></i>
+                        <span class="fan-title">CPU: </span>
+                        <span class="fan-value" id="cpu-fan-value"></span>
+                    </div>
+                    <div class="fan" id="initial-gpu-fan-container">
+                        <i class="fa-solid fa-fan fan-icon fa-2xl"></i>
+                        <span class="fan-title"></span>
+                        <span class="fan-value" id="gpu-fan-value"></span>
+                    </div>
+                </div>
+                <div class="pwr-rectangle" id="pwr-rectangle">
+                    <div class="mini-box-title">Power draw</div>
+                    <div class="mini-box-title">CPU:</div>
+                    <div id="cpu-pwr-div" class="mini-box-values"></div>
+                    <div id="initial-gpu-pwr-container">
+                        <div class="mini-box-title" style="padding-top: 30px;">GPU:</div>
+                        <div id="gpu-pwr-div" class="mini-box-values"></div>
+                    </div>
+                </div>
+                <div class="temp-rectangle" id="temp-rectangle">
+                    <div class="mini-box-title">Temps</div>
+                    <div class="mini-box-title">CPU:</div>
+                    <div id="cpu-temp-div" class="mini-box-values"></div>
+                    <div id="initial-gpu-temp-container">
+                        <div class="mini-box-title" style="padding-top: 30px;" id="gpu-temp-title">GPU:</div>
+                        <div id="gpu-temp-div" class="mini-box-values"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="rectangle2">
+            <div class="storage-title-container">
+                <span class="box-titles" style="padding-bottom: 20px">Storage</span>
+                <span class="form-check" style="float: none;">
+                    <input class="form-check-input radio-btn" type="radio" name="flexRadioDefault" id="zpool-radio" onclick="initializeZpoolInfo();" checked>
+                    <label class="form-check-label radio-text" for="flexRadioDefault1">
+                        ZFS Pool
+                    </label>
+                </span>
+                    <span class="form-check">
+                    <input class="form-check-input radio-btn" type="radio" name="flexRadioDefault" id="smart-radio"  onclick="showSmart();">
+                    <label class="form-check-label radio-text" for="flexRadioDefault2">
+                        SMART
+                    </label>
+                </span>
+            </div>
+            <div class="storage-box-wrapper" id="storage-box-wrapper">
+            </div>
+        </div>
+        <div class="rectangle3">
+            <div class="box-titles">System info</div>
+            <div class="system-box" id="system-box">
+            </div>
+            <button id="shut-btn" class="shut-button"><i class="fa fa-power-off fa-2x"></i></button>
+            <button id="restart-btn" class="restart-button"><i class="fa fa-refresh fa-2x"></i></button>
+            <a href="/settings"><button class="settings-btn"><i class="fa fa-cog fa-2x" aria-hidden="true"></i></button></a>
+        </div>
+    </div>
+</body>
