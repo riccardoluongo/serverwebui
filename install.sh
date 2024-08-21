@@ -31,6 +31,6 @@ EOF
     sudo systemctl enable webui.service
     sudo systemctl start webui.service
     echo "Service Started"
-f``
+fi
 
 exit 0
