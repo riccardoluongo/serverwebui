@@ -2,7 +2,8 @@
 cd "$(dirname "$0")"
 kernel_ver=$(uname -r)
 apt install linux-tools-generic neofetch python3-pip smartmontools linux-tools-$kernel_ver -y
-pip install -r requirements.txt
+pip install -r requirements.txt --break-system-packages
+mkdir log
 
 IS_ACTIVE=$(sudo systemctl is-active webui)
 if [ "$IS_ACTIVE" == "active" ]; then
