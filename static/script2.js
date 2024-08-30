@@ -8,17 +8,17 @@ function new_link() {
 
         if (name.value != "" && url.value != "") {
             fetch(`/create_link_url?name=${name.value}&url=${url.value}`)
+            updateLinkTable()
         } else {
             alert("Do not leave fields empty!");
         }
-        
-        updateLinkTable()
     });
 }
 
 function del_all() {
     if (confirm('Do you want to delete ALL bookmarks?')) {
         fetch(`/del_all`)
+        updateLinkTable()
     }
 }
 
@@ -138,4 +138,4 @@ window.onload = function() {
     new_link();
     updateLinkTable();
 }
-//By Riccardo Luongo, 05/06/2024
+//By Riccardo Luongo, 31/08/2024

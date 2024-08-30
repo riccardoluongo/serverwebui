@@ -15,16 +15,22 @@ function updateCpuDiv() {
         })
         .then((data) => {
             if (data) {
-                let cpu_usage = data.cpu_util;
-                let str_cpu_usage = String(data.cpu_util);
-                document.getElementById("cpu_util_div").innerText = cpu_usage + "%";
-
-                if (data.cpu_util < 60) {
-                    changecircle("rgb(54, 73, 247)", "dot", str_cpu_usage);
-                } else if (data.cpu_util < 85) {
-                    changecircle("rgb(245, 208, 22)", "dot", str_cpu_usage);
-                } else if (data.cpu_util > 85) {
-                    changecircle("red", "dot", str_cpu_usage);
+                if(data.length == 0){
+                    document.getElementById("cpu_util_div").innerText = "N/A";
+                    changecircle("red", "cpu-dot", "0")
+                }
+                else{
+                    let cpu_usage = data.cpu_util;
+                    let str_cpu_usage = String(data.cpu_util);
+                    document.getElementById("cpu_util_div").innerText = cpu_usage + "%";
+    
+                    if (data.cpu_util < 60) {
+                        changecircle("rgb(54, 73, 247)", "dot", str_cpu_usage);
+                    } else if (data.cpu_util < 85) {
+                        changecircle("rgb(245, 208, 22)", "dot", str_cpu_usage);
+                    } else if (data.cpu_util > 85) {
+                        changecircle("red", "dot", str_cpu_usage);
+                    }
                 }
             }
         });
@@ -130,9 +136,12 @@ function updateGpuDiv() {
                                 gpu_dot_title_scrollable.innerText = `GPU${currentIndex}`;
                             });
                     }
-
                     updateDisplay();
                     setInterval(() => updateDisplay(), refresh_rate);
+                }
+                if(data.length == 0){
+                    document.getElementById("gpu_util_div").innerText = "N/A";
+                    changecircle("red", "gpu-dot", "0")
                 }
             }
         });
@@ -149,16 +158,22 @@ function updateRamDiv() {
         })
         .then((data) => {
             if (data) {
-                let ram_usage = data.ram_util;
-                let str_ram_usage = String(data.ram_util);
-                document.getElementById("ram_util_div").innerText = ram_usage + "%";
-
-                if (ram_usage < 60) {
-                    changecircle("rgb(54, 73, 247)", "ram-dot", str_ram_usage);
-                } else if (ram_usage < 85) {
-                    changecircle("rgb(245, 208, 22)", "ram-dot", str_ram_usage);
-                } else if (ram_usage >= 85) {
-                    changecircle("red", "ram-dot", str_ram_usage);
+                if(data.length == 0){
+                    document.getElementById("ram_util_div").innerText = "N/A";
+                    changecircle("red", "ram-dot", "0")
+                }
+                else{
+                    let ram_usage = data.ram_util;
+                    let str_ram_usage = String(data.ram_util);
+                    document.getElementById("ram_util_div").innerText = ram_usage + "%";
+    
+                    if (ram_usage < 60) {
+                        changecircle("rgb(54, 73, 247)", "ram-dot", str_ram_usage);
+                    } else if (ram_usage < 85) {
+                        changecircle("rgb(245, 208, 22)", "ram-dot", str_ram_usage);
+                    } else if (ram_usage >= 85) {
+                        changecircle("red", "ram-dot", str_ram_usage);
+                    }
                 }
             }
         });
@@ -268,6 +283,10 @@ function updateVramDiv() {
                     }
                     updateDisplay();
                     setInterval(() => updateDisplay(), refresh_rate);
+                }
+                if(data.length == 0){
+                    document.getElementById("vram_util_div").innerText = "N/A";
+                    changecircle("red", "vram-dot", "0")
                 }
             }
         });
@@ -545,15 +564,34 @@ function UpdateTimeDiv() {
 
 function UpdateLinksDiv() {
     fetch("/get_links")
-        .then((response) => response.json())
+        .then(function(response) {
+            if (!response.ok) {
+                const err = document.getElementById("links_wrapper").appendChild(document.createElement('span'))
+                err.setAttribute("class", "link-err")
+                err.innerText = "Couldn't retrieve links."
+            } else {
+                return response.json();
+            }
+        })
         .then((data) => {
-            const links_wrapper = document.getElementById("links_wrapper");
-            for (const property in data) {
-                let link = links_wrapper.appendChild(document.createElement("a"));
-                link.setAttribute("id", `link${data[property][0]}`);
-                link.setAttribute("href", `${data[property][2]}`);
-                link.setAttribute("class", "link");
-                link.appendChild(document.createTextNode(`${data[property][1]}`));
+            if (data) {
+                const links_wrapper = document.getElementById("links_wrapper");
+
+                if(data.length>0){
+                    for (const property in data) {
+                        let link = links_wrapper.appendChild(document.createElement("a"));
+                        link.setAttribute("id", `link${data[property][0]}`);
+                        link.setAttribute("href", `${data[property][2]}`);
+                        link.setAttribute("class", "link");
+                        link.appendChild(document.createTextNode(`${data[property][1]}`));
+                    }
+                }
+                else{
+                    let link = links_wrapper.appendChild(document.createElement("a"));
+                    link.setAttribute("href", `/edit_links`);
+                    link.setAttribute("class", "link");
+                    link.appendChild(document.createTextNode(`+ Create link`));
+                }
             }
         });
 }
@@ -641,48 +679,50 @@ function updateGpuFanDiv() {
         })
         .then((data) => {
             if (data) {
-                let initial_container = document.getElementById(
-                    "initial-gpu-fan-container"
-                );
-                while (initial_container.firstChild) {
-                    initial_container.removeChild(initial_container.firstChild);
-                }
-
-                let fan_rectangle = document.getElementById("fan-rectangle");
-
-                if (document.getElementById("gpu-fans-container") != null) {
-                    document.getElementById("gpu-fans-container").remove();
-                }
-
-                let gpus_fans_container = fan_rectangle.appendChild(
-                    document.createElement("div")
-                );
-                gpus_fans_container.setAttribute("id", "gpu-fans-container");
-
-                while (gpus_fans_container.firstChild) {
-                    gpus_fans_container.removeChild(gpus_fans_container.firstChild);
-                }
-
-                for (let gpu in data) {
-                    let fan_wrapper = gpus_fans_container.appendChild(
+                if(data.length>0){
+                    let initial_container = document.getElementById(
+                        "initial-gpu-fan-container"
+                    );
+                    while (initial_container.firstChild) {
+                        initial_container.removeChild(initial_container.firstChild);
+                    }
+    
+                    let fan_rectangle = document.getElementById("fan-rectangle");
+    
+                    if (document.getElementById("gpu-fans-container") != null) {
+                        document.getElementById("gpu-fans-container").remove();
+                    }
+    
+                    let gpus_fans_container = fan_rectangle.appendChild(
                         document.createElement("div")
                     );
-                    fan_wrapper.setAttribute("class", "fan");
-
-                    let fan_icon = fan_wrapper.appendChild(document.createElement("i"));
-                    fan_icon.setAttribute("class", "fa-solid fa-fan fan-icon fa-2xl");
-
-                    let gpu_title_span = fan_wrapper.appendChild(
-                        document.createElement("span")
-                    );
-                    gpu_title_span.setAttribute("class", "fan-title");
-                    gpu_title_span.innerText = ` GPU${gpu}: `;
-
-                    let gpu_value_span = fan_wrapper.appendChild(
-                        document.createElement("span")
-                    );
-                    gpu_value_span.setAttribute("class", "fan-value");
-                    gpu_value_span.innerText = `${data[gpu]}%`;
+                    gpus_fans_container.setAttribute("id", "gpu-fans-container");
+    
+                    while (gpus_fans_container.firstChild) {
+                        gpus_fans_container.removeChild(gpus_fans_container.firstChild);
+                    }
+    
+                    for (let gpu in data) {
+                        let fan_wrapper = gpus_fans_container.appendChild(
+                            document.createElement("div")
+                        );
+                        fan_wrapper.setAttribute("class", "fan");
+    
+                        let fan_icon = fan_wrapper.appendChild(document.createElement("i"));
+                        fan_icon.setAttribute("class", "fa-solid fa-fan fan-icon fa-2xl");
+    
+                        let gpu_title_span = fan_wrapper.appendChild(
+                            document.createElement("span")
+                        );
+                        gpu_title_span.setAttribute("class", "fan-title");
+                        gpu_title_span.innerText = ` GPU${gpu}: `;
+    
+                        let gpu_value_span = fan_wrapper.appendChild(
+                            document.createElement("span")
+                        );
+                        gpu_value_span.setAttribute("class", "fan-value");
+                        gpu_value_span.innerText = `${data[gpu]}%`;
+                    }
                 }
             }
         });
@@ -699,37 +739,39 @@ function updateSystemFanDiv() {
         })
         .then((data) => {
             if (data) {
-                let initial_fan_container = document.getElementById(
-                    "initial-sys-fan-container"
-                );
-
-                while (initial_fan_container.firstChild) {
-                    initial_fan_container.removeChild(initial_fan_container.firstChild);
-                }
-
-                let i = -1;
-                for (fan in data[0]) {
-                    i++;
-                    let fan_icon = initial_fan_container.appendChild(
-                        document.createElement("i")
+                if(data[0].length>0){
+                    let initial_fan_container = document.getElementById(
+                        "initial-sys-fan-container"
                     );
-                    fan_icon.setAttribute("class", "fa-solid fa-fan fan-icon fa-2xl");
-                    let fan_title = initial_fan_container.appendChild(
-                        document.createElement("span")
-                    );
-                    fan_title.setAttribute("class", "fan-title");
-                    let fan_value = initial_fan_container.appendChild(
-                        document.createElement("span")
-                    );
-                    fan_value.setAttribute("class", "fan-value");
 
-                    if (data[0][fan][0] == "") {
-                        fan_title.innerText = ` SYS${i}:`;
-                    } else {
-                        fan_title.innerText = ` ${data[0][fan][0]}`;
+                    while (initial_fan_container.firstChild) {
+                        initial_fan_container.removeChild(initial_fan_container.firstChild);
                     }
-
-                    fan_value.innerText = ` ${data[0][fan][1]} RPM`;
+    
+                    let i = -1;
+                    for (fan in data[0]) {
+                        i++;
+                        let fan_icon = initial_fan_container.appendChild(
+                            document.createElement("i")
+                        );
+                        fan_icon.setAttribute("class", "fa-solid fa-fan fan-icon fa-2xl");
+                        let fan_title = initial_fan_container.appendChild(
+                            document.createElement("span")
+                        );
+                        fan_title.setAttribute("class", "fan-title");
+                        let fan_value = initial_fan_container.appendChild(
+                            document.createElement("span")
+                        );
+                        fan_value.setAttribute("class", "fan-value");
+    
+                        if (data[0][fan][0] == "") {
+                            fan_title.innerText = ` SYS${i}:`;
+                        } else {
+                            fan_title.innerText = ` ${data[0][fan][0]}`;
+                        }
+    
+                        fan_value.innerText = ` ${data[0][fan][1]} RPM`;
+                    }
                 }
             }
         });
@@ -1042,4 +1084,4 @@ window.onload = function() {
     updateGpuFanDiv();
     updateSystemFanDiv();
 };
-//By Riccardo Luongo, 07/07/2024
+//By Riccardo Luongo, 31/08/2024

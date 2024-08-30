@@ -209,7 +209,15 @@ def reboot_pc():
 
 @app.route('/get_links')
 def links():
-    return jsonify(get_links())
+    try:
+        print(get_links())
+        return jsonify(get_links())
+    except Exception as e:
+        print(f"ERROR - Error while retrieving links: {e}")
+        return Response(
+            f"Error while retrieving links: {e}",
+            status = 500
+        )
 
 @app.route('/edit_links')
 def edit_links():
@@ -420,4 +428,4 @@ def edit_link():
 
 print("INFO - App started.")
 app.run(host= sys.argv[-2], port = sys.argv[-1], debug=False)
-#By Riccardo Luongo, 07/07/2024
+#By Riccardo Luongo, 31/08/2024
