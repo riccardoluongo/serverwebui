@@ -679,6 +679,33 @@ function updateGpuFanDiv() {
         })
         .then((data) => {
             if (data) {
+                if(data.length == 0){
+                    if (document.getElementById("fan-err") != null) {
+                        document.getElementById("fan-err").remove();
+                    }
+
+                    let gpu_fan_container = document.getElementById('fan-rectangle').appendChild(document.createElement('div'))
+                    setAttributes(gpu_fan_container, {'class': 'fan', 'id' : 'fan-err'})
+
+                    while (gpu_fan_container.firstChild) {
+                        gpu_fan_container.removeChild(gpu_fan_container.firstChild);
+                    }
+
+                    let gpu_fan_icon = gpu_fan_container.appendChild(document.createElement('i'))
+                    gpu_fan_icon.setAttribute("class", "fa-solid fa-fan fan-icon fa-2xl");
+
+                    let gpu_fan_title_span = gpu_fan_container.appendChild(
+                        document.createElement("span")
+                    );
+                    gpu_fan_title_span.setAttribute("class", "fan-title");
+                    gpu_fan_title_span.innerText = ` GPU: `;
+
+                    let gpu_fan_value_span = gpu_fan_container.appendChild(
+                        document.createElement("span")
+                    );
+                    gpu_fan_value_span.setAttribute("class", "fan-value");
+                    gpu_fan_value_span.innerText = `No fan available.`;
+                }
                 if(data.length>0){
                     let initial_container = document.getElementById(
                         "initial-gpu-fan-container"
@@ -739,6 +766,33 @@ function updateSystemFanDiv() {
         })
         .then((data) => {
             if (data) {
+                if(data[0].length == 0){
+                    if (document.getElementById("fan-err1") != null) {
+                        document.getElementById("fan-err1").remove();
+                    }
+
+                    let cpu_fan_container = document.getElementById('fan-rectangle').appendChild(document.createElement('div'))
+                    setAttributes(cpu_fan_container, {'class': 'fan', 'id' : 'fan-err1'})
+
+                    while (cpu_fan_container.firstChild) {
+                        cpu_fan_container.removeChild(cpu_fan_container.firstChild);
+                    }
+
+                    let cpu_fan_icon = cpu_fan_container.appendChild(document.createElement('i'))
+                    cpu_fan_icon.setAttribute("class", "fa-solid fa-fan fan-icon fa-2xl");
+
+                    let cpu_fan_title_span = cpu_fan_container.appendChild(
+                        document.createElement("span")
+                    );
+                    cpu_fan_title_span.setAttribute("class", "fan-title");
+                    cpu_fan_title_span.innerText = ` SYS: `;
+
+                    let cpu_fan_value_span = cpu_fan_container.appendChild(
+                        document.createElement("span")
+                    );
+                    cpu_fan_value_span.setAttribute("class", "fan-value");
+                    cpu_fan_value_span.innerText = `No fan available.`;
+                }
                 if(data[0].length>0){
                     let initial_fan_container = document.getElementById(
                         "initial-sys-fan-container"
