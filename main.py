@@ -210,7 +210,6 @@ def reboot_pc():
 @app.route('/get_links')
 def links():
     try:
-        print(get_links())
         return jsonify(get_links())
     except Exception as e:
         print(f"ERROR - Error while retrieving links: {e}")
