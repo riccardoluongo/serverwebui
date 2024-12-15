@@ -1,5 +1,5 @@
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Server Dashboard</title>
     <link rel="stylesheet" href="/static/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -7,7 +7,6 @@
     <link rel = "icon" href = "/static/favicon.ico" type = "image/x-icon">
     <script src="/static/update.js"></script>
 </head>
-
 <body class="body">
     <div class="time-date">
         <span class="time" id="time">time</span>
@@ -39,52 +38,65 @@
                     <div id="gpu-dot" class="dot">
                         <span id="gpu_util_div" class="circle-values"></span>
                         <span class="circle-titles" id="gpu-dot-title">GPU</span>
-                    </div>  
+                    </div>
                     <div id="vram-dot" class="dot">
                         <span id="vram_util_div" class="circle-values"></span>
                         <span class="circle-titles" id="vram-dot-title">VRAM</span>
                     </div>
                 </div>
                 <div class="fan-rectangle" id="fan-rectangle">
-                    <div class="fan" id="initial-sys-fan-container">
-                        <span class="fan-title"></span>
-                        <span class="fan-value" id="cpu-fan-value"></span>
+                    <div class="fan" id="sys-fan-container">
+                    </div>
+                    <div class="fan" id="gpu-fan-container">
                     </div>
                 </div>
-                <div class="pwr-rectangle" id="pwr-rectangle">
-                    <div class="mini-box-title">Power draw</div>
-                    <div class="mini-box-title">CPU:</div>
-                    <div id="cpu-pwr-div" class="mini-box-values"></div>
-                    <div id="initial-gpu-pwr-container">
-                        <div class="mini-box-title" style="padding-top: 30px;">GPU:</div>
-                        <div id="gpu-pwr-div" class="mini-box-values"></div>
+                <div class="temp-wrapper">
+                    <div class="pwr-rectangle" id="pwr-rectangle">
+                        <div class="mini-box-title">Power draw</div>
+                        <div class="mini-box-title">CPU:</div>
+                        <div id="cpu-pwr-div" class="mini-box-values"></div>
+                        <div id="initial-gpu-pwr-container">
+                            <div class="mini-box-title" style="padding-top: 30px;">GPU:</div>
+                            <div id="gpu-pwr-div" class="mini-box-values"></div>
+                        </div>
                     </div>
-                </div>
-                <div class="temp-rectangle" id="temp-rectangle">
-                    <div class="mini-box-title">Temps</div>
-                    <div class="mini-box-title">CPU:</div>
-                    <div id="cpu-temp-div" class="mini-box-values"></div>
-                    <div id="initial-gpu-temp-container">
-                        <div class="mini-box-title" style="padding-top: 30px;" id="gpu-temp-title">GPU:</div>
-                        <div id="gpu-temp-div" class="mini-box-values"></div>
+                    <div class="temp-rectangle" id="temp-rectangle">
+                        <div class="mini-box-title">Temps</div>
+                        <div class="mini-box-title">CPU:</div>
+                        <div id="cpu-temp-div" class="mini-box-values"></div>
+                        <div id="initial-gpu-temp-container">
+                            <div class="mini-box-title" style="padding-top: 30px;" id="gpu-temp-title">GPU:</div>
+                            <div id="gpu-temp-div" class="mini-box-values"></div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="rectangle2">
             <div class="storage-title-container">
-                <span class="box-titles" style="padding-bottom: 20px">Storage</span>
-                <span class="form-check" style="float: none;">
-                    <input class="form-check-input radio-btn" type="radio" name="flexRadioDefault" id="zpool-radio" onclick="initializeZpoolInfo();" checked>
-                    <label class="form-check-label radio-text" for="flexRadioDefault1">
-                        ZFS Pool
-                    </label>
+                <span class="box-titles" style="padding-bottom: 20px; margin-right: 10px;">Storage</span>
+                <span>
+                    <form class="radio-form">
                 </span>
-                    <span class="form-check">
-                    <input class="form-check-input radio-btn" type="radio" name="flexRadioDefault" id="smart-radio"  onclick="showSmart();">
-                    <label class="form-check-label radio-text" for="flexRadioDefault2">
-                        SMART
-                    </label>
+                <span class="form-check">
+                <input class="form-check-input radio-btn" type="radio" name="flexRadioDefault" id="storage-radio" value="storage" onclick="initializeStorageInfo();" checked>
+                <label class="form-check-label radio-text" for="flexRadioDefault2">
+                Disks
+                </label>
+                </span>
+                <span class="form-check" style="float: none;">
+                <input class="form-check-input radio-btn" type="radio" name="flexRadioDefault" id="zpool-radio" value="zpool" onclick="initializeZpoolInfo();">
+                <label class="form-check-label radio-text" for="flexRadioDefault1">
+                ZFS Pool
+                </label>
+                </span>
+                <span class="form-check">
+                <input class="form-check-input radio-btn" type="radio" name="flexRadioDefault" id="smart-radio" value="smart" onclick="showSmart();">
+                <label class="form-check-label radio-text" for="flexRadioDefault2">
+                SMART
+                </label>
+                </span>
+                </form>
                 </span>
             </div>
             <div class="storage-box-wrapper" id="storage-box-wrapper">

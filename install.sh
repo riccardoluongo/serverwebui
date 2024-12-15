@@ -7,12 +7,11 @@ mkdir log
 
 IS_ACTIVE=$(sudo systemctl is-active webui)
 if [ "$IS_ACTIVE" == "active" ]; then
-    echo "Service is running"
+    echo "Service is already running"
     echo "Restarting service"
     sudo systemctl restart webui
     echo "Service restarted"
 else
-    read -p "Enter your local IP address: " IP
     read -p "Enter the port to use for the web interface: " PORT
     echo "Creating service file"
     sudo cat > /etc/systemd/system/webui.service << EOF
@@ -22,7 +21,7 @@ Description=This service will start serverWebUI at system startup
 [Service]
 User=root
 WorkingDirectory=$PWD
-ExecStart=$PWD/start.sh -i '$IP' -p '$PORT'
+ExecStart=$PWD/start.sh -p '$PORT'
 
 [Install]
 WantedBy=default.target

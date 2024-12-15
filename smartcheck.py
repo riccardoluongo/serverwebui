@@ -3,7 +3,6 @@ from subprocess import check_output
 from re import search
 import json
 
-
 def get_drives():
     drives = [dev for dev in listdir("/dev/") if search("^[hs]d.$", dev) != None]
     nvme_drives = [dev for dev in listdir("/dev/") if search(".*nvme[^a-zA-Z]*\d$", dev) != None]

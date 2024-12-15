@@ -141,10 +141,4 @@ def delete_all():
     cur = conn.cursor()
     cur.execute(sql)
     conn.commit()
-
-#TESTING ONLY!!
-if __name__ == '__main__':
-    initialize_db()
-    print(get_settings())
-
-#by Riccardo Luongo, 09/06/2024
+#by Riccardo Luongo, 11/12/2024

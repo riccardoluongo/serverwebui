@@ -14,11 +14,12 @@ import settings_db
 from flask import Response
 import smartcheck
 from system_fans import get_system_fans
+import json
 
 now = datetime.now()
 dt_string = now.strftime("%d_%m_%Y_%H_%M_%S")
 
-sys.stdout = open(f'log/{dt_string}.log', 'a') #redirect stdout to a file for logging purposes
+sys.stdout = open(f'log/{dt_string}.log', 'a') #redirect stdout to a file for logging purposes, TO BE REMOVED SOON; will use actual logging
 sys.stderr = sys.stdout #redirect stderr to the same file
 
 global selected_pool
@@ -210,7 +211,6 @@ def reboot_pc():
 @app.route('/get_links')
 def links():
     try:
-        print(get_links())
         return jsonify(get_links())
     except Exception as e:
         print(f"ERROR - Error while retrieving links: {e}")
@@ -426,6 +426,21 @@ def edit_link():
             status=500
         )
 
-print("INFO - App started.")
-app.run(host= sys.argv[-2], port = sys.argv[-1], debug=False)
-#By Riccardo Luongo, 31/08/2024
+@app.route('/get_storage_usage')
+def get_storage_usage():
+    try:
+        command = """df -h --exclude-type=overlay --exclude-type=tmpfs --exclude-type=efivarfs | tr -s ' '   | jq -sR   'split("\n") | .[1:-1] | map(split(" ")) |
+        map({"file_system": .[0],
+            "total": .[1],
+            "used": .[2],
+            "available": .[3],
+            "used_percent": .[4],
+            "mounted": .[5]})'
+        """
+        storage_usage = check_output(command, shell=True, encoding='cp850')
+        return jsonify(json.loads(storage_usage))
+    except Exception as e:
+        pass#TODO good logging!
+
+print("INFO - App started")
+#By Riccardo Luongo, 13/12/2024

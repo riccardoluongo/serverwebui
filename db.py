@@ -95,10 +95,4 @@ def delete_all():
         conn.commit()
     except Exception as e:
         print(f"ERROR - Error while deleting all the links: {e}")
-
-#TESTING ONLY!!
-if __name__ == '__main__':
-    initialize_db()
-    print(get_links())
-
-#By Riccardo Luongo, 09/06/2024
+#By Riccardo Luongo, 11/12/2024

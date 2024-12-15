@@ -1,19 +1,16 @@
 .body{
     background-color: rgb(31, 31, 31);
-    font-family:Helvetica
+    font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif 
 }
-
 #wrapper {
     min-width: 550;
     padding-top: 40px;
     padding-bottom: 5px;
     align-content: center;
 }
-
 .body::-webkit-scrollbar {
     display: none;
 }
-
 .rectangle {
     width: 550;
     height: 540;
@@ -25,22 +22,31 @@
     margin-right: 10px;
     margin-bottom: 5px;
 }
-
 .resources-container{
     color: white;
 }
-
 .values-text{
-    font-size:1vw
+    font-size:1vw 
 }
-
 .box-titles{
     font-size: 35px;
-    padding-bottom: 40px;
+    padding-bottom: 20px;
     color: white;
     font-weight: bold;
 }
-
+.temp-wrapper{
+    position: relative;
+    margin: auto;
+    top: 10px;
+}
+.disk-na{
+    color: grey;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 3rem;
+}
 .dot {
     width: 125px;
     height: 125px;
@@ -48,65 +54,60 @@
     display: flex;
     align-items: center;
     padding: 5px;
-    margin-right: 5px;
     justify-content: center;
     position: relative;
-  }
-
+    margin: auto;
+}
 .circle-values{
     font-size: 35px;
     text-align: center;
     font-weight: bold;
 }
-
 .circle-titles{
     position: absolute;
     font-size: 20px;
     bottom: 20;
 }
-
 .resources-circles{
     display: flex;
+    position: relative;
+    width: 98.5%;
 }
-
-.pwr-rectangle{
-    width: 260;
-    height: 210;
-    background: rgb(31, 31, 31);
-    position: absolute;
-    right: 10px;
-    bottom: 10px;
-    border-radius: 3%;
-    padding: 1%;
-    overflow-y: scroll;
-}
-
 .temp-rectangle{
-    width: 260;
-    height: 210;
+    width: 44%;
+    height: 210px;
     background: rgb(31, 31, 31);
-    position: absolute;
-    left: 10px;
-    bottom: 10px;
+    position:relative;
     border-radius: 3%;
-    padding: 1%;
+    padding: 2%;
     overflow-y: scroll;
+    display: inline-block;
+    margin-right: 5px;
 }
-
+.pwr-rectangle{
+    width: 44%;
+    height: 210px;
+    background: rgb(31, 31, 31);
+    position:relative;
+    border-radius: 3%;
+    padding: 2%;
+    overflow-y: scroll;
+    display: inline-block;
+    margin-right: 10px;
+    white-space: nowrap;
+}
 .mini-box-title{
     font-size: 25px;
     padding-bottom: 10px;
     font-weight: bold;
     color: white;
 }
-
 .mini-box-values{
     font-size: 20px;
     padding: bottom 5px;
     position: absolute;
     left: 20px;
 }
-
 .rectangle2{
     width: 595;
     height: 540;
@@ -118,25 +119,23 @@
     margin-right: 30px;
     margin-bottom: 5px;
 }
-
 .raid-box{
     width: 93%;
     height: 53%;
     background: rgb(31, 31, 31);
     left: 1.5%;
-    bottom: 11.5rem;
+    bottom: 0.5rem;
     border-radius: 2%;
     padding: 2%;
     overflow: scroll;
     color: white;
     font-size: x-large;
     font-weight: normal;
+    position: relative 
 }
-
 .raid-box::-webkit-scrollbar {
     display: none;
 }
-
 .storage-box{
     position: absolute;
     left: 1%;
@@ -146,12 +145,10 @@
     width: 100%;
     right: 10%;
 }
-
 .pool-info-container{
     display: flex;
     width: 100%;
 }
-
 .pool-info-titles{
     font-size: 25px;
     padding-bottom: 5px;
@@ -159,7 +156,6 @@
     color: white;
     display: flex;
 }
-
 .pool-info-values{
     font-size: 25px;
     padding-bottom: 5px;
@@ -168,7 +164,6 @@
     display: flex;
     padding-left: 10px;
 }
-
 .storage-bar{
     height: 30px;
     text-align: center;
@@ -177,36 +172,66 @@
     border: 0;
     width: 93.5%;
 }
-
+.storage-info-bar{
+    height: 40px;
+    text-align: center;
+    appearance: none;
+    border-radius: 5px;
+    border: 0;
+    width: 100%;
+}
+.storage-info-bar::-webkit-progress-bar {
+    height: 40px;
+    text-align: center;
+    appearance: none;
+    border: 0;
+    width: 100%;
+    border-radius: 5px;
+}
+.storage-info-bar::-webkit-progress-value {
+    height: 40x;
+    text-align: center;
+    appearance: none;
+    border: 0;
+    background-color: rgb(54, 73, 247);
+    width: 100%;
+    border-radius: 5px;
+}
+.storage-info-bar::-moz-progress-bar {
+    height: 40px;
+    text-align: center;
+    appearance: none;
+    border: 0;
+    background-color: rgb(54, 73, 247);
+    width: 100%;
+    border-radius: 5px;
+}
 progress::-webkit-progress-bar {
     height: 30px;
     text-align: center;
     appearance: none;
-    border-radius: 5px;
     border: 0;
     width: 97%;
+    border-radius: 5px;
 }
-
 progress::-webkit-progress-value {
     height: 30px;
     text-align: center;
     appearance: none;
-    border-radius: 5px;
     border: 0;
     background-color: rgb(54, 73, 247);
     width: 93.5%;
+    border-radius: 5px;
 }
-
 progress::-moz-progress-bar {
     height: 30px;
     text-align: center;
     appearance: none;
-    border-radius: 5px;
     border: 0;
     background-color: rgb(54, 73, 247);
     width: 93.5%;
+    border-radius: 5px;
 }
-
 .perc-used {
     font-size: 18px;
     padding-top: 5px;
@@ -214,8 +239,7 @@ progress::-moz-progress-bar {
     color: white;
     padding-left: 10px;
 }
-
-.rectangle3  {
+.rectangle3 {
     width: 550;
     height: 540;
     background: rgb(48, 48, 48);
@@ -227,7 +251,6 @@ progress::-moz-progress-bar {
     margin-bottom: 5px;
     margin-left: 20px;
 }
-
 .sysinfo-values {
     padding-bottom: 5px;
     font-weight: normal;
@@ -237,13 +260,11 @@ progress::-moz-progress-bar {
     font-family: monospace;
     font-size: x-large;
 }
-
 .sysinfo-box-title {
     font-size: 35px;
     padding-bottom: 20px;
     color: white;
 }
-
 .shut-button {
     height: 50;
     width: 50;
@@ -256,12 +277,10 @@ progress::-moz-progress-bar {
     border-radius: 7px;
     color: white;
 }
-
 .shut-button:hover {
     background-color: #bb2d3b;
     cursor: pointer;
 }
-
 .restart-button {
     height: 50;
     width: 50;
@@ -274,28 +293,23 @@ progress::-moz-progress-bar {
     border-radius: 7px;
     color: white;
 }
-
 .restart-button:hover {
     background-color: #ffca2c;
     cursor: pointer;
 }
-
 .system-box{
     width: 93%;
-    height: 55%;
+    height: 65%;
     background: rgb(31, 31, 31);
-    position: flex;
     left: 1.5%;
     bottom: 11.5rem;
     border-radius: 2%;
     padding: 2%;
     overflow: scroll;
 }
-
 .system-box::-webkit-scrollbar {
     display: none;
 }
-
 .form-control-search{
     height: 50;
     font-size: 20px;
@@ -306,14 +320,12 @@ progress::-moz-progress-bar {
     position: relative;
     margin: auto;
 }
-
 .searchform{
     width: 45%;
     min-width: 500px;
     margin: auto;
     margin-bottom: 20px;
 }
-
 .search-button {
     padding-top: 3;
     height: 50;
@@ -325,7 +337,6 @@ progress::-moz-progress-bar {
     color:white;
     position: inherit;
 }
-
 .search-div {
     display: flex;
     justify-content: center;
@@ -334,12 +345,10 @@ progress::-moz-progress-bar {
     width: 100%;
     margin: auto;
 }
-
 .search-button:hover {
     background-color: #0b5ed7;
     cursor: pointer;
 }
-
 .time {
     font-size: 60px;
     display: flex;
@@ -349,7 +358,6 @@ progress::-moz-progress-bar {
     color: white;
     font-weight: 600;
 }
-
 .date {
     font-size: 20px;
     display: flex;
@@ -358,7 +366,6 @@ progress::-moz-progress-bar {
     margin-top: 5px;
     color: white;
 }
-
 .link-container{
     padding: 3px;
     display: flex;
@@ -366,7 +373,6 @@ progress::-moz-progress-bar {
     align-items: center;
     margin: auto;
 }
-
 .links_wrapper {
     width: 95%;
     background-color: rgb(48, 48, 48);
@@ -376,7 +382,6 @@ progress::-moz-progress-bar {
     margin-right: 10px;
     float: left;
 }
-
 .link-grid-container {
     border: 2px solid;
     width: 50%;
@@ -387,44 +392,36 @@ progress::-moz-progress-bar {
     border-radius: 10px;
     padding: 1%;
 }
-
 .link-grid-container::-webkit-scrollbar{
     display: none;
 }
-
 .title {
     font-size: xx-large;
     font-weight: bold;
     color: white;
 }
-
 .home-button {
     background-color: rgb(31, 31, 31);
     height: 10px;
     width: 10px;
     border: 0;
 }
-
 .home-button:hover {
     cursor: pointer;
     color: gray;
 }
-
 .home-icon {
     color: white;
 }
-
 .home-icon:hover {
     color: rgb(158, 216, 255);
 }
-
 .link-table {
     color: black;
     width: 100%;
     margin-top: 5px;
     background-color: white;
 }
-
 th, td,tr, table {
     border-collapse: collapse;
     background-color: rgb(31, 31, 31);
@@ -432,23 +429,19 @@ th, td,tr, table {
     border: 0;
     padding-top: 5px;
 }
-
 .del-btn{
     background-color: rgb(31, 31, 31);
     border: 0;
-    color: white
+    color: white 
 }
-
 .del-btn:hover{
-    color:#00b7ff
+    color:#00b7ff 
 }
-
 .del-btn2{
     height: 20px;
     width: 20px;
     font-size: 20px;
 }
-
 .pool-selector{
     position: relative;
     height: 30px;
@@ -458,14 +451,11 @@ th, td,tr, table {
     border-radius: 6px;
     color: white;
     font-weight: bold;
-    top: 10px;
 }
-
 .pool-selector:hover{
     border-color:rgba(137, 218, 255, 0.822);
     cursor: pointer;
 }
-
 .link{
     color: rgb(255, 255, 255);
     text-decoration: none;
@@ -473,31 +463,26 @@ th, td,tr, table {
     font-weight: bold;
     margin-right: 20px;
 }
-
 .link:hover{
     color: #00b7ff;
 }
-
 .link:after{
-    content: ''; 
+    content: '';
     display: inline-block;
     position: relative;
-    width: 100%; 
+    width: 100%;
     transform: scaleX(0);
     height: 3px;
-    bottom: 0; 
-    left: 0; 
+    bottom: 0;
+    left: 0;
     background-color: rgb(54, 73, 247);
-    transform-origin: bottom right; 
-    transition: transform 0.25s ease-out; 
+    transform-origin: bottom right;
+    transition: transform 0.25s ease-out;
 }
-
-
 .link:hover:after {
-    transform: scaleX(1); 
+    transform: scaleX(1);
     transform-origin: bottom left;
 }
-
 .edit-button{
     width: 56px;
     height: 56px;
@@ -505,23 +490,19 @@ th, td,tr, table {
     border: 1px;
     border-radius: 8px;
 }
-
 .edit-button:hover{
     cursor: pointer;
     background-color: #0b5ed7;
 }
-
 .edit-icon{
     size: 20px;
     color: white;
 }
-
 .slidecontainer {
     width: 100%;
     right: 1;
 }
-  
-  .slider {
+.slider {
     -webkit-appearance: none;
     width: 50%;
     height: 12px;
@@ -532,12 +513,10 @@ th, td,tr, table {
     transition: opacity .2s;
     border-radius: 7px;
 }
-  
-  .slider:hover {
+.slider:hover {
     opacity: 1;
 }
-  
-  .slider::-webkit-slider-thumb {
+.slider::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
     width: 20px;
@@ -545,58 +524,47 @@ th, td,tr, table {
     background: #0b5ed7;
     cursor: pointer;
     border-radius: 50%;
-
 }
-  
-  .slider::-moz-range-thumb {
+.slider::-moz-range-thumb {
     width: 20px;
     height: 20px;
     background: #0b5ed7;
     cursor: pointer;
     border-radius: 50%;
     border: none;
-
 }
-
-  .slider::-moz-range-thumb:hover {
+.slider::-moz-range-thumb:hover {
     transition: opacity .2s;
     -webkit-transition: .2s;
     border: none;
     border: none;
 }
-
-  .slider::-webkit-slider-thumb:hover {
+.slider::-webkit-slider-thumb:hover {
     transition: opacity .2s;
     -webkit-transition: .2s;
     border: none;
 }
-
 .setting-div{
     width: 100%;
     margin: auto;
     position: relative;
     padding: 15px;
 }
-
 .setting-title{
     font-size: large;
     color: white;
 }
-
 .setting-desc{
     color: rgb(211, 211, 211);
     font-size: small;
     margin-bottom: 10px;
 }
-
 .number-log{
     width: 70px;
 }
-
 .btn-div{
     margin-bottom: 10px;
 }
-
 .log-selector{
     height: 30px;
     width: 200px;
@@ -606,12 +574,10 @@ th, td,tr, table {
     color: white;
     font-weight: bold;
 }
-
 .log-selector:hover{
     border-color:rgba(137, 218, 255, 0.822);
     cursor: pointer;
 }
-
 .settings-container{
     border-radius: 10px;
     width: 90%;
@@ -619,7 +585,6 @@ th, td,tr, table {
     height: 85%;
     background-color: rgb(31, 31, 31);
 }
-
 .settings-btn{
     height: 50;
     width: 50;
@@ -632,12 +597,10 @@ th, td,tr, table {
     border-radius: 7px;
     color: white;
 }
-
 .settings-btn:hover{
     background-color: #0b5ed7;
     cursor: pointer;
 }
-
 .box-na{
     color: grey;
     font-size: 80px;
@@ -647,22 +610,19 @@ th, td,tr, table {
     top: 70;
     height: 0;
 }
-
 .raid-text{
     right: 80px;
     position: relative;
 }
-
 .fan-rectangle{
-    width: 99%;
     height: 14%;
     background-color: rgb(31, 31, 31);
     border-radius: 8px;
-    padding: 1%;
-    margin-top: 10px;
     overflow-x: scroll;
+    position: relative;
+    margin-top: 10px;
+    width: 98.5%;
 }
-
 .fan{
     position: relative;
     top: 25px;
@@ -670,34 +630,28 @@ th, td,tr, table {
     margin-right: 30px;
     float: left;
 }
-
 .fan-title{
     position: relative;
     font-weight: bold;
     font-size: 20px;
     margin: auto;
 }
-
 .fan-value{
     position: relative;
     font-size: 20px;
     margin: auto;
 }
-
 .toggles{
     position: absolute;
 }
-
 .radio-text{
     color: white;
     font-size: 20px;
 }
-
 .radio-btn{
     height: 20px;
     width: 20px;
 }
-
 .smart-table{
     color: white;
     width: 100%;
@@ -708,45 +662,48 @@ th, td,tr, table {
     overflow: scroll;
     height: 95%;
 }
-
 .smart-tr{
     background-color: rgb(31, 31, 31);
-    border: 3px rgb(155, 155, 155)
+    border: 3px rgb(155, 155, 155) 
 }
-
 .smart-td{
     font-size: 14px;
     color: white;
     background-color: rgb(31, 31, 31);
     border: 2px solid black;
 }
-
 .smart-tr:hover{
     background-color: rgb(48, 48, 48);
 }
-
 .smart-th{
     border-collapse: collapse;
     text-align:center;
     padding: 5px;
-    border: 2px solid rgb(155, 155, 155)
+    border: 2px solid rgb(155, 155, 155) 
 }
-
 .storage-box-wrapper{
     overflow: scroll;
-    -ms-overflow-style: none;  /* IE and Edge */
+    -ms-overflow-style: none;
     height: 500px;
 }
-
+.storage-title-container{
+    display: flex;
+    height: 3rem;
+}
+.radio-form{
+    margin: 0;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
 .storage-box-wrapper::-webkit-scrollbar {
     display: none;
 }
-
 .home-container{
     width: 100%;
     height: 70px;
 }
-
 .link-table-container{
     height: 85%;
     background-color: rgb(31, 31, 31);
@@ -755,23 +712,19 @@ th, td,tr, table {
     padding: 1%;
     margin-top: 10px;
 }
-
 .edit-btn{
     background-color: rgb(31, 31, 31);
     color: white;
     border: 0;
 }
-
 .edit-btn:hover{
-    color:#00b7ff
+    color:#00b7ff 
 }
-
 .gpu-dot-title-scrollable{
     position: absolute;
     font-size: 16px;
     bottom: 25px;
 }
-
 .left-arrow{
     border: solid rgb(255, 255, 255);
     border-width: 0 3px 3px 0;
@@ -780,12 +733,10 @@ th, td,tr, table {
     transform: rotate(135deg);
     -webkit-transform: rotate(135deg);
 }
-
 .left-arrow:hover{
     border: solid #00b7ff;
     border-width: 0 3px 3px 0;
 }
-
 .left-btn{
     position: absolute;
     bottom: 29.5px;
@@ -794,11 +745,9 @@ th, td,tr, table {
     border: 0;
     background: 0;
 }
-
 .left-btn:hover{
     cursor: pointer;
 }
-
 .right-arrow{
     border: solid rgb(255, 255, 255);
     border-width: 0 3px 3px 0;
@@ -807,12 +756,10 @@ th, td,tr, table {
     transform: rotate(-45deg);
     -webkit-transform: rotate(-45deg);
 }
-
 .right-arrow:hover{
     border: solid #00b7ff;
     border-width: 0 3px 3px 0;
 }
-
 .right-btn{
     position: absolute;
     bottom: 29.5px;
@@ -821,37 +768,38 @@ th, td,tr, table {
     background: 0;
     border: 0;
 }
-
 .right-btn:hover{
     cursor: pointer;
 }
-
 .name-column{
     width: 200px;
 }
-
 .url-column{
     width: 620px;
 }
-
 .apply-icon{
     color: white;
 }
-
 .apply-icon:hover{
     color: #00b7ff;
 }
-
 .apply-button{
     background: 0;
     border: 0;
 }
-
 .apply-button:hover{
     cursor: pointer;
 }
-
 .link-err{
     color: red;
     padding-bottom: 10px;
+}
+.disk-wrapper{
+    padding: 1%;
+}
+.disk-stats{
+    color: white;
+    font-size: 15px;
+    position: relative;
+    bottom:12px;
 }

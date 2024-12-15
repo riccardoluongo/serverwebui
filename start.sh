@@ -1,9 +1,8 @@
 #!/bin/bash
-while getopts i:p: flag
+while getopts p: flag
 do
     case "${flag}" in
-        i) ip=${OPTARG};;
         p) port=${OPTARG};;
     esac
 done
-gunicorn -b 127.0.0.1:8001 "main:app" $ip $port
+gunicorn -b 0.0.0.0:$port -w 4 "main:app"
