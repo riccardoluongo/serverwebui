@@ -14,8 +14,4 @@ def get_system_fans():
         else:
             active_fans.append(fan)
     return [active_fans, inactive_fans]
-            
-if __name__ == '__main__':
-    print(get_system_fans())
-
-#by Riccardo Luongo, 07/07/2024
+#by Riccardo Luongo, 16/12/2024

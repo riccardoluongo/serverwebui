@@ -1,15 +1,11 @@
 import sqlite3
 from sqlite3 import Error
 import re
-from time import sleep
+from main import log
 
 database_file = r"./database/settings.db"
 
 def initialize_db():
-    """
-    connect to the database,
-    create the settings table if it does not exist
-    """
     links_table_command = """ CREATE TABLE IF NOT EXISTS settings (
                                         id integer PRIMARY KEY,
                                         key text NOT NULL,
@@ -20,16 +16,16 @@ def initialize_db():
     try:
         conn = sqlite3.connect(database_file, check_same_thread=False)
         cur = conn.cursor()
-        print("INFO - Successfully connected to the settings database.")
+        log.info("Successfully connected to the settings database")
     except Error as e:
-        print(f"ERROR - Error while connecting to the settings database: {e}")
+        log.error(f"Couldn't connect to the settings database: {e}")
 
     #create the settings table if it does not exist
     try:
         cur.execute(links_table_command)
-        print("INFO - Settings database initialized.")
+        log.info("Settings database initialized")
     except Error as e:
-        print(f"ERROR - Error while initializing the settings database: {e}")
+        log.error(f"Couldn't initialize the settings database: {e}")
 
     def log_level_not_valid():
         possible_values = ['debug', 'info', 'warning', 'error', 'critical']
@@ -44,7 +40,7 @@ def initialize_db():
         return bool(match)
 
     if len(get_settings()[1]) != 3 or get_settings()[1][0][1] != "max_files" or get_settings()[1][1][1] != "log_level" or log_level_not_valid() or max_log_files_valid() == False or get_settings()[1][2][1] != 'refresh_rate':
-        print("WARNING - The database is corrupted. Restoring the default settings...")
+        log.warning("The settings database is corrupted. Restoring default values...")
         reset()
 
 def reset():
@@ -56,18 +52,13 @@ def reset():
         create_settings('max_files', 10)
         create_settings('log_level', 'info')
         create_settings('refresh_rate', 2000)
-        print("INFO - Default settings restored.")
+        log.info("Restored default settings")
         return 0
     except Exception as e:
-        print(f'ERROR - Error while restoring the default settings: {e}')
+        log.error(f"Couldn't restore the default settings: {e}")
         return (1, e)
 
 def create_settings(key, value :tuple) -> int:
-    """
-    This function should only be used the first time the database is initialized. DONT RUN THIS
-    :param key, value:
-    :return: last row id 
-    """
     conn = sqlite3.connect(database_file, check_same_thread=False)
     sql = ''' INSERT INTO settings(key,value)
               VALUES(?,?) '''
@@ -77,10 +68,6 @@ def create_settings(key, value :tuple) -> int:
     return cur.lastrowid
 
 def edit_settings(setting :tuple):
-    """
-    update key, value
-    :param setting (key, value, id):
-    """
     sql = ''' UPDATE settings
               SET key = ? ,
                   value = ?
@@ -99,29 +86,13 @@ def edit_settings(setting :tuple):
         return 0
     except Exception as e:
         conn.rollback()
-        print(f'ERROR - Error while changing a preference ({setting}): {e}')
+        log.error(f"Couldn't change '{setting}' preference: {e}")
         return (1, e)
     finally:
         if conn:
             conn.close()
 
-def delete_setting(id :int):
-    """
-    TESTING ONLY. DONT USE THIS
-    :param id: id of the setting
-    :return:
-    """
-    conn = sqlite3.connect(database_file, check_same_thread=False)
-    sql = 'DELETE FROM settings WHERE id=?'
-    cur = conn.cursor()
-    cur.execute(sql, (id,))
-    conn.commit()
-    
 def get_settings():
-    """
-    Query all settings in the settings table
-    :return exit code, settings -> tuple(int, list):
-    """
     conn = sqlite3.connect(database_file, check_same_thread=False)
     cur = conn.cursor()
     try:
@@ -129,7 +100,7 @@ def get_settings():
         settings = cur.fetchall()
         return (0, settings)
     except Exception as e:
-        print(f'ERROR - Error while retrieving settings: {e}')
+        log.error(f"Couldn't retrieve settings: {e}")
         return (1, e)
 
 def delete_all():
@@ -141,4 +112,4 @@ def delete_all():
     cur = conn.cursor()
     cur.execute(sql)
     conn.commit()
-#by Riccardo Luongo, 11/12/2024
+#by Riccardo Luongo, 16/12/2024

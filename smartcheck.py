@@ -19,9 +19,4 @@ def smartcheck(drive):
         return ('nvme',attributes['nvme_smart_health_information_log'])
     else:
         return ('ata',attributes['ata_smart_attributes'])
-
-if __name__ == "__main__":
-    print(get_drives())
-    print(smartcheck('nvme0'))
-
-#by Riccardo Luongo, 07/07/2024
+#by Riccardo Luongo, 16/12/2024

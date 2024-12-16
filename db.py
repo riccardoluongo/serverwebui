@@ -1,11 +1,8 @@
 import sqlite3
 from sqlite3 import Error
+from main import log
 
 def initialize_db():
-    """
-    connect to the database,
-    create the links table it it does not exist
-    """
     database_file = r"./database/main.db"
     links_table_command = """ CREATE TABLE IF NOT EXISTS links (
                                         id integer PRIMARY KEY,
@@ -20,32 +17,26 @@ def initialize_db():
     try:
         conn = sqlite3.connect(database_file, check_same_thread=False)
         cur = conn.cursor()
-        print("INFO - Successfully connected to the links database.")
+        log.info("Successfully connected to the links database")
     except Error as e:
-        print(f"ERROR - Error while connecting to the links database: {e}")
+        log.error(f"Couldn't connect to the links database: {e}")
 
-    #create the links table if it does not exist
     try:
         cur.execute(links_table_command)
-        print("INFO - Links database initialized.")
+        log.info("Initialized links database")
     except Error as e:
-        print(f"ERROR - Error while initializing the links database: {e}")
+        log.error(f"Couldn't initialize the links database: {e}")
 
 def create_link(name, url :tuple):
-    """
-    Create a new link into the links table
-    :param name, link:
-    :return: project id
-    """
     sql = ''' INSERT INTO links(name,url)
               VALUES(?,?) '''
     cur = conn.cursor()
     try:
         cur.execute(sql, (name, url))
         conn.commit()
-        return cur.lastrowid #id of the element just created. This shouldn't be needed.
+        return cur.lastrowid
     except Exception as e:
-        print(f"ERROR - Error while creating a new link: {e}")
+        log.error(f"Couldn't create new link: {e}")
 
 def mod_link(name, url, id :tuple):
     """
@@ -71,13 +62,9 @@ def delete_link(id :int):
         cur.execute(sql, (id,))
         conn.commit()
     except Exception as e:
-        print(f"ERROR - Error while deleting link {id}: {e}")
+        log.error(f"Couldn't delete link {id}: {e}")
     
 def get_links() -> list:
-    """
-    Query all links in the links table
-    :return links -> list:
-    """
     cur = conn.cursor()
     cur.execute("SELECT * FROM links")
 
@@ -94,5 +81,5 @@ def delete_all():
         cur.execute(sql)
         conn.commit()
     except Exception as e:
-        print(f"ERROR - Error while deleting all the links: {e}")
-#By Riccardo Luongo, 11/12/2024
+        log.error(f"Couldn't delete all the links: {e}")
+#By Riccardo Luongo, 16/12/2024
