@@ -26,6 +26,6 @@ And run the install script:
 ```
 sudo ./install.sh
 ```
-During the installation, you will be prompted for your local IP address, and the port for the web server. Once entered, the installation should complete on its own.
+During the installation, you will be prompted for the port to make the app accessible from. Once entered, the installation should complete on its own.
 
 The dashboard should now be reachable at the address of choice.
