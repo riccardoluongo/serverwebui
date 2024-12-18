@@ -1,7 +1,7 @@
 # serverWebUI
 A simple dashboard for your Ubuntu server, running on a Flask backend.
 
-This program parses hardware and performance information (such as CPU and GPU temperature, fan speed and power consupmtion, storage information such as SMART data and zpool stats) from various monitoring tools and shows it in a simple web interface, together with basic system controls and a bookmark feature, for quick access to your self-hosted services or favorite websites.
+This program parses hardware and performance information (such as CPU and GPU temperature, fan speed and power consumption and storage information such as SMART data and disk usage, with support for ZFS) from various monitoring tools and shows it in a simple web interface, together with basic system controls and a bookmark feature, for quick access to your self-hosted services or favorite websites.
 
 ## Compatibility
 Supported on Ubuntu. Other Debian-based distributions should be supported, although might have problems with dependencies, which will need to be installed manually.
@@ -26,6 +26,6 @@ And run the install script:
 ```
 sudo ./install.sh
 ```
-During the installation, you will be prompted for the port to make the app accessible from. Once entered, the installation should complete on its own.
+During the installation, you will be prompted for the port to use for the webserver. Once entered, the installation should complete on its own.
 
 The dashboard should now be reachable at the address of choice.
