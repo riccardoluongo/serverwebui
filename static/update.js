@@ -662,6 +662,8 @@ function setRefreshRate() {
             refresh_rate = data[2][2];
             setInterval(() => updateCpuDiv(), refresh_rate);
             setInterval(() => updateRamDiv(), refresh_rate);
+            setInterval(() => updateGpuDiv(), refresh_rate);
+            setInterval(() => updateVramDiv(), refresh_rate);
             setInterval(() => updateCpuTempDiv(), refresh_rate);
             setInterval(() => updateGpuTempDiv(), refresh_rate);
             setInterval(() => updateCpuPwrDiv(), refresh_rate);
@@ -1207,4 +1209,4 @@ window.onload = function() {
     updateSystemFanDiv();
     updateGpuFanDiv();
 };
-//By Riccardo Luongo, 27/12/2024
+//By Riccardo Luongo, 19/01/2024
