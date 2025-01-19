@@ -9,8 +9,7 @@ function updateCpuDiv() {
         .then(function(response) {
             if (!response.ok) {
                 document.getElementById("cpu_util_div").innerText = "N/A";
-            }
-            else {
+            } else {
                 return response.json();
             }
         })
@@ -19,19 +18,16 @@ function updateCpuDiv() {
                 if (data.length == 0) {
                     document.getElementById("cpu_util_div").innerText = "N/A";
                     changecircle("red", "cpu-dot", "0")
-                }
-                else {
+                } else {
                     let cpu_usage = data.cpu_util;
                     let str_cpu_usage = String(data.cpu_util);
                     document.getElementById("cpu_util_div").innerText = cpu_usage + "%";
 
                     if (data.cpu_util < 60) {
                         changecircle("rgb(54, 73, 247)", "dot", str_cpu_usage);
-                    }
-                    else if (data.cpu_util < 85) {
+                    } else if (data.cpu_util < 85) {
                         changecircle("rgb(245, 208, 22)", "dot", str_cpu_usage);
-                    }
-                    else if (data.cpu_util > 85) {
+                    } else if (data.cpu_util > 85) {
                         changecircle("red", "dot", str_cpu_usage);
                     }
                 }
@@ -44,8 +40,7 @@ function updateGpuDiv() {
         .then(function(response) {
             if (!response.ok) {
                 document.getElementById("gpu_util_div").innerText = "N/A";
-            }
-            else {
+            } else {
                 return response.json();
             }
         })
@@ -56,11 +51,9 @@ function updateGpuDiv() {
 
                     if (data[0] < 60) {
                         changecircle("rgb(54, 73, 247)", "gpu-dot", String(data[0]));
-                    }
-                    else if (data[0] < 85) {
+                    } else if (data[0] < 85) {
                         changecircle("rgb(245, 208, 22)", "gpu-dot", String(data[0]));
-                    }
-                    else if (data[0] >= 85) {
+                    } else if (data[0] >= 85) {
                         changecircle("red", "gpu-dot", String(data[0]));
                     }
                 }
@@ -130,15 +123,13 @@ function updateGpuDiv() {
                                         "gpu-dot",
                                         String(data[currentIndex])
                                     );
-                                }
-                                else if (data[currentIndex] < 85) {
+                                } else if (data[currentIndex] < 85) {
                                     changecircle(
                                         "rgb(245, 208, 22)",
                                         "gpu-dot",
                                         String(data[currentIndex])
                                     );
-                                }
-                                else if (data[currentIndex] >= 85) {
+                                } else if (data[currentIndex] >= 85) {
                                     changecircle("red", "gpu-dot", String(data[currentIndex]));
                                 }
                                 gpu_dot_title_scrollable.innerText = `GPU${currentIndex}`;
@@ -160,8 +151,7 @@ function updateRamDiv() {
         .then(function(response) {
             if (!response.ok) {
                 document.getElementById("ram_util_div").innerText = "N/A";
-            }
-            else {
+            } else {
                 return response.json();
             }
         })
@@ -170,19 +160,16 @@ function updateRamDiv() {
                 if (data.length == 0) {
                     document.getElementById("ram_util_div").innerText = "N/A";
                     changecircle("red", "ram-dot", "0")
-                }
-                else {
+                } else {
                     let ram_usage = data.ram_util;
                     let str_ram_usage = String(data.ram_util);
                     document.getElementById("ram_util_div").innerText = ram_usage + "%";
 
                     if (ram_usage < 60) {
                         changecircle("rgb(54, 73, 247)", "ram-dot", str_ram_usage);
-                    }
-                    else if (ram_usage < 85) {
+                    } else if (ram_usage < 85) {
                         changecircle("rgb(245, 208, 22)", "ram-dot", str_ram_usage);
-                    }
-                    else if (ram_usage >= 85) {
+                    } else if (ram_usage >= 85) {
                         changecircle("red", "ram-dot", str_ram_usage);
                     }
                 }
@@ -195,8 +182,7 @@ function updateVramDiv() {
         .then(function(response) {
             if (!response.ok) {
                 document.getElementById("vram_util_div").innerText = "N/A";
-            }
-            else {
+            } else {
                 return response.json();
             }
         })
@@ -207,11 +193,9 @@ function updateVramDiv() {
 
                     if (data[0] < 60) {
                         changecircle("rgb(54, 73, 247)", "vram-dot", String(data[0]));
-                    }
-                    else if (data[0] < 85) {
+                    } else if (data[0] < 85) {
                         changecircle("rgb(245, 208, 22)", "vram-dot", String(data[0]));
-                    }
-                    else if (data[0] >= 85) {
+                    } else if (data[0] >= 85) {
                         changecircle("red", "vram-dot", String(data[0]));
                     }
                 }
@@ -283,15 +267,13 @@ function updateVramDiv() {
                                         "vram-dot",
                                         String(data[currentIndex])
                                     );
-                                }
-                                else if (data[currentIndex] < 85) {
+                                } else if (data[currentIndex] < 85) {
                                     changecircle(
                                         "rgb(245, 208, 22)",
                                         "vram-dot",
                                         String(data[currentIndex])
                                     );
-                                }
-                                else if (data[currentIndex] >= 85) {
+                                } else if (data[currentIndex] >= 85) {
                                     changecircle("red", "vram-dot", String(data[currentIndex]));
                                 }
                                 vram_dot_title_scrollable.innerText = `GPU${currentIndex}`;
@@ -314,8 +296,7 @@ function updateCpuTempDiv() {
             if (!response.ok) {
                 document.getElementById("cpu-temp-div").innerText = "N/A";
                 document.getElementById("cpu-temp-div").style.color = "grey";
-            }
-            else {
+            } else {
                 return response.json();
             }
         })
@@ -335,8 +316,7 @@ function updateGpuTempDiv() {
             if (!response.ok) {
                 document.getElementById("gpu-temp-div").innerText = "N/A";
                 document.getElementById("gpu-temp-div").style.color = "grey";
-            }
-            else {
+            } else {
                 return response.json();
             }
         })
@@ -393,8 +373,7 @@ function updateCpuPwrDiv() {
             if (!response.ok) {
                 document.getElementById("cpu-pwr-div").innerText = "N/A";
                 document.getElementById("cpu-pwr-div").style.color = "grey";
-            }
-            else {
+            } else {
                 return response.json();
             }
         })
@@ -413,8 +392,7 @@ function updateGpuPwrDiv() {
             if (!response.ok) {
                 document.getElementById("gpu-pwr-div").innerText = "N/A";
                 document.getElementById("gpu-pwr-div").style.color = "grey";
-            }
-            else {
+            } else {
                 return response.json();
             }
         })
@@ -466,7 +444,8 @@ function updateGpuPwrDiv() {
 }
 
 function UpdatePoolInfoDiv() {
-    fetch("/pool_stats")
+    let drop_value = document.getElementById("pool-selector").value;
+    fetch(`/pool_stats?pool=${drop_value}`)
         .then(function(response) {
             if (!response.ok) {
                 document.getElementById("pool-status").innerText = "N/A";
@@ -482,8 +461,7 @@ function UpdatePoolInfoDiv() {
                 document.getElementById("%-used").style.color = "grey";
 
                 document.getElementById("storage-bar").setAttribute("value", "0");
-            }
-            else {
+            } else {
                 return response.json();
             }
         })
@@ -513,8 +491,7 @@ function UpdateSysInfoDiv() {
                 let err_div = sysinfobox.appendChild(document.createElement("span"));
                 err_div.setAttribute("class", "box-na");
                 err_div.innerText = "N/A";
-            }
-            else {
+            } else {
                 return response.json();
             }
         })
@@ -588,8 +565,7 @@ function UpdateLinksDiv() {
                 const err = document.getElementById("links_wrapper").appendChild(document.createElement('span'))
                 err.setAttribute("class", "link-err")
                 err.innerText = "Couldn't retrieve links."
-            }
-            else {
+            } else {
                 return response.json();
             }
         })
@@ -605,8 +581,7 @@ function UpdateLinksDiv() {
                         link.setAttribute("class", "link");
                         link.appendChild(document.createTextNode(`${data[property][1]}`));
                     }
-                }
-                else {
+                } else {
                     let link = links_wrapper.appendChild(document.createElement("a"));
                     link.setAttribute("href", `/edit_links`);
                     link.setAttribute("class", "link");
@@ -627,16 +602,20 @@ function UpdateDropPools() {
                 );
                 pools_buttons.setAttribute("value", `${data[pool]}`);
                 pools_buttons.appendChild(document.createTextNode(`${data[pool]}`));
-                pools_drop.options[0].selected = true;
             }
-            pools_drop.options[0].selected = true;
+            pools_drop.setAttribute("value", data[0])
+            FetchDisks()
+            if (disk_interval_set == false) {
+                disk_interval = setInterval(() => FetchDisks(), 10000);
+                disk_interval_set = true;
+            }
+            sel_pool.addEventListener("change", FetchDisks);
         });
 }
 
 function FetchDisks() {
-    drop_value = document.getElementById("pool-selector").value;
-    fetch(`/choose_pool?pool=${drop_value}`);
-    fetch("/get_disks")
+    let drop_value = document.getElementById("pool-selector").value;
+    fetch(`/get_disks?pool=${drop_value}`)
         .then(function(response) {
             if (!response.ok) {
                 let box = document.getElementById("raid-box");
@@ -649,8 +628,7 @@ function FetchDisks() {
                 na_text.setAttribute("id", "na-raid");
                 na_text.classList.add("box-na");
                 na_text.innerText = "N/A";
-            }
-            else {
+            } else {
                 return response.json();
             }
         })
@@ -668,6 +646,11 @@ function FetchDisks() {
                     box_text.classList.add("raid-text");
                     box_text.innerText = data[line];
                 }
+            }
+            UpdatePoolInfoDiv();
+            if (poolinfo_interval_set == false) {
+                poolinfo_interval = setInterval(() => UpdatePoolInfoDiv(), 10000);
+                poolinfo_interval_set = true;
             }
         });
 }
@@ -694,8 +677,7 @@ function updateGpuFanDiv() {
         .then(function(response) {
             if (!response.ok) {
                 document.getElementById("gpu-fan-value").innerText = "N/A";
-            }
-            else {
+            } else {
                 return response.json();
             }
         })
@@ -760,8 +742,7 @@ function updateSystemFanDiv() {
         .then(function(response) {
             if (!response.ok) {
                 console.log("Unable to retrieve system fans");
-            }
-            else {
+            } else {
                 return response.json();
             }
         })
@@ -818,8 +799,7 @@ function updateSystemFanDiv() {
 
                         if (data[0][fan][0] == "") {
                             fan_title.innerText = ` SYS${i}:`;
-                        }
-                        else {
+                        } else {
                             fan_title.innerText = ` ${data[0][fan][0]}`;
                         }
 
@@ -839,6 +819,10 @@ function showSmart() {
         clearInterval(poolinfo_interval);
         poolinfo_interval_set = false;
     }
+    if (typeof storageInfo_interval !== "undefined") {
+        clearInterval(storageInfo_interval);
+        storageInfo_interval_set = false;
+    }
 
     let storage_box_wrapper = document.getElementById("storage-box-wrapper");
     while (storage_box_wrapper.firstChild) {
@@ -846,7 +830,6 @@ function showSmart() {
     }
 
     updateDiskSelector();
-    updateSmartDiv();
 
     let disk_drop = document.getElementById("disk-selector");
     disk_drop.addEventListener("change", updateSmartDiv);
@@ -877,7 +860,10 @@ function updateDiskSelector() {
                 );
                 drives_buttons.value = data[drive];
                 drives_buttons.innerText = `${data[drive]}`;
+                drives_buttons.setAttribute("id", drive)
             }
+            disk_selector.setAttribute("value", data[0])
+            updateSmartDiv();
         });
 }
 
@@ -896,91 +882,106 @@ function updateSmartDiv() {
     });
 
     drive = document.getElementById("disk-selector").value;
-    fetch(`/choose_drive?drive=${drive}`);
-    fetch(`/smart_data`)
-        .then((response) => response.json())
-        .then((data) => {
-            if (data[0] == "nvme") {
-                let title_row = smart_table.appendChild(document.createElement("tr"));
+    fetch(`/smart_data?drive=${drive}`)
+        .then(function(response) {
+            if (!response.ok) {
+                let box = document.getElementById("smart-table");
+                let box_wrapper = document.getElementById("storage-box-wrapper");
 
-                let name_th = title_row.appendChild(document.createElement("th"));
-                name_th.innerText = "NAME";
-
-                let value_th = title_row.appendChild(document.createElement("th"));
-                value_th.innerText = "VALUE";
-
-                title_row_children = title_row.children;
-
-                for (let i = 0; i < title_row_children.length; i++) {
-                    const child = title_row_children[i];
-                    child.setAttribute("class", "smart-th");
+                if (box) {
+                    box.remove();
                 }
 
-                for (let [key, value] of Object.entries(data[1])) {
-                    let attr_row = smart_table.appendChild(document.createElement("tr"));
-                    attr_row.setAttribute("class", "smart-tr");
-
-                    let name_td = attr_row.appendChild(document.createElement("td"));
-                    name_td.innerText = key;
-
-                    let value_td = attr_row.appendChild(document.createElement("td"));
-                    value_td.innerText = value;
-                }
+                na_text = box_wrapper.appendChild(document.createElement("div"));
+                na_text.classList.add("smart-na");
+                na_text.innerText = "N/A";
+            } else {
+                return response.json();
             }
-            else {
-                let title_row = smart_table.appendChild(document.createElement("tr"));
+        })
+        .then((data) => {
+            if (data) {
+                if (data[0] == "nvme") {
+                    let title_row = smart_table.appendChild(document.createElement("tr"));
 
-                let id_th = title_row.appendChild(document.createElement("th"));
-                id_th.innerText = "ID";
+                    let name_th = title_row.appendChild(document.createElement("th"));
+                    name_th.innerText = "NAME";
 
-                let name_th = title_row.appendChild(document.createElement("th"));
-                name_th.innerText = "NAME";
+                    let value_th = title_row.appendChild(document.createElement("th"));
+                    value_th.innerText = "VALUE";
 
-                let value_th = title_row.appendChild(document.createElement("th"));
-                value_th.innerText = "VALUE";
+                    title_row_children = title_row.children;
 
-                let worst_th = title_row.appendChild(document.createElement("th"));
-                worst_th.innerText = "WORST";
+                    for (let i = 0; i < title_row_children.length; i++) {
+                        const child = title_row_children[i];
+                        child.setAttribute("class", "smart-th");
+                    }
 
-                let thresh_th = title_row.appendChild(document.createElement("th"));
-                thresh_th.innerText = "THRESH";
+                    for (let [key, value] of Object.entries(data[1])) {
+                        let attr_row = smart_table.appendChild(document.createElement("tr"));
+                        attr_row.setAttribute("class", "smart-tr");
 
-                let raw_value_th = title_row.appendChild(document.createElement("th"));
-                raw_value_th.innerText = "RAW VALUE";
+                        let name_td = attr_row.appendChild(document.createElement("td"));
+                        name_td.innerText = key;
 
-                title_row_children = title_row.children;
+                        let value_td = attr_row.appendChild(document.createElement("td"));
+                        value_td.innerText = value;
+                    }
+                } else {
+                    let title_row = smart_table.appendChild(document.createElement("tr"));
 
-                for (let i = 0; i < title_row_children.length; i++) {
-                    const child = title_row_children[i];
-                    child.setAttribute("class", "smart-th");
-                }
-                for (let attr in data[1]["table"]) {
-                    let attr_row = smart_table.appendChild(document.createElement("tr"));
-                    attr_row.setAttribute("class", "smart-tr");
+                    let id_th = title_row.appendChild(document.createElement("th"));
+                    id_th.innerText = "ID";
 
-                    let id_td = attr_row.appendChild(document.createElement("td"));
-                    id_td.innerText = data[1]["table"][attr]["id"];
+                    let name_th = title_row.appendChild(document.createElement("th"));
+                    name_th.innerText = "NAME";
 
-                    let name_td = attr_row.appendChild(document.createElement("td"));
-                    name_td.innerText = data[1]["table"][attr]["name"];
+                    let value_th = title_row.appendChild(document.createElement("th"));
+                    value_th.innerText = "VALUE";
 
-                    let value_td = attr_row.appendChild(document.createElement("td"));
-                    value_td.innerText = data[1]["table"][attr]["value"];
+                    let worst_th = title_row.appendChild(document.createElement("th"));
+                    worst_th.innerText = "WORST";
 
-                    let worst_td = attr_row.appendChild(document.createElement("td"));
-                    worst_td.innerText = data[1]["table"][attr]["worst"];
+                    let thresh_th = title_row.appendChild(document.createElement("th"));
+                    thresh_th.innerText = "THRESH";
 
-                    let thresh_td = attr_row.appendChild(document.createElement("td"));
-                    thresh_td.innerText = data[1]["table"][attr]["thresh"];
+                    let raw_value_th = title_row.appendChild(document.createElement("th"));
+                    raw_value_th.innerText = "RAW VALUE";
 
-                    let raw_value_td = attr_row.appendChild(document.createElement("td"));
-                    raw_value_td.innerText = data[1]["table"][attr]["raw"]["value"];
+                    title_row_children = title_row.children;
 
-                    let row_children = attr_row.children;
+                    for (let i = 0; i < title_row_children.length; i++) {
+                        const child = title_row_children[i];
+                        child.setAttribute("class", "smart-th");
+                    }
+                    for (let attr in data[1]["table"]) {
+                        let attr_row = smart_table.appendChild(document.createElement("tr"));
+                        attr_row.setAttribute("class", "smart-tr");
 
-                    for (let i = 0; i < row_children.length; i++) {
-                        const child = row_children[i];
-                        child.setAttribute("class", "smart-td");
+                        let id_td = attr_row.appendChild(document.createElement("td"));
+                        id_td.innerText = data[1]["table"][attr]["id"];
+
+                        let name_td = attr_row.appendChild(document.createElement("td"));
+                        name_td.innerText = data[1]["table"][attr]["name"];
+
+                        let value_td = attr_row.appendChild(document.createElement("td"));
+                        value_td.innerText = data[1]["table"][attr]["value"];
+
+                        let worst_td = attr_row.appendChild(document.createElement("td"));
+                        worst_td.innerText = data[1]["table"][attr]["worst"];
+
+                        let thresh_td = attr_row.appendChild(document.createElement("td"));
+                        thresh_td.innerText = data[1]["table"][attr]["thresh"];
+
+                        let raw_value_td = attr_row.appendChild(document.createElement("td"));
+                        raw_value_td.innerText = data[1]["table"][attr]["raw"]["value"];
+
+                        let row_children = attr_row.children;
+
+                        for (let i = 0; i < row_children.length; i++) {
+                            const child = row_children[i];
+                            child.setAttribute("class", "smart-td");
+                        }
                     }
                 }
             }
@@ -997,6 +998,11 @@ function setAttributes(el, attrs) {
 }
 
 function initializeZpoolInfo() {
+    if (typeof storageInfo_interval !== "undefined") {
+        clearInterval(storageInfo_interval);
+        storageInfo_interval_set = false;
+    }
+
     let storage_box_wrapper = document.getElementById("storage-box-wrapper");
     while (storage_box_wrapper.firstChild) {
         storage_box_wrapper.removeChild(storage_box_wrapper.firstChild);
@@ -1098,38 +1104,31 @@ function initializeZpoolInfo() {
 
     sel_pool = document.getElementById("pool-selector");
     UpdateDropPools();
-    FetchDisks();
-    UpdatePoolInfoDiv();
-    if (disk_interval_set == false) {
-        disk_interval = setInterval(() => FetchDisks(), 10000);
-        disk_interval_set = true;
-    }
-    if (poolinfo_interval_set == false) {
-        poolinfo_interval = setInterval(() => UpdatePoolInfoDiv(), 10000);
-        poolinfo_interval_set = true;
-    }
-    sel_pool.addEventListener("change", FetchDisks);
 }
 
-function initializeStorageInfo() {
+function updateStorageInfo() {
     let storage_box_wrapper = document.getElementById("storage-box-wrapper");
-    while (storage_box_wrapper.firstChild) {
-        storage_box_wrapper.removeChild(storage_box_wrapper.firstChild);
-    }
 
     fetch('/get_storage_usage')
         .then(function(response) {
             if (!response.ok) {
+                while (storage_box_wrapper.firstChild) {
+                    storage_box_wrapper.removeChild(storage_box_wrapper.firstChild);
+                }
+
                 storage_box_wrapper.innerHTML = `
                     <h1 class="disk-na">N/A</h1>
                 `
-            }
-            else {
+            } else {
                 return response.json();
             }
         })
         .then((data) => {
             if (data) {
+                while (storage_box_wrapper.firstChild) {
+                    storage_box_wrapper.removeChild(storage_box_wrapper.firstChild);
+                }
+
                 for (const disk in data) {
                     let disk_wrapper = storage_box_wrapper.appendChild(document.createElement('div'));
                     disk_wrapper.classList.add("disk-wrapper");
@@ -1150,11 +1149,29 @@ function initializeStorageInfo() {
                 }
             }
         })
+    if (storageInfo_interval_set == false) {
+        storageInfo_interval = setInterval(() => updateStorageInfo(), 10000);
+        storageInfo_interval_set = true;
+    }
+}
+
+function initializeStorageInfo() {
+    if (typeof disk_interval !== "undefined") {
+        clearInterval(disk_interval);
+        disk_interval_set = false;
+    }
+    if (typeof poolinfo_interval !== "undefined") {
+        clearInterval(poolinfo_interval);
+        poolinfo_interval_set = false;
+    }
+
+    updateStorageInfo();
 }
 
 window.onload = function() {
     disk_interval_set = false;
     poolinfo_interval_set = false;
+    storageInfo_interval_set = false;
     let shut_btn = document.getElementById("shut-btn");
     let restart_btn = document.getElementById("restart-btn");
     let radios = document.getElementsByName('flexRadioDefault');
@@ -1190,4 +1207,4 @@ window.onload = function() {
     updateSystemFanDiv();
     updateGpuFanDiv();
 };
-//By Riccardo Luongo, 15/12/2024
+//By Riccardo Luongo, 27/12/2024

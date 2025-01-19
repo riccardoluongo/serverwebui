@@ -6,7 +6,7 @@
     <link rel = "icon" href = "/static/favicon.ico" type = "image/x-icon">
     <link rel="stylesheet" href="/static/bootstrap.css">
     <script src="/static/bootstrap.js"></script>
-    <script src="/static/script2.js"></script>
+    <script src="/static/editlinks.js"></script>
 </head>
 <body class="body">
     <div class="home-container">
@@ -16,6 +16,15 @@
     </div>
     <div class="link-grid-container">
         <span class="title">Edit Bookmarks</span>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="alert-container">
+                    {% for message in messages %}
+                        {{ message }}
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
         <div>
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
             <i class="fa fa-plus" aria-hidden="true"></i>
@@ -34,11 +43,11 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                     </div>
                     <div class="modal-body" >
-                        <form id="newlink-form">
+                        <form id="newlink-form" method="POST" action="#">
                             <label for="link-name">Name:</label><br>
-                            <input type="text" id="link-name"  placeholder="Example" autocomplete="off" autofocus minlength="1"><br>
+                            <input type="text" name="link-name"  placeholder="Example" autocomplete="off" autofocus minlength="1"><br>
                             <label for="link-url">URL (use full link starting with http://):</label><br>
-                            <input type="text" id="link-url"  placeholder="https://example.com" autocomplete="off" minlength="1" >
+                            <input type="text" name="link-url"  placeholder="https://example.com" autocomplete="off" minlength="1" >
                             <div class="modal-footer" style="margin-top: 10px;">
                                 <button type="submit" class="btn btn-dark" data-bs-dismiss="modal">Save</button>
                             </div>

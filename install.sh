@@ -1,8 +1,9 @@
 #!/usr/bin/bash
 cd "$(dirname "$0")"
 kernel_ver=$(uname -r)
-apt install linux-tools-generic neofetch python3-pip smartmontools linux-tools-$kernel_ver -y
-pip install -r requirements.txt --break-system-packages
+apt install linux-tools-generic neofetch pipx smartmontools linux-tools-$kernel_ver -y
+python3 -m pipx install flask nvitop psutil gunicorn
+python3 -m pipx ensurepath
 mkdir log
 
 IS_ACTIVE=$(sudo systemctl is-active webui)

@@ -1,44 +1,43 @@
-function updateLogFileDiv() {
+function updateMaxLogFilesDiv() {
     fetch('/get_settings')
         .then(response => response.json())
         .then(data => {
-            let m = document.getElementById('num');
-            m.value = data[0][2]
-            let r = document.getElementById('ran');
-            r.value = m.value
+            let files_num = document.getElementsByName('files-num')[0];
+            let files_ran = document.getElementsByName('files-ran')[0];
+            files_num.value = data[0][2];
+            files_ran.value = files_num.value
         })
 }
 
-async function changeLogFileNum(value) {
-    await fetch(`/change_max_log_files?value=${value}`).then((response) => {
-        if (response.ok) {
-            updateLogFileDiv()
-        } else {
-            alert("Couldn't change the 'max_log_files' preference. Please try again or check the logs for further information")
-        }
-    })
-}
-
-function applyChanges() {
-    let mvalue = document.getElementById('num').value;
-    changeLogFileNum(mvalue).then(
-        changeLogLevel().then(
-            changeRefreshRate()
-        )
-    )
+function updateMaxLogFileSize() {
+    fetch('/get_settings')
+        .then(response => response.json())
+        .then(data => {
+            let files_num = document.getElementsByName('size-num')[0];
+            let files_ran = document.getElementsByName('size-ran')[0];
+            files_num.value = data[3][2]
+            files_ran.value = files_num.value
+        })
 }
 
 async function resetDefault() {
     if (confirm("Are you sure you want to restore the default settings?")) {
-        await fetch(`/reset_settings`).then((response) => {
-            if (response.ok) {
-                updateLogFileDiv()
-                updateLogLevelSelector()
-                updateRefreshDiv()
-            } else {
-                alert("Couldn't reset the settings. Please try again or check the logs for further information.")
-            }
-        })
+        await fetch("/reset_settings", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then((response) => {
+                if (response.ok) {
+                    updateMaxLogFilesDiv()
+                    updateLogLevelSelector()
+                    updateRefreshDiv()
+                    updateMaxLogFileSize()
+                } else {
+                    alert("Couldn't reset the settings. Check the logs for further information.");
+                }
+            })
     }
 }
 
@@ -61,75 +60,38 @@ function updateLogLevelSelector() {
         })
 }
 
-async function changeLogLevel() {
-    let drop_value = document.getElementById('log-selector').value;
-    await fetch(`/change_log_level?value=${drop_value}`).then((response) => {
-        if (response.ok) {
-            updateLogLevelSelector()
-        } else {
-            alert("Couldn't change the 'log_level' preference. Please try again or check the logs for further information.")
-        }
-    })
-}
-
 function updateRefreshDiv() {
     fetch('/get_settings')
         .then(response => response.json())
         .then(data => {
-            m1 = document.getElementById('refresh-num');
-            m1.value = data[2][2]
-            let r1 = document.getElementById('refresh-ran');
-            r1.value = m1.value
+            let refresh_num = document.getElementsByName('refresh-num')[0];
+            refresh_num.value = data[2][2]
+            let refresh_ran = document.getElementsByName('refresh-ran')[0];
+            refresh_ran.value = refresh_num.value
         })
 }
 
-async function changeRefreshRate() {
-    let refresh_num_value = document.getElementById('refresh-num').value
-    await fetch(`/change_refresh_rate?value=${refresh_num_value}`).then((response) => {
-        if (response.ok) {
-            updateRefreshDiv()
-        } else {
-            alert("Couldn't change the 'refresh_rate' preference. Please try again or check the logs for further information.")
-        }
-    })
-}
-
 window.onload = function() {
-    updateLogFileDiv()
-
-    let m = document.getElementById('num');
-    let r = document.getElementById('ran');
-
-    let m1 = document.getElementById('refresh-num');
-    let r1 = document.getElementById('refresh-ran');
-
-    let range = document.querySelector(".slider");
-    let number = document.querySelector(".number-log");
-
-    let apply_btn = document.getElementById("apply-btn");
     let reset_btn = document.getElementById("reset-btn");
+    let sliders = document.getElementsByClassName("slider");
 
-    range.addEventListener("input", (e) => {
-        number.value = e.target.value;
-    })
-    number.addEventListener("input", (e) => {
-        range.value = e.target.value;
-    })
+    for (let i = 0; i < sliders.length; i++) {
+        let range = document.getElementsByClassName("slider")[i];
+        let number = document.getElementsByClassName("number")[i];
 
-    r1.addEventListener("input", (e) => {
-        m1.value = e.target.value;
-    })
-    m1.addEventListener("input", (e) => {
-        r1.value = e.target.value;
-    })
+        range.addEventListener("input", (e) => {
+            number.value = e.target.value;
+        })
+        number.addEventListener("input", (e) => {
+            range.value = e.target.value;
+        })
+    }
 
-    apply_btn.addEventListener("click", applyChanges);
     reset_btn.addEventListener("click", resetDefault);
 
-    r.value = m.value;
-
+    updateMaxLogFileSize()
+    updateMaxLogFilesDiv()
     updateLogLevelSelector()
     updateRefreshDiv()
 }
-
-//by Riccardo Luongo, 29/05/2024
+//by Riccardo Luongo, 27/12/2024

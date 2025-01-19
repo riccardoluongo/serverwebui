@@ -6,55 +6,66 @@
     <link rel = "icon" href = "/static/favicon.ico" type = "image/x-icon">
     <link rel="stylesheet" href="/static/bootstrap.css">
     <script src="/static/bootstrap.js"></script>
-    <script src="/static/script2.js"></script>
+    <script src="/static/settings.js"></script>
 </head>
 <body class="body">
-    <div class="home-container">
-        <a href="/">
+    <a href="/">
         <button class="home-button"><i class="fa fa-home fa-3x home-icon"></i></button>
-        </a>
-    </div>
+    </a>
     <div class="link-grid-container">
-        <span class="title">Edit Bookmarks</span>
-        <div>
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
-            <i class="fa fa-plus" aria-hidden="true"></i>
-            Add Bookmark
-            </button>
-            <button type="button" class="btn btn-primary" id="del-all-btn">
-            <i class="fa fa-trash" aria-hidden="true"></i>  
-            Delete all Bookmarks
-            </button>
-        </div>
-        <div class="modal" id="myModal">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title">Create Bookmark</h4>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        <span class="title">Settings</span>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="alert-container">
+                    {% for message in messages %}
+                        {{ message }}
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+        <form method="POST" action="#">
+            <div class="btn-div">
+                <button type="submit" class="btn btn-primary" action="#">
+                    <i class="fa fa-check" aria-hidden="true"></i>
+                    Apply changes
+                </button>
+                <button type="button" class="btn btn-primary" id="reset-btn">
+                    <i class="fa fa-refresh" aria-hidden="true"></i>  
+                    Reset to default settings
+                </button>
+            </div>
+            <div class="settings-container">
+                    <div class="setting-div">
+                        <div class="setting-title">Max log file size</div> 
+                        <div class="setting-desc">Specify the maximum size (in kB) of the log file before it is archived and the app starts using a new one.</div>
+                        <span><input type="range" min="10" max="10000" class="slider" name="size-ran" step="10"></span>
+                        <span><input type="number" class="number" min="10" max="10000" name="size-num" step="10" maxlength="5"></span>
                     </div>
-                    <div class="modal-body" >
-                        <form id="newlink-form">
-                            <label for="link-name">Name:</label><br>
-                            <input type="text" id="link-name"  placeholder="Example" autocomplete="off" autofocus minlength="1"><br>
-                            <label for="link-url">URL (use full link starting with http://):</label><br>
-                            <input type="text" id="link-url"  placeholder="https://example.com" autocomplete="off" minlength="1" >
-                            <div class="modal-footer" style="margin-top: 10px;">
-                                <button type="submit" class="btn btn-dark" data-bs-dismiss="modal">Save</button>
-                            </div>
-                        </form>
+                    <div class="setting-div">
+                        <div class="setting-title">Backup count</div> 
+                        <div class="setting-desc">Specify the maximum amount of log files to keep before deleting the oldest one.</div>
+                        <span><input type="range" min="1" max="100" class="slider" name="files-ran" step="1"></span>
+                        <span><input type="number" class="number" min="1" max="100" name="files-num" step="1" maxlength="3"></span>
+                    </div>
+                    <div class="setting-div">
+                        <div class="setting-title">Log level</div>
+                        <div class="setting-desc">Specify the log level. The lower it is, the more verbose the output.</div>
+                        <select id="log-selector" class="log-selector" name="log-selector" title="Choose the log level">
+                            <option value="debug">DEBUG</option>
+                            <option value="info">INFO</option>
+                            <option value="warning">WARNING</option>
+                            <option value="error">ERROR</option>
+                            <option value="critical" selected>CRITICAL</option>
+                        </select>
+                    </div>
+                    <div class="setting-div">
+                        <div class="setting-title">Refresh rate</div>
+                        <div class="setting-desc">Specify the interval (ms) at which the system resources metrics should be updated. A shorter interval will lead to a higher CPU usage.</div>
+                        <span><input type="range" min="500" max="10000" class="slider" name="refresh-ran" step="500"></span>
+                        <span><input type="number" class="number" min="500" max="10000" name="refresh-num" step="1" maxlength="2"></span>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="link-table-container">
-            <table class="link-table" id="link-table" border="1">
-                <tr>
-                </tr>
-                <tr>
-                    <!--link table-->
-                </tr>
-            </table>
+        </form>
         </div>
     </div>
 </body>
