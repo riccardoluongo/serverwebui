@@ -15,6 +15,7 @@ from system_fans import get_system_fans
 import json
 from logging.handlers import RotatingFileHandler
 import traceback
+import re
 
 now = datetime.now()
 dt_string = now.strftime("%d_%m_%Y_%H_%M_%S")
@@ -37,6 +38,19 @@ app.logger.addHandler(handler)
 app.logger.setLevel(log_levels[app_settings[1][2]])
 log = app.logger
 app.secret_key = 'nigga' #not tryna make it secure, only used because it's required to use flash()
+
+url_pattern = re.compile( #regex to match valid URLs, used in bookmarks
+    r"^(https?|ftp):\/\/" 
+    r"([a-zA-Z0-9.-]+)\.([a-zA-Z]{2,6})"
+    r"(:\d{1,5})?"
+    r"(\/[^\s]*)?"
+    r"(\?[^\s#]*)?"
+    r"(#[^\s]*)?$",
+    re.IGNORECASE
+)
+
+def is_valid(url):
+    return bool(url_pattern.match(url))
 
 try:
     initialize_db()
@@ -225,12 +239,16 @@ def edit_links():
         name = request.form.get("link-name")
         url = request.form.get("link-url")
 
-        try:
-            create_link(name, url)
-            log.info(f"Created link '{name}', URL: {url}")
-        except Exception as e:
-            log.error(f"Couldn't create new link: {e}")
-            flash("Couldn't create link. Check the logs for further information")
+        if is_valid(url):
+            try:
+                create_link(name, url)
+                log.info(f"Created link '{name}', URL: {url}")
+            except Exception as e:
+                log.error(f"Couldn't create new link: {e}")
+                flash("Couldn't create link. Check the logs for further information")
+                return redirect(url_for("edit_links"))
+        else:
+            flash("Couldn't create link: URL is not valid!")
             return redirect(url_for("edit_links"))
     return render_template('edit_links.html')
 
