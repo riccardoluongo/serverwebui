@@ -31,7 +31,7 @@ gunicorn
 ```
 
 ## Installation
-A very rudimentary installation script is available, but it is reccomended to follow the instructions and install manually.
+A very rudimentary installation script is available, but it is recommended to follow the instructions and install manually.
 ### Manual installation
 
 Clone the repository: 
