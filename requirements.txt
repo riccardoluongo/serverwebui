@@ -1,0 +1,4 @@
+flask
+nvitop
+psutil
+gunicorn
