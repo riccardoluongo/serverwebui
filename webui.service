@@ -1,0 +1,10 @@
+[Unit]
+Description=This service will start serverWebUI at system startup
+
+[Service]
+User=root
+WorkingDirectory={DIR}
+ExecStart=$PWD/start.sh -p {PORT}
+
+[Install]
+WantedBy=default.target

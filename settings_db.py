@@ -14,12 +14,17 @@ def initialize_db():
     cur = conn.cursor()
     cur.execute(settings_table_command)
 
-    if settings_valid == False:
+    if settings_valid() == False:
         reset()
 
 def settings_valid():
     settings = get_settings()
-    (max_files, log_level, refresh_rate, max_size) = settings
+
+    try:
+        (max_files, log_level, refresh_rate, max_size) = settings
+    except: #settings are empty, create them!
+        reset()
+        return True
 
     def max_log_files_valid():
         pattern = r'\b([1-9]|[1-4][0-9]|50)\b'
@@ -99,5 +104,4 @@ def delete_all():
     cur = conn.cursor()
     cur.execute(sql)
     conn.commit()
-
-#by Riccardo Luongo, 27/12/2024
+#by Riccardo Luongo, 25/01/2025

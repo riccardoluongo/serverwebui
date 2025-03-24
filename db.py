@@ -52,4 +52,6 @@ def delete_all():
 
     cur.execute(sql)
     conn.commit()        
-#By Riccardo Luongo, 17/12/2024
+initialize_db()
+
+#by Riccardo Luongo, 25/01/2025
