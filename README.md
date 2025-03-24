@@ -8,13 +8,75 @@ Supported on Ubuntu. Other Debian-based distributions should be supported, altho
 
 Both Intel and AMD CPUs are supported, meanwhile only Nvidia GPUs are supported as of now. Support for Intel and AMD in the works.
 
+## Dependencies
+Make sure you have the following dependencies installed before trying to use this project!
+If you plan to install using the script, you may skip the installation of these.
+
+Packages:
+```
+linux-tools-generic
+neofetch
+pipx
+smartmontools
+linux-tools-$(uname-r)
+linux-cpupower
+```
+
+Python packages (to be installed in the virtual environment. See below.)
+```
+flask
+nvitop
+psutil
+gunicorn
+```
+
 ## Installation
-To install on your system as a systemd service, first clone the repository: 
+A very rudimentary installation script is available, but it is reccomended to follow the instructions and install manually.
+### Manual installation
+
+Clone the repository: 
 
 ```
 git clone https://github.com/riccardoluongo/serverwebui
 cd serverwebui
 ```
+
+Create and activate a python virtual environment:
+```
+python -m venv venv
+source venv/bin/activate
+```
+
+Install the required packages:
+```
+pip install -r requirements.txt
+```
+
+Make the start.sh script executable:
+```
+chmod +x start.sh
+```
+
+You can now run the program with:
+```
+sudo ./start.sh -p YOURPORT
+```
+or create a systemd service to automatically start it at boot:
+>* Edit webui.service
+>* Replace DIR with the current directory ($PWD)
+>* Replace PORT with the port you want to use
+>* Copy the file to the systemd services directory:
+```
+sudo cp webui.service /etc/systemd/system/
+```
+>* Enable and start the service:
+```
+sudo systemctl daemon-reload
+sudo systemctl enable webui.service
+sudo systemctl start webui.service
+```
+
+### Automatic installation
 
 Then make the install and run scripts executable:
 ```
@@ -26,6 +88,6 @@ And run the install script:
 ```
 sudo ./install.sh
 ```
-During the installation, you will be prompted for your local IP address, and the port for the web server. Once entered, the installation should complete on its own.
+During the installation, you will be prompted for the port to use for the web server. Once entered, the installation should complete on its own.
 
-The dashboard should now be reachable at the address of choice.
+The dashboard should now be reachable at the port of choice.
