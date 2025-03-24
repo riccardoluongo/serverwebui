@@ -17,6 +17,9 @@ from logging.handlers import RotatingFileHandler
 import traceback
 import re
 
+initialize_db()
+settings_db.initialize_db()
+
 now = datetime.now()
 dt_string = now.strftime("%d_%m_%Y_%H_%M_%S")
 app = Flask(__name__)
@@ -51,18 +54,6 @@ url_pattern = re.compile( #regex to match valid URLs, used in bookmarks
 
 def is_valid(url):
     return bool(url_pattern.match(url))
-
-try:
-    initialize_db()
-    log.info("Initialized links database")
-except Exception as e:
-    log.error(f"Couldn't initialize the links database: {e}")
-
-try:
-    settings_db.initialize_db()
-    log.info("Initialized settings database")        
-except Exception as e:
-    log.error(f"Couldn't initialize the settings database: {traceback.format_exc()}")
 
 devices = Device.all()
 
