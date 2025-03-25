@@ -41,6 +41,11 @@ git clone https://github.com/riccardoluongo/serverwebui
 cd serverwebui
 ```
 
+Create the log directory:
+```
+mkdir log
+```
+
 Create and activate a python virtual environment:
 ```
 python -m venv venv
