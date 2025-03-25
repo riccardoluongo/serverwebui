@@ -78,13 +78,13 @@ sudo systemctl start webui.service
 
 ### Automatic installation
 
-Then make the install and run scripts executable:
+Make the install and start scripts executable:
 ```
 sudo chmod +x install.sh
 sudo chmod +x start.sh
 ```
 
-And run the install script:
+Run the install script:
 ```
 sudo ./install.sh
 ```
