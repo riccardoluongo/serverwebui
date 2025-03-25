@@ -22,7 +22,7 @@ linux-tools-$(uname-r)
 linux-cpupower
 ```
 
-Python packages (to be installed in the virtual environment. See below.)
+Python packages (to be installed in the virtual environment; see below.):
 ```
 flask
 nvitop
