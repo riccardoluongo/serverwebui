@@ -10,7 +10,7 @@ Both Intel and AMD CPUs are supported, meanwhile only Nvidia GPUs are supported 
 
 ## Dependencies
 Make sure you have the following dependencies installed before trying to use this project!
-If you plan to install using the script, you may skip the installation of these.
+If you plan to install using the auto install script, you may skip the installation of these.
 
 Packages:
 ```
