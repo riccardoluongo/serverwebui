@@ -1,7 +1,33 @@
 function changecircle(color, id, value) {
-    document.getElementById(
-        id
-    ).style.background = `radial-gradient(closest-side, rgb(31, 31, 31) 85%, transparent 86% 100%), conic-gradient(${color} ${value}%, rgb(102, 102, 102) 0)`;
+    const duration=1000;
+    const element = document.getElementById(id);
+    const startTime = performance.now();
+
+    function getCurrentValue(element) {
+        const backgroundStr = element.style.background.split("conic-gradient");
+        if (backgroundStr.length < 2){
+                return 0;
+            }
+
+        const match = parts[1].match(/(\d+)%/);
+        return match ? parseInt(match[1], 10) : 0;
+    }
+    
+    function update() {
+        const elapsed = performance.now() - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const currentValue = Math.floor(startValue + (value - startValue) * progress);
+
+        element.style.background = `radial-gradient(closest-side, rgb(31, 31, 31) 85%, transparent 86% 100%), 
+                                    conic-gradient(${color} ${currentValue}%, rgb(102, 102, 102) 0)`;
+
+        if (progress < 1) {
+            requestAnimationFrame(update);
+        }
+    }
+
+    let startValue = getCurrentValue(element);
+    requestAnimationFrame(update);
 }
 
 function updateCpuDiv() {
