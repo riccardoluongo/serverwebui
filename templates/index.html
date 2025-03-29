@@ -24,55 +24,14 @@
     </div>
     <div id="wrapper">
         <div class="rectangle">
-            <div class="resources-container">
-                <div class="box-titles">Resources</div>
-                <div class="resources-circles">
-                    <div id="dot" class="dot">
-                        <span id="cpu_util_div" class="circle-values"></span>
-                        <span class="circle-titles">CPU</span>
-                    </div>
-                    <div id="ram-dot" class="dot">
-                        <span id="ram_util_div" class="circle-values"></span>
-                        <span class="circle-titles">RAM</span>
-                    </div>
-                    <div id="gpu-dot" class="dot">
-                        <span id="gpu_util_div" class="circle-values"></span>
-                        <span class="circle-titles" id="gpu-dot-title">GPU</span>
-                    </div>
-                    <div id="vram-dot" class="dot">
-                        <span id="vram_util_div" class="circle-values"></span>
-                        <span class="circle-titles" id="vram-dot-title">VRAM</span>
-                    </div>
-                </div>
-                <div class="fan-rectangle" id="fan-rectangle">
-                    <div class="fan" id="sys-fan-container">
-                    </div>
-                    <div class="fan" id="gpu-fan-container">
-                    </div>
-                </div>
-                <div class="temp-wrapper">
-                    <div class="pwr-rectangle" id="pwr-rectangle">
-                        <div class="mini-box-title">Power draw</div>
-                        <div class="mini-box-title">CPU:</div>
-                        <div id="cpu-pwr-div" class="mini-box-values"></div>
-                        <div id="initial-gpu-pwr-container">
-                            <div class="mini-box-title" style="padding-top: 30px;">GPU:</div>
-                            <div id="gpu-pwr-div" class="mini-box-values"></div>
-                        </div>
-                    </div>
-                    <div class="temp-rectangle" id="temp-rectangle">
-                        <div class="mini-box-title">Temps</div>
-                        <div class="mini-box-title">CPU:</div>
-                        <div id="cpu-temp-div" class="mini-box-values"></div>
-                        <div id="initial-gpu-temp-container">
-                            <div class="mini-box-title" style="padding-top: 30px;" id="gpu-temp-title">GPU:</div>
-                            <div id="gpu-temp-div" class="mini-box-values"></div>
-                        </div>
-                    </div>
-                </div>
+            <div class="box-titles">System info</div>
+            <div class="system-box" id="system-box">
             </div>
+            <button id="shut-btn" class="shut-button"><i class="fa fa-power-off fa-2x"></i></button>
+            <button id="restart-btn" class="restart-button"><i class="fa fa-refresh fa-2x"></i></button>
+            <a href="/settings"><button class="settings-btn"><i class="fa fa-cog fa-2x" aria-hidden="true"></i></button></a>
         </div>
-        <div class="rectangle2">
+        <div class="rectangle">
             <div class="storage-title-container">
                 <span class="box-titles" style="padding-bottom: 20px; margin-right: 10px;">Storage</span>
                 <span>
@@ -102,13 +61,54 @@
             <div class="storage-box-wrapper" id="storage-box-wrapper">
             </div>
         </div>
-        <div class="rectangle3">
-            <div class="box-titles">System info</div>
-            <div class="system-box" id="system-box">
+        <div class="rectangle">
+            <div class="resources-container">
+                <div class="box-titles">Resources</div>
+                <div class="resources-circles">
+                    <div id="dot" class="dot">
+                        <span id="cpu_util_div" class="circle-values"></span>
+                        <span class="circle-titles">CPU</span>
+                    </div>
+                    <div id="ram-dot" class="dot">
+                        <span id="ram_util_div" class="circle-values"></span>
+                        <span class="circle-titles">RAM</span>
+                    </div>
+                    <div id="gpu-dot" class="dot">
+                        <span id="gpu_util_div" class="circle-values"></span>
+                        <span class="circle-titles" id="gpu-dot-title">GPU</span>
+                    </div>
+                    <div id="vram-dot" class="dot">
+                        <span id="vram_util_div" class="circle-values"></span>
+                        <span class="circle-titles" id="vram-dot-title">VRAM</span>
+                    </div>
+                </div>
+                <div class="fan-rectangle" id="fan-rectangle">
+                    <div class="fan" id="sys-fan-container">
+                    </div>
+                    <div class="fan" id="gpu-fan-container">
+                    </div>
+                </div>
+                <div class="temp-wrapper">
+                    <span class="temp-rectangle" id="pwr-rectangle">
+                        <div class="mini-box-title">Power draw</div>
+                        <div class="mini-box-title">CPU:</div>
+                        <div id="cpu-pwr-div" class="mini-box-values"></div>
+                        <div id="initial-gpu-pwr-container">
+                            <div class="mini-box-title" style="padding-top: 30px;">GPU:</div>
+                            <div id="gpu-pwr-div" class="mini-box-values"></div>
+                        </div>
+                    </span>
+                    <span class="temp-rectangle" id="temp-rectangle">
+                        <div class="mini-box-title">Temps</div>
+                        <div class="mini-box-title">CPU:</div>
+                        <div id="cpu-temp-div" class="mini-box-values"></div>
+                        <div id="initial-gpu-temp-container">
+                            <div class="mini-box-title" style="padding-top: 30px;" id="gpu-temp-title">GPU:</div>
+                            <div id="gpu-temp-div" class="mini-box-values"></div>
+                        </div>
+                    </span>
+                </div>
             </div>
-            <button id="shut-btn" class="shut-button"><i class="fa fa-power-off fa-2x"></i></button>
-            <button id="restart-btn" class="restart-button"><i class="fa fa-refresh fa-2x"></i></button>
-            <a href="/settings"><button class="settings-btn"><i class="fa fa-cog fa-2x" aria-hidden="true"></i></button></a>
         </div>
     </div>
 </body>

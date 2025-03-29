@@ -2,26 +2,26 @@
     background-color: rgb(31, 31, 31);
     font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
-
 #wrapper {
-    min-width: 550;
-    padding-top: 40px;
+    min-width: 570px;
+    padding-top: 20px;
     padding-bottom: 5px;
     align-content: center;
+    display: flex;
+    gap: 20px;
 }
 .body::-webkit-scrollbar {
     display: none;
 }
 .rectangle {
-    width: 550px;
+    width: 100%;
     height: 540px;
     background: rgb(48, 48, 48);
     border-radius: 16px;
     padding: 14px;
-    float: right;
     position: relative;
-    margin-right: 10px;
-    margin-bottom: 5px;
+    display: inline-block;
+    min-width: 400px;
 }
 .resources-container{
     color: white;
@@ -39,6 +39,10 @@
     position: relative;
     margin: auto;
     top: 10px;
+    height: 250px;
+    white-space: nowrap;
+    display: flex;
+    gap: 10px;
 }
 .disk-na{
     color: grey;
@@ -49,8 +53,7 @@
     font-size: 3rem;
 }
 .dot {
-    width: 125px;
-    height: 125px;
+    width: 135px;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -58,9 +61,10 @@
     justify-content: center;
     position: relative;
     margin: auto;
+    aspect-ratio: 1 / 1;
 }
 .circle-values{
-    font-size: 35px;
+    font-size: xx-large;
     text-align: center;
     font-weight: bold;
 }
@@ -72,10 +76,10 @@
 .resources-circles{
     display: flex;
     position: relative;
-    width: 98.5%;
+    width: 100%;
 }
 .temp-rectangle{
-    width: 44%;
+    width: 100%;
     height: 210px;
     background: rgb(31, 31, 31);
     position:relative;
@@ -83,24 +87,8 @@
     padding: 10px;
     overflow-y: scroll;
     display: inline-block;
-    margin-right: 5px;
 }
 .temp-rectangle::-webkit-scrollbar {
-    display: none;
-}
-.pwr-rectangle{
-    width: 44%;
-    height: 210px;
-    background: rgb(31, 31, 31);
-    position:relative;
-    border-radius: 12px;
-    padding: 10px;
-    overflow-y: scroll;
-    display: inline-block;
-    margin-right: 10px;
-    white-space: nowrap;
-}
-.pwr-rectangle::-webkit-scrollbar {
     display: none;
 }
 .mini-box-title{
@@ -114,17 +102,6 @@
     padding: bottom 5px;
     position: absolute;
     left: 20px;
-}
-.rectangle2{
-    width: 595;
-    height: 540;
-    background: rgb(48, 48, 48);
-    position: relative;
-    border-radius: 16px;
-    padding: 14px;
-    float:right;
-    margin-right: 30px;
-    margin-bottom: 5px;
 }
 .raid-box{
     width: 96%;
@@ -244,18 +221,6 @@ progress::-moz-progress-bar {
     font-weight: normal;
     color: white;
     padding-left: 10px;
-}
-.rectangle3 {
-    width: 550;
-    height: 540;
-    background: rgb(48, 48, 48);
-    float: left;
-    position: relative;
-    border-radius: 16px;
-    padding: 14px;
-    margin-right: 30px;
-    margin-bottom: 5px;
-    margin-left: 20px;
 }
 .sysinfo-values {
     padding-bottom: 5px;
@@ -379,15 +344,17 @@ progress::-moz-progress-bar {
     justify-content: center;
     align-items: center;
     margin: auto;
+    height: 56px;
 }
 .links_wrapper {
     width: 95%;
     background-color: rgb(48, 48, 48);
-    padding: 5px;
     border-radius: 10px;
-    margin-left: 20px;
     margin-right: 10px;
-    float: left;
+    white-space: nowrap;
+    overflow: scroll;
+    height: 100%;
+    padding-left: 15px;
 }
 .link-grid-container {
     border: 2px solid;
@@ -464,19 +431,22 @@ th, td,tr, table {
     cursor: pointer;
 }
 .link{
-    color: rgb(255, 255, 255);
+    position: relative;
+    color: white;
     text-decoration: none;
     display: inline-block;
     font-weight: bold;
     margin-right: 20px;
-}
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);}
 .link:hover{
     color: #00b7ff;
 }
 .link:after{
     content: '';
     display: inline-block;
-    position: relative;
+    position: absolute;
     width: 100%;
     transform: scaleX(0);
     height: 3px;
@@ -624,11 +594,11 @@ th, td,tr, table {
 .fan-rectangle{
     height: 14%;
     background-color: rgb(31, 31, 31);
-    border-radius: 8px;
+    border-radius: 12px;
     overflow-x: scroll;
     position: relative;
     margin-top: 10px;
-    width: 98.5%;
+    width: 100%;
 }
 .fan-rectangle::-webkit-scrollbar {
     display: none;
