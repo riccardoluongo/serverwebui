@@ -21,6 +21,10 @@ function updateCpuDiv() {
                 } else {
                     let cpu_usage = data.cpu_util;
                     let str_cpu_usage = String(data.cpu_util);
+
+                    if(cpu_usage==100){
+                        cpu_usage = Math.trunc(cpu_usage);
+                    }
                     document.getElementById("cpu_util_div").innerText = cpu_usage + "%";
 
                     if (data.cpu_util < 60) {
@@ -47,6 +51,10 @@ function updateGpuDiv() {
         .then((data) => {
             if (data) {
                 if (data.length == 1) {
+                    if(data[0]==100){
+                        data[0] = Math.trunc(data[0]);
+                    }
+
                     document.getElementById("gpu_util_div").innerText = data[0] + "%";
 
                     if (data[0] < 60) {
@@ -162,6 +170,10 @@ function updateRamDiv() {
                     changecircle("red", "ram-dot", "0")
                 } else {
                     let ram_usage = data.ram_util;
+                    if(ram_usage==100){
+                        ram_usage = Math.trunc(ram_usage);
+                    }
+
                     let str_ram_usage = String(data.ram_util);
                     document.getElementById("ram_util_div").innerText = ram_usage + "%";
 
@@ -189,6 +201,9 @@ function updateVramDiv() {
         .then((data) => {
             if (data) {
                 if (data.length == 1) {
+                    if(data[0]==100){
+                        data[0] = Math.trunc(data[0]);
+                    }
                     document.getElementById("vram_util_div").innerText = data[0] + "%";
 
                     if (data[0] < 60) {
@@ -1209,4 +1224,4 @@ window.onload = function() {
     updateSystemFanDiv();
     updateGpuFanDiv();
 };
-//By Riccardo Luongo, 19/01/2024
+//By Riccardo Luongo, 29/03/2025
