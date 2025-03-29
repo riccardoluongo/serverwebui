@@ -784,7 +784,7 @@ function updateSystemFanDiv() {
     fetch("/system_fans_speed")
         .then(function(response) {
             if (!response.ok) {
-                console.log("Unable to retrieve system fans");
+                alert("Unable to retrieve system fans");
             } else {
                 return response.json();
             }
