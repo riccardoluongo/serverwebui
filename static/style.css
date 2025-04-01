@@ -64,14 +64,14 @@
     aspect-ratio: 1 / 1;
 }
 .circle-values{
-    font-size: xx-large;
+    font-size: 25px;
     text-align: center;
     font-weight: bold;
 }
 .circle-titles{
     position: absolute;
     font-size: 20px;
-    bottom: 20;
+    bottom: 15px;
 }
 .resources-circles{
     display: flex;
@@ -104,7 +104,7 @@
     left: 20px;
 }
 .raid-box{
-    width: 96%;
+    width: 95%;
     height: 53%;
     background: rgb(31, 31, 31);
     bottom: 0.5rem;
@@ -358,13 +358,14 @@ progress::-moz-progress-bar {
 }
 .link-grid-container {
     border: 2px solid;
-    width: 50%;
+    width: 55%;
     height: 90%;
     margin: auto;
     background-color: rgb(48, 48, 48);
     overflow: scroll;
     border-radius: 10px;
     padding: 14px;
+    min-width: 535px;
 }
 .link-grid-container::-webkit-scrollbar{
     display: none;
@@ -561,6 +562,7 @@ th, td,tr, table {
     margin: auto;
     height: 85%;
     background-color: rgb(31, 31, 31);
+    min-height: 550px;
 }
 .settings-btn{
     height: 50;
@@ -669,6 +671,8 @@ th, td,tr, table {
 .storage-title-container{
     display: flex;
     height: 3rem;
+    white-space: nowrap;
+    overflow: scroll;
 }
 .radio-form{
     margin: 0;
@@ -693,7 +697,8 @@ th, td,tr, table {
     top: 10px;
     margin: auto;
     width: 90%;
-    min-width: 500px
+    min-width: 500px;
+    display: table;
 }
 .edit-btn{
     background-color: rgb(31, 31, 31);

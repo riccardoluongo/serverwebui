@@ -1,5 +1,5 @@
 function changecircle(color, id, value) {
-    const duration=1000;
+    const duration=500;
     const element = document.getElementById(id);
     const startTime = performance.now();
 
@@ -9,7 +9,7 @@ function changecircle(color, id, value) {
                 return 0;
             }
 
-        const match = parts[1].match(/(\d+)%/);
+        const match = backgroundStr[1].match(/(\d+)%/);
         return match ? parseInt(match[1], 10) : 0;
     }
     
@@ -1211,6 +1211,10 @@ function initializeStorageInfo() {
     updateStorageInfo();
 }
 
+function poolsExist(){
+    //TODO add N/A text when no zpool exists
+}
+
 window.onload = function() {
     disk_interval_set = false;
     poolinfo_interval_set = false;
@@ -1221,7 +1225,9 @@ window.onload = function() {
     restart_btn.addEventListener("click", reboot);
     shut_btn.addEventListener("click", shutdown);
 
-    for (let i = 0, length = radios.length; i < length; i++) {
+
+
+    for (let i = 0, length = radios.length; i < length; i++) { //is this really needed??
         if (radios[i].checked) {
             var value = radios[i].value;
             if (value == "storage") {
@@ -1250,4 +1256,4 @@ window.onload = function() {
     updateSystemFanDiv();
     updateGpuFanDiv();
 };
-//By Riccardo Luongo, 29/03/2025
+//By Riccardo Luongo, 01/04/2025

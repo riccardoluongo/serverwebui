@@ -280,7 +280,7 @@ def delete_link_url():
 @app.route('/pools_name')
 def get_pools_name():
     try:
-        return zfscheck.poolname()
+        return jsonify(zfscheck.poolname())
     except Exception as e:
         log.error(f"Couldn't retrieve the ZFS pools in the system: {e}")
         return Response(
@@ -457,4 +457,4 @@ def get_storage_usage():
         )
     
 log.info("App started succesfully")
-#By Riccardo Luongo, 27/12/2024
+#By Riccardo Luongo, 01/04/2025
