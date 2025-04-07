@@ -26,7 +26,7 @@ function changecircle(color, id, value) {
         }
     }
 
-    let startValue = getCurrentValue(element);
+    const startValue = getCurrentValue(element);
     requestAnimationFrame(update);
 }
 
@@ -45,8 +45,8 @@ function updateCpuDiv() {
                     document.getElementById("cpu_util_div").innerText = "N/A";
                     changecircle("red", "cpu-dot", "0")
                 } else {
-                    let cpu_usage = data.cpu_util;
-                    let str_cpu_usage = String(data.cpu_util);
+                    const cpu_usage = data.cpu_util;
+                    const str_cpu_usage = String(data.cpu_util);
 
                     if(cpu_usage==100){
                         cpu_usage = Math.trunc(cpu_usage);
@@ -200,7 +200,7 @@ function updateRamDiv() {
                         ram_usage = Math.trunc(ram_usage);
                     }
 
-                    let str_ram_usage = String(data.ram_util);
+                    const str_ram_usage = String(data.ram_util);
                     document.getElementById("ram_util_div").innerText = ram_usage + "%";
 
                     if (ram_usage < 60) {
@@ -342,9 +342,8 @@ function updateCpuTempDiv() {
         })
         .then((data) => {
             if (data) {
-                let cpu_temperature = data.cpu_temp;
-                document.getElementById("cpu-temp-div").innerText =
-                    cpu_temperature + "°C";
+                const cpu_temperature = data.cpu_temp;
+                document.getElementById("cpu-temp-div").innerText = cpu_temperature + "°C";
                 document.getElementById("cpu-temp-div").style.color = "white";
             }
         });
@@ -362,10 +361,8 @@ function updateGpuTempDiv() {
         })
         .then((data) => {
             if (data) {
-                let temp_rectangle = document.getElementById("temp-rectangle");
-                let initial_temp_container = document.getElementById(
-                    "initial-gpu-temp-container"
-                );
+                const temp_rectangle = document.getElementById("temp-rectangle");
+                const initial_temp_container = document.getElementById("initial-gpu-temp-container");
 
                 while (initial_temp_container.firstChild) {
                     initial_temp_container.removeChild(initial_temp_container.firstChild);
@@ -375,28 +372,22 @@ function updateGpuTempDiv() {
                     document.getElementById("gpus-temp-container").remove();
                 }
 
-                let gpus_temp_container = temp_rectangle.appendChild(
-                    document.createElement("div")
-                );
+                const gpus_temp_container = temp_rectangle.appendChild(document.createElement("div"));
                 gpus_temp_container.setAttribute("id", "gpus-temp-container");
 
                 while (gpus_temp_container.firstChild) {
                     gpus_temp_container.removeChild(gpus_temp_container.firstChild);
                 }
 
-                for (let gpu in data) {
-                    let gpu_temp_title = gpus_temp_container.appendChild(
-                        document.createElement("div")
-                    );
+                for (const gpu in data) {
+                    const gpu_temp_title = gpus_temp_container.appendChild(document.createElement("div"));
                     setAttributes(gpu_temp_title, {
                         class: "mini-box-title",
                         style: "padding-top: 30px;",
                     });
                     gpu_temp_title.innerText = `GPU${gpu}:`;
 
-                    let gpu_temp_value = gpus_temp_container.appendChild(
-                        document.createElement("div")
-                    );
+                    const gpu_temp_value = gpus_temp_container.appendChild(document.createElement("div"));
                     setAttributes(gpu_temp_value, {
                         class: "mini-box-values",
                         style: "color: white;",
@@ -419,7 +410,7 @@ function updateCpuPwrDiv() {
         })
         .then((data) => {
             if (data) {
-                let cpu_power = data.cpu_pwr;
+                const cpu_power = data.cpu_pwr;
                 document.getElementById("cpu-pwr-div").innerText = cpu_power + "W";
                 document.getElementById("cpu-pwr-div").style.color = "white";
             }
@@ -438,10 +429,8 @@ function updateGpuPwrDiv() {
         })
         .then((data) => {
             if (data) {
-                let pwr_rectangle = document.getElementById("pwr-rectangle");
-                let initial_pwr_container = document.getElementById(
-                    "initial-gpu-pwr-container"
-                );
+                const pwr_rectangle = document.getElementById("pwr-rectangle");
+                const initial_pwr_container = document.getElementById("initial-gpu-pwr-container");
 
                 while (initial_pwr_container.firstChild) {
                     initial_pwr_container.removeChild(initial_pwr_container.firstChild);
@@ -451,28 +440,22 @@ function updateGpuPwrDiv() {
                     document.getElementById("gpus-pwr-container").remove();
                 }
 
-                let gpus_pwr_container = pwr_rectangle.appendChild(
-                    document.createElement("div")
-                );
+                const gpus_pwr_container = pwr_rectangle.appendChild(document.createElement("div"));
                 gpus_pwr_container.setAttribute("id", "gpus-pwr-container");
 
                 while (gpus_pwr_container.firstChild) {
                     gpus_pwr_container.removeChild(gpus_pwr_container.firstChild);
                 }
 
-                for (let gpu in data) {
-                    let gpu_pwr_title = gpus_pwr_container.appendChild(
-                        document.createElement("div")
-                    );
+                for (const gpu in data) {
+                    const gpu_pwr_title = gpus_pwr_container.appendChild(document.createElement("div"));
                     setAttributes(gpu_pwr_title, {
                         class: "mini-box-title",
                         style: "padding-top: 30px;",
                     });
                     gpu_pwr_title.innerText = `GPU${gpu}:`;
 
-                    let gpu_pwr_value = gpus_pwr_container.appendChild(
-                        document.createElement("div")
-                    );
+                    const gpu_pwr_value = gpus_pwr_container.appendChild(document.createElement("div"));
                     setAttributes(gpu_pwr_value, {
                         class: "mini-box-values",
                         style: "color: white;",
@@ -484,7 +467,8 @@ function updateGpuPwrDiv() {
 }
 
 function UpdatePoolInfoDiv() {
-    let drop_value = document.getElementById("pool-selector").value;
+    const drop_value = document.getElementById("pool-selector").value;
+
     fetch(`/pool_stats?pool=${drop_value}`)
         .then(function(response) {
             if (!response.ok) {
@@ -512,7 +496,7 @@ function UpdatePoolInfoDiv() {
                 document.getElementById("free-space").innerText = `${data["free"]}`;
                 document.getElementById("%-used").innerText = `${data["capacity"]} used`;
 
-                let perc_used = data["capacity"].slice(0, -1);
+                const perc_used = data["capacity"].slice(0, -1);
                 document.getElementById("storage-bar").setAttribute("value", perc_used);
             }
         });
@@ -522,13 +506,13 @@ function updateSysInfo(gpuIndex) {
     fetch("/sysinfo")
         .then(function(response) {
             if (!response.ok) {
-                let sysInfoBox = document.getElementById("system-box");
+                const sysInfoBox = document.getElementById("system-box");
 
                 while(sysInfoBox.firstChild){
                     sysInfoBox.removeChild(sysInfoBox.firstChild);
                 }
 
-                let err_div = sysInfoBox.appendChild(document.createElement("span"));
+                const err_div = sysInfoBox.appendChild(document.createElement("span"));
                 err_div.setAttribute("class", "box-na");
                 err_div.innerText = "N/A";
             } else {
@@ -644,12 +628,12 @@ function reboot() {
 }
 
 function UpdateTimeDiv() {
-    let currenttd = new Date();
+    const currenttd = new Date();
     let currenth = currenttd.getHours();
     let currentmin = currenttd.getMinutes();
     let currentday = currenttd.getDate();
     let currentmonth = currenttd.getMonth() + 1;
-    let currentyear = currenttd.getFullYear();
+    const currentyear = currenttd.getFullYear();
 
     if (currentmin < 10) {
         currentmin = "0" + currentmin;
@@ -688,14 +672,16 @@ function UpdateLinksDiv() {
 
                 if (data.length > 0) {
                     for (const property in data) {
-                        let link = links_wrapper.appendChild(document.createElement("a"));
+                        const link = links_wrapper.appendChild(document.createElement("a"));
+
                         link.setAttribute("id", `link${data[property][0]}`);
                         link.setAttribute("href", `${data[property][2]}`);
                         link.setAttribute("class", "link");
                         link.appendChild(document.createTextNode(`${data[property][1]}`));
                     }
                 } else {
-                    let link = links_wrapper.appendChild(document.createElement("a"));
+                    const link = links_wrapper.appendChild(document.createElement("a"));
+
                     link.setAttribute("href", `/edit_links`);
                     link.setAttribute("class", "link");
                     link.appendChild(document.createTextNode(`+ Create link`));
@@ -706,67 +692,54 @@ function UpdateLinksDiv() {
 
 function UpdateDropPools() {
     fetch("/pools_name")
-        .then((response) => response.json())
-        .then((data) => {
-            const pools_drop = document.getElementById("pool-selector");
-            for (const pool in data) {
-                let pools_buttons = pools_drop.appendChild(
-                    document.createElement("option")
-                );
-                pools_buttons.setAttribute("value", `${data[pool]}`);
-                pools_buttons.appendChild(document.createTextNode(`${data[pool]}`));
-            }
-            pools_drop.setAttribute("value", data[0])
-            FetchDisks()
-            if (disk_interval_set == false) {
-                disk_interval = setInterval(() => FetchDisks(), 10000);
-                disk_interval_set = true;
-            }
-            sel_pool.addEventListener("change", FetchDisks);
-        });
+    .then((response) => response.json())
+    .then((data) => {
+        const pools_drop = document.getElementById("pool-selector");
+
+        for (const pool in data) {
+            const pools_buttons = pools_drop.appendChild(document.createElement("option"));
+            pools_buttons.setAttribute("value", `${data[pool]}`);
+            pools_buttons.appendChild(document.createTextNode(`${data[pool]}`));
+        }
+
+        pools_drop.setAttribute("value", data[0]);
+        
+        FetchDisks();
+        if (disk_interval_set == false) {
+            disk_interval = setInterval(() => FetchDisks(), 10000);
+            disk_interval_set = true;
+        }
+        sel_pool.addEventListener("change", FetchDisks);
+    })
 }
 
 function FetchDisks() {
-    let drop_value = document.getElementById("pool-selector").value;
+    const drop_value = document.getElementById("pool-selector").value;
+
     fetch(`/get_disks?pool=${drop_value}`)
-        .then(function(response) {
-            if (!response.ok) {
-                let box = document.getElementById("raid-box");
+    .then((response) => response.json())
+    .then((data) => {
+        const box = document.getElementById("raid-box");
 
-                while (box.firstChild) {
-                    box.removeChild(box.firstChild);
-                }
+        while (box.firstChild) {
+            box.removeChild(box.firstChild);
+        }
 
-                na_text = box.appendChild(document.createElement("div"));
-                na_text.setAttribute("id", "na-raid");
-                na_text.classList.add("box-na");
-                na_text.innerText = "N/A";
-            } else {
-                return response.json();
-            }
-        })
-        .then((data) => {
-            if (data) {
-                let box = document.getElementById("raid-box");
+        for (line in data) {
+            const box_text = box.appendChild(document.createElement("div"));
+            box_text.setAttribute("id", `l${line}`);
+            box_text.classList.add("raid-text");
+            box_text.innerText = data[line];
+        }
 
-                while (box.firstChild) {
-                    box.removeChild(box.firstChild);
-                }
-
-                for (line in data) {
-                    let box_text = box.appendChild(document.createElement("div"));
-                    box_text.setAttribute("id", `l${line}`);
-                    box_text.classList.add("raid-text");
-                    box_text.innerText = data[line];
-                }
-            }
-            UpdatePoolInfoDiv();
-            if (poolinfo_interval_set == false) {
-                poolinfo_interval = setInterval(() => UpdatePoolInfoDiv(), 10000);
-                poolinfo_interval_set = true;
-            }
-        });
+        UpdatePoolInfoDiv();
+        if (poolinfo_interval_set == false) {
+            poolinfo_interval = setInterval(() => UpdatePoolInfoDiv(), 10000);
+            poolinfo_interval_set = true;
+        }
+    })
 }
+
 
 function setRefreshRate() {
     fetch("/get_settings")
@@ -797,51 +770,41 @@ function updateGpuFanDiv() {
         .then((data) => {
             if (data) {
                 if (data.length == 0) {
-                    let gpu_fan_container = document.getElementById('gpu-fan-container');
+                    const gpu_fan_container = document.getElementById('gpu-fan-container');
 
                     while (gpu_fan_container.firstChild) {
                         gpu_fan_container.removeChild(gpu_fan_container.firstChild);
                     }
 
-                    let gpu_fan_icon = gpu_fan_container.appendChild(document.createElement('i'))
+                    const gpu_fan_icon = gpu_fan_container.appendChild(document.createElement('i'))
                     gpu_fan_icon.setAttribute("class", "fa-solid fa-fan fan-icon fa-2xl");
 
-                    let gpu_fan_title_span = gpu_fan_container.appendChild(
-                        document.createElement("span")
-                    );
+                    const gpu_fan_title_span = gpu_fan_container.appendChild(document.createElement("span"));
                     gpu_fan_title_span.setAttribute("class", "fan-title");
                     gpu_fan_title_span.innerText = ` GPU: `;
 
-                    let gpu_fan_value_span = gpu_fan_container.appendChild(
-                        document.createElement("span")
-                    );
+                    const gpu_fan_value_span = gpu_fan_container.appendChild(document.createElement("span"));
                     gpu_fan_value_span.setAttribute("class", "fan-value");
                     gpu_fan_value_span.innerText = `No fan available.`;
                 }
                 if (data.length > 0) {
-                    let gpu_fan_container = document.getElementById('gpu-fan-container');
+                    const gpu_fan_container = document.getElementById('gpu-fan-container');
 
                     while (gpu_fan_container.firstChild) {
                         gpu_fan_container.removeChild(gpu_fan_container.firstChild);
                     }
 
-                    for (let gpu in data) {
-                        let fan_wrapper = gpu_fan_container.appendChild(
-                            document.createElement("span")
-                        );
+                    for (const gpu in data) {
+                        const fan_wrapper = gpu_fan_container.appendChild(document.createElement("span"));
 
-                        let fan_icon = fan_wrapper.appendChild(document.createElement("i"));
+                        const fan_icon = fan_wrapper.appendChild(document.createElement("i"));
                         fan_icon.setAttribute("class", "fa-solid fa-fan fan-icon fa-2xl");
 
-                        let gpu_title_span = fan_wrapper.appendChild(
-                            document.createElement("span")
-                        );
+                        const gpu_title_span = fan_wrapper.appendChild(document.createElement("span"));
                         gpu_title_span.setAttribute("class", "fan-title");
                         gpu_title_span.innerText = ` GPU${gpu}: `;
 
-                        let gpu_value_span = fan_wrapper.appendChild(
-                            document.createElement("span")
-                        );
+                        const gpu_value_span = fan_wrapper.appendChild(document.createElement("span"));
                         gpu_value_span.setAttribute("class", "fan-value");
                         gpu_value_span.innerText = `${data[gpu]}%`;
                     }
@@ -862,22 +825,22 @@ function updateSystemFanDiv() {
         .then((data) => {
             if (data) {
                 if (data[0].length == 0) {
-                    let cpu_fan_container = document.getElementById('sys-fan-container');
+                    const cpu_fan_container = document.getElementById('sys-fan-container');
 
                     while (cpu_fan_container.firstChild) {
                         cpu_fan_container.removeChild(cpu_fan_container.firstChild);
                     }
 
-                    let cpu_fan_icon = cpu_fan_container.appendChild(document.createElement('i'))
+                    const cpu_fan_icon = cpu_fan_container.appendChild(document.createElement('i'))
                     cpu_fan_icon.setAttribute("class", "fa-solid fa-fan fan-icon fa-2xl");
 
-                    let cpu_fan_title_span = cpu_fan_container.appendChild(
+                    const cpu_fan_title_span = cpu_fan_container.appendChild(
                         document.createElement("span")
                     );
                     cpu_fan_title_span.setAttribute("class", "fan-title");
                     cpu_fan_title_span.innerText = ` SYS: `;
 
-                    let cpu_fan_value_span = cpu_fan_container.appendChild(
+                    const cpu_fan_value_span = cpu_fan_container.appendChild(
                         document.createElement("span")
                     );
                     cpu_fan_value_span.setAttribute("class", "fan-value");
@@ -885,7 +848,7 @@ function updateSystemFanDiv() {
                 }
                 if (data[0].length > 0) {
                     let i = -1;
-                    let cpu_fan_container = document.getElementById('cpu-fan-container');
+                    const cpu_fan_container = document.getElementById('cpu-fan-container');
 
                     while (cpu_fan_container.firstChild) {
                         cpu_fan_container.removeChild(cpu_fan_container.firstChild);
@@ -893,21 +856,15 @@ function updateSystemFanDiv() {
 
                     for (fan in data[0]) {
                         i++;
-                        let fan_wrapper = cpu_fan_container.appendChild(
-                            document.createElement("span")
-                        );
+                        const fan_wrapper = cpu_fan_container.appendChild(document.createElement("span"));
 
-                        let fan_icon = fan_wrapper.appendChild(
-                            document.createElement("i")
-                        );
+                        const fan_icon = fan_wrapper.appendChild(document.createElement("i"));
                         fan_icon.setAttribute("class", "fa-solid fa-fan fan-icon fa-2xl");
-                        let fan_title = fan_wrapper.appendChild(
-                            document.createElement("span")
-                        );
+
+                        const fan_title = fan_wrapper.appendChild(document.createElement("span"));
                         fan_title.setAttribute("class", "fan-title");
-                        let fan_value = fan_wrapper.appendChild(
-                            document.createElement("span")
-                        );
+
+                        const fan_value = fan_wrapper.appendChild(document.createElement("span"));
                         fan_value.setAttribute("class", "fan-value");
 
                         if (data[0][fan][0] == "") {
@@ -937,26 +894,22 @@ function showSmart() {
         storageInfo_interval_set = false;
     }
 
-    let storage_box_wrapper = document.getElementById("storage-box-wrapper");
+    const storage_box_wrapper = document.getElementById("storage-box-wrapper");
     while (storage_box_wrapper.firstChild) {
         storage_box_wrapper.removeChild(storage_box_wrapper.firstChild);
     }
 
     updateDiskSelector();
 
-    let disk_drop = document.getElementById("disk-selector");
+    const disk_drop = document.getElementById("disk-selector");
     disk_drop.addEventListener("change", updateSmartDiv);
 }
 
 function updateDiskSelector() {
-    let storage_box_wrapper = document.getElementById("storage-box-wrapper");
+    const storage_box_wrapper = document.getElementById("storage-box-wrapper");
 
-    let disk_sel_div = storage_box_wrapper.appendChild(
-        document.createElement("div")
-    );
-    let disk_selector = disk_sel_div.appendChild(
-        document.createElement("select")
-    );
+    const disk_sel_div = storage_box_wrapper.appendChild(document.createElement("div"));
+    const disk_selector = disk_sel_div.appendChild(document.createElement("select"));
     setAttributes(disk_selector, {
         id: "disk-selector",
         class: "pool-selector",
@@ -967,45 +920,42 @@ function updateDiskSelector() {
     fetch("/get_drives")
         .then((response) => response.json())
         .then((data) => {
-            for (let drive in data.sort()) {
-                let drives_buttons = disk_selector.appendChild(
-                    document.createElement("option")
-                );
+            for (const drive in data.sort()) {
+                const drives_buttons = disk_selector.appendChild(document.createElement("option"));
                 drives_buttons.value = data[drive];
                 drives_buttons.innerText = `${data[drive]}`;
-                drives_buttons.setAttribute("id", drive)
+                drives_buttons.setAttribute("id", drive);
             }
-            disk_selector.setAttribute("value", data[0])
+            disk_selector.setAttribute("value", data[0]);
             updateSmartDiv();
         });
 }
 
 function updateSmartDiv() {
-    let storage_box_wrapper = document.getElementById("storage-box-wrapper");
+    const storage_box_wrapper = document.getElementById("storage-box-wrapper");
 
     if (document.getElementById("smart-table") != null) {
         document.getElementById("smart-table").remove();
     }
-    let smart_table = storage_box_wrapper.appendChild(
-        document.createElement("table")
-    );
+    const smart_table = storage_box_wrapper.appendChild(document.createElement("table"));
     setAttributes(smart_table, {
         class: "smart-table",
         id: "smart-table",
     });
 
-    drive = document.getElementById("disk-selector").value;
+    const drive = document.getElementById("disk-selector").value;
+
     fetch(`/smart_data?drive=${drive}`)
         .then(function(response) {
             if (!response.ok) {
-                let box = document.getElementById("smart-table");
-                let box_wrapper = document.getElementById("storage-box-wrapper");
+                const box = document.getElementById("smart-table");
+                const box_wrapper = document.getElementById("storage-box-wrapper");
 
                 if (box) {
                     box.remove();
                 }
 
-                na_text = box_wrapper.appendChild(document.createElement("div"));
+                const na_text = box_wrapper.appendChild(document.createElement("div"));
                 na_text.classList.add("smart-na");
                 na_text.innerText = "N/A";
             } else {
@@ -1015,81 +965,81 @@ function updateSmartDiv() {
         .then((data) => {
             if (data) {
                 if (data[0] == "nvme") {
-                    let title_row = smart_table.appendChild(document.createElement("tr"));
+                    const title_row = smart_table.appendChild(document.createElement("tr"));
 
-                    let name_th = title_row.appendChild(document.createElement("th"));
+                    const name_th = title_row.appendChild(document.createElement("th"));
                     name_th.innerText = "NAME";
 
-                    let value_th = title_row.appendChild(document.createElement("th"));
+                    const value_th = title_row.appendChild(document.createElement("th"));
                     value_th.innerText = "VALUE";
 
-                    title_row_children = title_row.children;
+                    const title_row_children = title_row.children;
 
                     for (let i = 0; i < title_row_children.length; i++) {
                         const child = title_row_children[i];
                         child.setAttribute("class", "smart-th");
                     }
 
-                    for (let [key, value] of Object.entries(data[1])) {
-                        let attr_row = smart_table.appendChild(document.createElement("tr"));
+                    for (const [key, value] of Object.entries(data[1])) {
+                        const attr_row = smart_table.appendChild(document.createElement("tr"));
                         attr_row.setAttribute("class", "smart-tr");
 
-                        let name_td = attr_row.appendChild(document.createElement("td"));
+                        const name_td = attr_row.appendChild(document.createElement("td"));
                         name_td.innerText = key;
 
-                        let value_td = attr_row.appendChild(document.createElement("td"));
+                        const value_td = attr_row.appendChild(document.createElement("td"));
                         value_td.innerText = value;
                     }
                 } else {
-                    let title_row = smart_table.appendChild(document.createElement("tr"));
+                    const title_row = smart_table.appendChild(document.createElement("tr"));
 
-                    let id_th = title_row.appendChild(document.createElement("th"));
+                    const id_th = title_row.appendChild(document.createElement("th"));
                     id_th.innerText = "ID";
 
-                    let name_th = title_row.appendChild(document.createElement("th"));
+                    const name_th = title_row.appendChild(document.createElement("th"));
                     name_th.innerText = "NAME";
 
-                    let value_th = title_row.appendChild(document.createElement("th"));
+                    const value_th = title_row.appendChild(document.createElement("th"));
                     value_th.innerText = "VALUE";
 
-                    let worst_th = title_row.appendChild(document.createElement("th"));
+                    const worst_th = title_row.appendChild(document.createElement("th"));
                     worst_th.innerText = "WORST";
 
-                    let thresh_th = title_row.appendChild(document.createElement("th"));
+                    const thresh_th = title_row.appendChild(document.createElement("th"));
                     thresh_th.innerText = "THRESH";
 
-                    let raw_value_th = title_row.appendChild(document.createElement("th"));
+                    const raw_value_th = title_row.appendChild(document.createElement("th"));
                     raw_value_th.innerText = "RAW VALUE";
 
-                    title_row_children = title_row.children;
+                    const title_row_children = title_row.children;
 
                     for (let i = 0; i < title_row_children.length; i++) {
                         const child = title_row_children[i];
                         child.setAttribute("class", "smart-th");
                     }
-                    for (let attr in data[1]["table"]) {
-                        let attr_row = smart_table.appendChild(document.createElement("tr"));
+                    for (const attr in data[1]["table"]) {
+                        const attr_row = smart_table.appendChild(document.createElement("tr"));
                         attr_row.setAttribute("class", "smart-tr");
 
-                        let id_td = attr_row.appendChild(document.createElement("td"));
+                        const id_td = attr_row.appendChild(document.createElement("td"));
                         id_td.innerText = data[1]["table"][attr]["id"];
 
-                        let name_td = attr_row.appendChild(document.createElement("td"));
+                        const name_td = attr_row.appendChild(document.createElement("td"));
                         name_td.innerText = data[1]["table"][attr]["name"];
 
-                        let value_td = attr_row.appendChild(document.createElement("td"));
+                        const value_td = attr_row.appendChild(document.createElement("td"));
                         value_td.innerText = data[1]["table"][attr]["value"];
 
-                        let worst_td = attr_row.appendChild(document.createElement("td"));
+                        const worst_td = attr_row.appendChild(document.createElement("td"));
                         worst_td.innerText = data[1]["table"][attr]["worst"];
 
-                        let thresh_td = attr_row.appendChild(document.createElement("td"));
+                        const thresh_td = attr_row.appendChild(document.createElement("td"));
                         thresh_td.innerText = data[1]["table"][attr]["thresh"];
 
-                        let raw_value_td = attr_row.appendChild(document.createElement("td"));
+                        const raw_value_td = attr_row.appendChild(document.createElement("td"));
                         raw_value_td.innerText = data[1]["table"][attr]["raw"]["value"];
 
-                        let row_children = attr_row.children;
+                        const row_children = attr_row.children;
 
                         for (let i = 0; i < row_children.length; i++) {
                             const child = row_children[i];
@@ -1105,7 +1055,7 @@ setRefreshRate();
 setInterval(() => UpdateTimeDiv(), 1000);
 
 function setAttributes(el, attrs) {
-    for (let key in attrs) {
+    for (const key in attrs) {
         el.setAttribute(key, attrs[key]);
     }
 }
@@ -1116,17 +1066,13 @@ function initializeZpoolInfo() {
         storageInfo_interval_set = false;
     }
 
-    let storage_box_wrapper = document.getElementById("storage-box-wrapper");
+    const storage_box_wrapper = document.getElementById("storage-box-wrapper");
     while (storage_box_wrapper.firstChild) {
         storage_box_wrapper.removeChild(storage_box_wrapper.firstChild);
     }
 
-    let pool_sel_div = storage_box_wrapper.appendChild(
-        document.createElement("div")
-    );
-    let pool_selector = pool_sel_div.appendChild(
-        document.createElement("select")
-    );
+    const pool_sel_div = storage_box_wrapper.appendChild(document.createElement("div"));
+    const pool_selector = pool_sel_div.appendChild(document.createElement("select"));
     setAttributes(pool_selector, {
         id: "pool-selector",
         class: "pool-selector",
@@ -1134,70 +1080,59 @@ function initializeZpoolInfo() {
         title: "Choose a ZFS pool",
     });
 
-    let pool_pre = storage_box_wrapper.appendChild(document.createElement("pre"));
-    let raid_box = pool_pre.appendChild(document.createElement("div"));
+    const pool_pre = storage_box_wrapper.appendChild(document.createElement("pre"));
+    const raid_box = pool_pre.appendChild(document.createElement("div"));
     setAttributes(raid_box, {
         class: "raid-box",
         id: "raid-box",
     });
 
-    let storage_box = storage_box_wrapper.appendChild(
-        document.createElement("div")
-    );
+    const storage_box = storage_box_wrapper.appendChild(document.createElement("div"));
     storage_box.setAttribute("class", "storage-box");
 
-    let pool_status_wrapper = storage_box.appendChild(
-        document.createElement("div")
-    );
+    const pool_status_wrapper = storage_box.appendChild(document.createElement("div"));
     pool_status_wrapper.setAttribute("class", "pool-info-container");
-    let status_title = pool_status_wrapper.appendChild(
-        document.createElement("span")
-    );
+
+    const status_title = pool_status_wrapper.appendChild(document.createElement("span"));
     status_title.setAttribute("class", "pool-info-titles");
     status_title.innerText = "Pool status:";
-    let status_value = pool_status_wrapper.appendChild(
-        document.createElement("span")
-    );
+
+    const status_value = pool_status_wrapper.appendChild(document.createElement("span"));
     setAttributes(status_value, {
         id: "pool-status",
         class: "pool-info-values",
     });
 
-    let used_of_wrapper = storage_box.appendChild(document.createElement("div"));
+    const used_of_wrapper = storage_box.appendChild(document.createElement("div"));
     used_of_wrapper.setAttribute("class", "pool-info-container");
-    let used_title = used_of_wrapper.appendChild(document.createElement("span"));
+
+    const used_title = used_of_wrapper.appendChild(document.createElement("span"));
     used_title.setAttribute("class", "pool-info-titles");
     used_title.innerText = "Used: ";
-    let used_value = used_of_wrapper.appendChild(document.createElement("span"));
+
+    const used_value = used_of_wrapper.appendChild(document.createElement("span"));
     setAttributes(used_value, {
         id: "used-of",
         class: "pool-info-values",
     });
 
-    let free_space_wrapper = storage_box.appendChild(
-        document.createElement("div")
-    );
+    const free_space_wrapper = storage_box.appendChild(document.createElement("div"));
     free_space_wrapper.setAttribute("class", "pool-info-container");
-    let free_space_title = free_space_wrapper.appendChild(
-        document.createElement("span")
-    );
+
+    const free_space_title = free_space_wrapper.appendChild(document.createElement("span"));
     free_space_title.setAttribute("class", "pool-info-titles");
     free_space_title.innerText = "Free space: ";
-    let free_space_value = free_space_wrapper.appendChild(
-        document.createElement("span")
-    );
+
+    const free_space_value = free_space_wrapper.appendChild(document.createElement("span"));
     setAttributes(free_space_value, {
         id: "free-space",
         class: "pool-info-values",
     });
 
-    let storage_bar_wrapper = storage_box.appendChild(
-        document.createElement("div")
-    );
+    const storage_bar_wrapper = storage_box.appendChild(document.createElement("div"));
     storage_bar_wrapper.setAttribute("class", "pool-info-container");
-    let storage_bar = storage_bar_wrapper.appendChild(
-        document.createElement("progress")
-    );
+
+    const storage_bar = storage_bar_wrapper.appendChild(document.createElement("progress"));
     setAttributes(storage_bar, {
         id: "storage-bar",
         class: "storage-bar",
@@ -1205,11 +1140,10 @@ function initializeZpoolInfo() {
         max: "100",
     });
 
-    let perc_used_wrapper = storage_box.appendChild(
-        document.createElement("div")
-    );
+    const perc_used_wrapper = storage_box.appendChild(document.createElement("div"));
     perc_used_wrapper.setAttribute("class", "pool-info-container");
-    let perc_used = perc_used_wrapper.appendChild(document.createElement("span"));
+
+    const perc_used = perc_used_wrapper.appendChild(document.createElement("span"));
     setAttributes(perc_used, {
         class: "perc-used",
         id: "%-used",
@@ -1220,7 +1154,7 @@ function initializeZpoolInfo() {
 }
 
 function updateStorageInfo() {
-    let storage_box_wrapper = document.getElementById("storage-box-wrapper");
+    const storage_box_wrapper = document.getElementById("storage-box-wrapper");
 
     fetch('/get_storage_usage')
         .then(function(response) {
@@ -1243,22 +1177,20 @@ function updateStorageInfo() {
                 }
 
                 for (const disk in data) {
-                    let disk_wrapper = storage_box_wrapper.appendChild(document.createElement('div'));
+                    const disk_wrapper = storage_box_wrapper.appendChild(document.createElement('div'));
                     disk_wrapper.classList.add("disk-wrapper");
 
-                    let drive = data[disk];
-                    let bar = disk_wrapper.appendChild(document.createElement('progress'));
+                    const drive = data[disk];
+                    const bar = disk_wrapper.appendChild(document.createElement('progress'));
                     setAttributes(bar, {
                         "value": drive["used_percent"].slice(0, -1),
                         "max": "100",
                         "class": "storage-info-bar"
                     });
 
-                    let stats = disk_wrapper.appendChild(document.createElement('div'));
+                    const stats = disk_wrapper.appendChild(document.createElement('div'));
                     stats.classList.add("disk-stats");
-                    stats.innerText = `
-                        ${drive["file_system"]} mounted at ${drive["mounted"]}: ${drive["used_percent"]} used (${drive["used"]}/${drive["total"]})
-                    `
+                    stats.innerText = `${drive["file_system"]} mounted at ${drive["mounted"]}: ${drive["used_percent"]} used (${drive["used"]}/${drive["total"]})`;
                 }
             }
         })
@@ -1281,35 +1213,47 @@ function initializeStorageInfo() {
     updateStorageInfo();
 }
 
-function poolsExist(){
-    //TODO add N/A text when no zpool exists
+async function poolsExist(){
+    const response = await fetch("/pools_name");
+    if (!response.ok) {
+        return false;
+    } else {
+        return true;
+    }
 }
 
 window.onload = function() {
     disk_interval_set = false;
     poolinfo_interval_set = false;
     storageInfo_interval_set = false;
-    let shut_btn = document.getElementById("shut-btn");
-    let restart_btn = document.getElementById("restart-btn");
-    let radios = document.getElementsByName('flexRadioDefault');
+    const shut_btn = document.getElementById("shut-btn");
+    const restart_btn = document.getElementById("restart-btn");
+    const radios = document.getElementsByName('flexRadioDefault');
     restart_btn.addEventListener("click", reboot);
     shut_btn.addEventListener("click", shutdown);
 
-    for (let i = 0, length = radios.length; i < length; i++) { //is this really needed??
+    radios[0].addEventListener("click", initializeStorageInfo);
+    poolsExist().then(exists => {
+        if(exists){
+            radios[1].addEventListener("click", initializeZpoolInfo);
+        } else{
+            radios[1].setAttribute("disabled", "");
+        }
+    });
+    radios[2].addEventListener("click", showSmart);
+
+    for (let i = 0, length = radios.length; i < length; i++) {
         if (radios[i].checked) {
-            var value = radios[i].value;
-            if (value == "storage") {
+            if (i == 0) {
                 initializeStorageInfo();
-            }
-            if (value == "zpool") {
+            } else if (i == 1) {
                 initializeZpoolInfo();
+            } else if (i == 2) {
+                showSmart();
             }
-            if (value == "smart") {
-                showSmart()
-            }
-            break;
         }
     }
+
     UpdateTimeDiv();
     updateCpuDiv();
     updateGpuDiv();

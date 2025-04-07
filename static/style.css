@@ -343,7 +343,7 @@ progress::-moz-progress-bar {
     overflow: scroll;
     border-radius: 10px;
     padding: 14px;
-    min-width: 535px;
+    min-width: 670px;
 }
 .link-grid-container::-webkit-scrollbar{
     display: none;
@@ -741,7 +741,7 @@ th, td,tr, table {
     color: white;
     font-size: 15px;
     position: relative;
-    bottom:12px;
+    top: 5px;
 }
 .smart-na{
     position: absolute;

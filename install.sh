@@ -1,7 +1,7 @@
 #!/usr/bin/bash
 cd "$(dirname "$0")"
 kernel_ver=$(uname -r)
-apt install linux-tools-generic neofetch pipx smartmontools linux-tools-$kernel_ver smartmontools linux-cpupower -y 
+apt install linux-tools-generic pipx smartmontools linux-tools-$kernel_ver smartmontools linux-cpupower -y 
 python3 -m pipx install flask nvitop psutil gunicorn
 python3 -m pipx ensurepath
 mkdir log
