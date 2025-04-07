@@ -3,7 +3,7 @@ A simple dashboard for your Ubuntu server, running on a Flask backend.
 
 ![alt text](screenshot.png)
 
-This program parses hardware and performance information from various monitoring tools and shows it in a simple web interface, together with basic system controls and a bookmark feature, for quick access to your self-hosted services or favorite websites.
+This program gethers hardware and performance information from various monitoring tools and shows it in a simple web interface, together with basic system controls and a bookmark feature, for quick access to your self-hosted services or favorite websites.
 
 ## Compatibility
 Supported on Ubuntu. Other Debian-based distributions should be supported, although might have problems with dependencies, which will need to be installed manually.
