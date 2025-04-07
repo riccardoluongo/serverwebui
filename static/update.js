@@ -35,10 +35,10 @@ function updateCpuDiv() {
         .then(function(response) {
             if (!response.ok) {
                 document.getElementById("cpu_util_div").innerText = "N/A";
-            } else {
+            } else 
                 return response.json();
             }
-        })
+        )
         .then((data) => {
             if (data) {
                 if (data.length == 0) {
@@ -63,13 +63,14 @@ function updateCpuDiv() {
                 }
             }
         });
-}
+    }
 
-function updateGpuDiv() {
+function updateGpuDiv(gpuIndex) {
     fetch("/gpu_util")
         .then(function(response) {
             if (!response.ok) {
                 document.getElementById("gpu_util_div").innerText = "N/A";
+                updateVramDiv(0);
             } else {
                 return response.json();
             }
@@ -90,66 +91,64 @@ function updateGpuDiv() {
                     } else if (data[0] >= 85) {
                         changecircle("red", "gpu-dot", String(data[0]));
                     }
+                    updateVramDiv(0);
                 }
-                if (data.length > 1) {
-                    let gpu_dot = document.getElementById("gpu-dot");
+                if (data.length > 1) { //TODO fix flickering, very inefficient!!
+                    let currentIndex = gpuIndex;
+                    const gpu_dot = document.getElementById("gpu-dot");
+                    const utilSpan = document.createElement("span"); //very futile attempt at trying to speed things up
+                    const nameDiv = document.createElement("div");
+                    const containerSpan = document.createElement("span");
+                    const leftI = document.createElement("i");
+                    const rightI = document.createElement("i");
+                    const titleSpan = document.createElement("span");
 
                     while (gpu_dot.firstChild) {
                         gpu_dot.removeChild(gpu_dot.firstChild);
                     }
 
-                    let currentIndex = 0;
-
-                    if (document.getElementById("gpu-dot-title") != null) {
-                        document.getElementById("gpu-dot-title").remove();
-                    }
-
                     function prevGpu() {
                         currentIndex = (currentIndex - 1 + data.length) % data.length;
                         updateDisplay();
+                        updateVramDiv(currentIndex);
                     }
 
                     function nextGpu() {
                         currentIndex = (currentIndex + 1) % data.length;
                         updateDisplay();
+                        updateVramDiv(currentIndex);
                     }
 
-                    let gpu_util_value = gpu_dot.appendChild(
-                        document.createElement("span")
-                    );
+                    const gpu_util_value = gpu_dot.appendChild(utilSpan);
                     setAttributes(gpu_util_value, {
                         id: "gpu_util_div",
                         class: "circle-values",
                     });
 
-                    let gpu_dot_title_scrollable = gpu_dot.appendChild(
-                        document.createElement("span")
-                    );
-                    gpu_dot_title_scrollable.setAttribute(
-                        "class",
-                        "gpu-dot-title-scrollable"
-                    );
+                    const gpuNameDiv = gpu_dot.appendChild(nameDiv);
+                    setAttributes(gpuNameDiv, {
+                        "class" : "resources-details",
+                        "id" : "gpu-name"
+                    })
 
-                    let left_btn = gpu_dot.appendChild(document.createElement("button"));
-                    left_btn.setAttribute("class", "left-btn");
-                    left_btn.onclick = prevGpu;
+                    const gpuSelectContainer = gpu_dot.appendChild(containerSpan);
+                    gpuSelectContainer.classList.add("circle-titles");
 
-                    let left_arrow = left_btn.appendChild(document.createElement("i"));
+                    const left_arrow = gpuSelectContainer.appendChild(leftI);
                     left_arrow.setAttribute("class", "left-arrow");
+                    left_arrow.onclick = prevGpu;
 
-                    let right_btn = gpu_dot.appendChild(document.createElement("button"));
-                    right_btn.setAttribute("class", "right-btn");
-                    right_btn.onclick = nextGpu;
+                    const gpu_dot_title_scrollable = gpuSelectContainer.appendChild(titleSpan);
 
-                    let right_arrow = right_btn.appendChild(document.createElement("i"));
+                    const right_arrow = gpuSelectContainer.appendChild(rightI);
                     right_arrow.setAttribute("class", "right-arrow");
+                    right_arrow.onclick = nextGpu;
 
                     function updateDisplay() {
                         fetch("/gpu_util")
                             .then((response) => response.json())
                             .then((data) => {
-                                document.getElementById("gpu_util_div").innerText =
-                                    data[currentIndex] + "%";
+                                document.getElementById("gpu_util_div").innerText = data[currentIndex] + "%";
 
                                 if (data[currentIndex] < 60) {
                                     changecircle(
@@ -170,11 +169,12 @@ function updateGpuDiv() {
                             });
                     }
                     updateDisplay();
-                    setInterval(() => updateDisplay(), refresh_rate);
+                    updateVramDiv(currentIndex);
                 }
                 if (data.length == 0) {
                     document.getElementById("gpu_util_div").innerText = "N/A";
-                    changecircle("red", "gpu-dot", "0")
+                    changecircle("red", "gpu-dot", "0");
+                    updateVramDiv(currentIndex);
                 }
             }
         });
@@ -215,7 +215,7 @@ function updateRamDiv() {
         });
 }
 
-function updateVramDiv() {
+function updateVramDiv(gpuIndex) {
     fetch("/vram_util")
         .then(function(response) {
             if (!response.ok) {
@@ -239,68 +239,66 @@ function updateVramDiv() {
                     } else if (data[0] >= 85) {
                         changecircle("red", "vram-dot", String(data[0]));
                     }
+                    updateSysInfo(0);
                 }
                 if (data.length > 1) {
-                    let vram_dot = document.getElementById("vram-dot");
+                    let currentIndex = gpuIndex;
+                    const vram_dot = document.getElementById("vram-dot");
+                    const utilSpan = document.createElement("span"); //very futile attempt at trying to speed things up
+                    const nameDiv = document.createElement("div");
+                    const containerSpan = document.createElement("span");
+                    const leftI = document.createElement("i");
+                    const rightI = document.createElement("i");
+                    const titleSpan = document.createElement("span");
 
                     while (vram_dot.firstChild) {
                         vram_dot.removeChild(vram_dot.firstChild);
                     }
 
-                    let currentIndex = 0;
-
-                    if (document.getElementById("vram-dot-title") != null) {
-                        document.getElementById("vram-dot-title").remove();
-                    }
-
                     function prevGpu() {
                         currentIndex = (currentIndex - 1 + data.length) % data.length;
                         updateDisplay();
+                        updateGpuDiv(currentIndex);
+                        updateSysInfo(currentIndex);
                     }
 
                     function nextGpu() {
                         currentIndex = (currentIndex + 1) % data.length;
                         updateDisplay();
+                        updateGpuDiv(currentIndex);
+                        updateSysInfo(currentIndex);
                     }
 
-                    let vram_util_value = vram_dot.appendChild(
-                        document.createElement("span")
-                    );
+                    const vram_util_value = vram_dot.appendChild(utilSpan);
                     setAttributes(vram_util_value, {
                         id: "vram_util_div",
                         class: "circle-values",
                     });
 
-                    let vram_dot_title_scrollable = vram_dot.appendChild(
-                        document.createElement("span")
-                    );
-                    vram_dot_title_scrollable.setAttribute(
-                        "class",
-                        "gpu-dot-title-scrollable"
-                    );
+                    const vramNameDiv = vram_dot.appendChild(nameDiv);
+                    setAttributes(vramNameDiv, {
+                        "class" : "resources-details",
+                        "id" : "vram-usage"
+                    })
 
-                    let left_btn = vram_dot.appendChild(document.createElement("button"));
-                    left_btn.setAttribute("class", "left-btn");
-                    left_btn.onclick = prevGpu;
+                    const vramSelectContainer = vram_dot.appendChild(containerSpan);
+                    vramSelectContainer.classList.add("circle-titles");
 
-                    let left_arrow = left_btn.appendChild(document.createElement("i"));
+                    const left_arrow = vramSelectContainer.appendChild(leftI);
                     left_arrow.setAttribute("class", "left-arrow");
+                    left_arrow.onclick = prevGpu;
 
-                    let right_btn = vram_dot.appendChild(
-                        document.createElement("button")
-                    );
-                    right_btn.setAttribute("class", "right-btn");
-                    right_btn.onclick = nextGpu;
+                    const vramTitleDiv = vramSelectContainer.appendChild(titleSpan);
 
-                    let right_arrow = right_btn.appendChild(document.createElement("i"));
+                    const right_arrow = vramSelectContainer.appendChild(rightI);
                     right_arrow.setAttribute("class", "right-arrow");
+                    right_arrow.onclick = nextGpu;
 
                     function updateDisplay() {
                         fetch("/vram_util")
                             .then((response) => response.json())
                             .then((data) => {
-                                document.getElementById("vram_util_div").innerText =
-                                    data[currentIndex] + "%";
+                                document.getElementById("vram_util_div").innerText = data[currentIndex] + "%";
 
                                 if (data[currentIndex] < 60) {
                                     changecircle(
@@ -317,15 +315,16 @@ function updateVramDiv() {
                                 } else if (data[currentIndex] >= 85) {
                                     changecircle("red", "vram-dot", String(data[currentIndex]));
                                 }
-                                vram_dot_title_scrollable.innerText = `GPU${currentIndex}`;
+                                vramTitleDiv.innerText = `GPU${currentIndex}`;
                             });
                     }
                     updateDisplay();
-                    setInterval(() => updateDisplay(), refresh_rate);
+                    updateSysInfo(currentIndex);
                 }
                 if (data.length == 0) {
                     document.getElementById("vram_util_div").innerText = "N/A";
-                    changecircle("red", "vram-dot", "0")
+                    changecircle("red", "vram-dot", "0");
+                    updateSysInfo(0);
                 }
             }
         });
@@ -519,17 +518,17 @@ function UpdatePoolInfoDiv() {
         });
 }
 
-function UpdateSysInfoDiv() {
+function updateSysInfo(gpuIndex) {
     fetch("/sysinfo")
         .then(function(response) {
             if (!response.ok) {
-                let sysinfobox = document.getElementById("system-box");
+                let sysInfoBox = document.getElementById("system-box");
 
-                while (sysinfobox.firstChild) {
-                    sysinfobox.removeChild(sysinfobox.firstChild);
+                while(sysInfoBox.firstChild){
+                    sysInfoBox.removeChild(sysInfoBox.firstChild);
                 }
 
-                let err_div = sysinfobox.appendChild(document.createElement("span"));
+                let err_div = sysInfoBox.appendChild(document.createElement("span"));
                 err_div.setAttribute("class", "box-na");
                 err_div.innerText = "N/A";
             } else {
@@ -538,18 +537,91 @@ function UpdateSysInfoDiv() {
         })
         .then((data) => {
             if (data) {
-                let sys_data_form = data.sysinfo;
-                let sysinfobox = document.getElementById("system-box");
+                const cpuNameDiv = document.getElementById("cpu-name");
+                const ramUsageDiv = document.getElementById("ram-usage");
+                const gpuNameDiv = document.getElementById("gpu-name");
+                const vramUsageDiv = document.getElementById("vram-usage");
+                const totalVram = (data["vram"][gpuIndex]["total"] / 1073741824).toFixed(1);
+                const usedVram = (data["vram"][gpuIndex]["used"] / 1073741824).toFixed(1);
+                const osNameDiv = document.getElementById("os-name");
+                const kernelNameDiv = document.getElementById("kernel-name");
+                const uptimeDiv = document.getElementById("uptime");
+                const packagesDiv = document.getElementById("packages");
+                const hostDiv = document.getElementById("host");
+                const processesDiv = document.getElementById("processes");
+                const ipDiv = document.getElementById("ip");
+                const interfaceDiv = document.getElementById("interface");
 
-                while (sysinfobox.firstChild) {
-                    sysinfobox.removeChild(sysinfobox.firstChild);
+                cpuNameDiv.innerText = data["cpu"];
+                ramUsageDiv.innerText = data["memory"];
+                gpuNameDiv.innerText = data["gpu"][gpuIndex];
+                vramUsageDiv.innerText = `${usedVram}GiB / ${totalVram}GiB`;
+                osNameDiv.innerText = data["os"];
+                kernelNameDiv.innerText = data["kernel"];
+                packagesDiv.innerText = `${data["packages"]} packages installed`;
+                uptimeDiv.innerText = `up ${data["uptime"]}`;
+                hostDiv.innerText = data["host"];
+                processesDiv.innerText = `${data["processes"]} processes running`;
+                interfaceDiv.innerText = data["interface"];
+                ipDiv.innerText = data["ip"];
+                updateNetIo();
+            }
+        });
+}
+
+function updateNetIo(){
+    const netioDiv = document.getElementById("netio");
+    fetch("/netio")
+    .then(function(response){
+            if(!response.ok){
+                netioDiv.innerText = "N/A";
+            }
+            else { 
+                return response.json()
+            }
+        })
+        .then((data) => {
+            if(data){
+                netioDiv.innerText = `${data[0]} in ${data[1]} out`;
+            }
+        }) 
+}
+
+function chooseLogo() {
+    const osLogoImg = document.getElementById("os-logo");
+
+    fetch("/sysinfo")
+        .then(function(response) {
+            if (!response.ok) {
+                osLogoImg.setAttribute("src", "/static/logos/x.svg");
+            } else {
+                return response.json();
+            }
+        })
+        .then((data) => {
+            if (data) {
+                const os = data["os"].toLowerCase();
+
+                if(os.indexOf("ubuntu") > -1){
+                    osLogoImg.setAttribute("src", "/static/logos/ubuntu.svg");
                 }
-
-                for (let line in sys_data_form) {
-                    let sinfo_div = sysinfobox.appendChild(document.createElement("div"));
-                    sinfo_div.setAttribute("id", `i${line}`);
-                    sinfo_div.setAttribute("class", "sysinfo-values");
-                    sinfo_div.innerText = sys_data_form[line];
+                else if(os.indexOf("debian") > -1){
+                    osLogoImg.setAttribute("src", "/static/logos/debian.svg");
+                }
+                else if(os.indexOf("arch") > -1){
+                    osLogoImg.setAttribute("src", "/static/logos/arch.svg");
+                }
+                else if(os.indexOf("void") > -1){
+                    osLogoImg.setAttribute("src", "/static/logos/void.svg");
+                }
+                else if(os.indexOf("gentoo") > -1){
+                    osLogoImg.setAttribute("src", "/static/logos/gentoo.svg");
+                }
+                else if(os.indexOf("fedora") > -1){
+                    osLogoImg.setAttribute("src", "/static/logos/fedora.svg");
+                }
+                else{
+                    osLogoImg.setAttribute("src", "/static/logos/linux.svg");
                 }
             }
         });
@@ -704,12 +776,10 @@ function setRefreshRate() {
             setInterval(() => updateCpuDiv(), refresh_rate);
             setInterval(() => updateRamDiv(), refresh_rate);
             setInterval(() => updateGpuDiv(), refresh_rate);
-            setInterval(() => updateVramDiv(), refresh_rate);
             setInterval(() => updateCpuTempDiv(), refresh_rate);
             setInterval(() => updateGpuTempDiv(), refresh_rate);
             setInterval(() => updateCpuPwrDiv(), refresh_rate);
             setInterval(() => updateGpuPwrDiv(), refresh_rate);
-            setInterval(() => UpdateSysInfoDiv(), refresh_rate);
             setInterval(() => updateGpuFanDiv(), refresh_rate);
             setInterval(() => updateSystemFanDiv(), refresh_rate);
         });
@@ -1225,8 +1295,6 @@ window.onload = function() {
     restart_btn.addEventListener("click", reboot);
     shut_btn.addEventListener("click", shutdown);
 
-
-
     for (let i = 0, length = radios.length; i < length; i++) { //is this really needed??
         if (radios[i].checked) {
             var value = radios[i].value;
@@ -1246,14 +1314,13 @@ window.onload = function() {
     updateCpuDiv();
     updateGpuDiv();
     updateRamDiv();
-    updateVramDiv();
     updateCpuTempDiv();
     updateGpuTempDiv();
     updateCpuPwrDiv();
     updateGpuPwrDiv();
-    UpdateSysInfoDiv();
     UpdateLinksDiv();
     updateSystemFanDiv();
     updateGpuFanDiv();
+    chooseLogo();
 };
-//By Riccardo Luongo, 01/04/2025
+//By Riccardo Luongo, 07/04/2025

@@ -31,7 +31,6 @@
 }
 .box-titles{
     font-size: 35px;
-    padding-bottom: 20px;
     color: white;
     font-weight: bold;
 }
@@ -53,18 +52,18 @@
     font-size: 3rem;
 }
 .dot {
-    width: 135px;
+    width: 125px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     padding: 5px;
     justify-content: center;
     position: relative;
-    margin: auto;
     aspect-ratio: 1 / 1;
+    margin: auto;
 }
 .circle-values{
-    font-size: 30px;
+    font-size: 2rem;
     text-align: center;
     font-weight: bold;
 }
@@ -80,7 +79,7 @@
 }
 .temp-rectangle{
     width: 100%;
-    height: 210px;
+    height: 190px;
     background: rgb(31, 31, 31);
     position:relative;
     border-radius: 12px;
@@ -226,43 +225,25 @@ progress::-moz-progress-bar {
     padding-bottom: 5px;
     font-weight: normal;
     color: white;
-    display: block;
     padding-left: 10px;
-    font-family: monospace;
     font-size: x-large;
+    background-color: rgb(31, 31, 31);
+    margin-bottom: 10px;
 }
 .sysinfo-box-title {
     font-size: 35px;
-    padding-bottom: 20px;
     color: white;
+    font-weight: bold;
 }
 .shut-button {
-    height: 50;
-    width: 50;
     background-color: #dc3545;
-    border: 0;
-    margin: 10;
-    position: absolute;
-    bottom: 20;
-    right: 10;
-    border-radius: 12px;
-    color: white;
 }
 .shut-button:hover {
     background-color: #bb2d3b;
     cursor: pointer;
 }
 .restart-button {
-    height: 50;
-    width: 50;
     background-color: #ffc107;
-    border: 0;
-    margin: 10;
-    position: absolute;
-    bottom: 20;
-    right: 70;
-    border-radius: 12px;
-    color: white;
 }
 .restart-button:hover {
     background-color: #ffca2c;
@@ -270,13 +251,10 @@ progress::-moz-progress-bar {
 }
 .system-box{
     width: 93%;
-    height: 65%;
-    background: rgb(31, 31, 31);
-    left: 1.5%;
-    bottom: 11.5rem;
     border-radius: 12px;
-    padding: 14px;
-    overflow: scroll;
+    position: relative;
+    margin: auto;
+    top: 10px;
 }
 .system-box::-webkit-scrollbar {
     display: none;
@@ -565,16 +543,7 @@ th, td,tr, table {
     min-height: 550px;
 }
 .settings-btn{
-    height: 50;
-    width: 50;
     background-color: #0d6efd;
-    border: 0;
-    margin: 10;
-    position: absolute;
-    bottom: 20;
-    right: 130;
-    border-radius: 12px;
-    color: white;
 }
 .settings-btn:hover{
     background-color: #0b5ed7;
@@ -599,11 +568,11 @@ th, td,tr, table {
     border-radius: 12px;
     overflow-x: hidden;
     position: relative;
-    margin-top: 10px;
     width: 100%;
     display: flex;
     gap: 15px;
     flex-wrap: wrap;
+    margin-top: 50px;
 }
 .fan-rectangle::-webkit-scrollbar {
     display: none;
@@ -711,54 +680,35 @@ th, td,tr, table {
     color:#00b7ff 
 }
 .gpu-dot-title-scrollable{
-    position: absolute;
-    font-size: 16px;
-    bottom: 25px;
+    position: relative;
+    font-size: 15px;
 }
 .left-arrow{
     border: solid rgb(255, 255, 255);
     border-width: 0 3px 3px 0;
-    display: inline-block;
     padding: 3px;
     transform: rotate(135deg);
     -webkit-transform: rotate(135deg);
+    position: relative;
+    display: inline-block;
 }
 .left-arrow:hover{
     border: solid #00b7ff;
     border-width: 0 3px 3px 0;
-}
-.left-btn{
-    position: absolute;
-    bottom: 29.5px;
-    left: 31px;
-    display: inline-block;
-    border: 0;
-    background: 0;
-}
-.left-btn:hover{
     cursor: pointer;
 }
 .right-arrow{
     border: solid rgb(255, 255, 255);
     border-width: 0 3px 3px 0;
-    display: inline-block;
     padding: 3px;
     transform: rotate(-45deg);
     -webkit-transform: rotate(-45deg);
+    position: relative;
+    display: inline-block;
 }
 .right-arrow:hover{
     border: solid #00b7ff;
     border-width: 0 3px 3px 0;
-}
-.right-btn{
-    position: absolute;
-    bottom: 29.5px;
-    right: 31px;
-    display: inline-block;
-    background: 0;
-    border: 0;
-}
-.right-btn:hover{
     cursor: pointer;
 }
 .name-column{
@@ -811,4 +761,73 @@ th, td,tr, table {
 }
 .button-column{
     min-width: 70px;
+}
+.resources-details{
+    position: absolute;
+    bottom: -50px;
+    margin: auto;
+    text-align:center;
+    width: 100%;
+    font-size: large;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-y: scroll;
+}
+.dot-container{
+    position: relative;
+    margin: auto;
+    display: flex
+}
+@media screen and (max-width: 1500px) {
+    .resources-details {
+        font-size: 15px;
+    }
+}
+.sysinfo-smallbox{
+    position: relative;
+    background-color: rgb(31, 31, 31);
+    height: 130px;
+    border-radius: 12px;
+    display: flex;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    margin-bottom: 10px;
+}
+.os-logo{
+    position: relative;
+    height: 100px;
+    aspect-ratio: 1/1;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 10px;
+}
+.sysinfo-data{
+    position: relative;
+    color: white;
+    font-size: large;
+}
+.os-data-container{
+    position: relative;
+    width: fit-content;
+    height: fit-content;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.btn-container{
+    position: relative;
+    display: flex;
+    gap: 10px;
+    justify-content: end;
+    top: 10px;
+}
+.sysbox-buttons{
+    height: 50px;
+    width: 50px;
+    border: 0;
+    position: relative;
+    right: 0;
+    border-radius: 12px;
+    color: white;
 }

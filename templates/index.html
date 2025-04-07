@@ -24,12 +24,38 @@
     </div>
     <div id="wrapper">
         <div class="rectangle">
-            <div class="box-titles">System info</div>
+            <div class="sysinfo-box-title">System information</div>
             <div class="system-box" id="system-box">
+                <div class="sysinfo-smallbox" id="os-info">
+                    <img src="/static/logos/x.svg" class="os-logo" id="os-logo"></img>
+                    <div class="os-data-container">
+                        <div class="sysinfo-data" id="os-name"></div>
+                        <div class="sysinfo-data" id="kernel-name"></div>
+                        <div class="sysinfo-data" id="packages"></div>
+                    </div>
+                </div>
+                <div class="sysinfo-smallbox" id="os-info">
+                    <img src="/static/logos/server.png" class="os-logo"></img>
+                    <div class="os-data-container">
+                        <div class="sysinfo-data" id="host"></div>
+                        <div class="sysinfo-data" id="uptime"></div>
+                        <div class="sysinfo-data" id="processes"></div>
+                    </div>
+                </div>
+                <div class="sysinfo-smallbox" id="network-info">
+                    <img src="/static/logos/network.png" class="os-logo"></img>
+                    <div class="os-data-container">
+                        <div class="sysinfo-data" id="interface"></div>
+                        <div class="sysinfo-data" id="ip"></div>
+                        <div class="sysinfo-data" id="netio"></div>
+                    </div>
+                </div>
+                <div class="btn-container">
+                    <button id="shut-btn" class="sysbox-buttons shut-button"><i class="fa fa-power-off fa-2x"></i></button>
+                    <button id="restart-btn" class="sysbox-buttons restart-button"><i class="fa fa-refresh fa-2x"></i></button>
+                    <a href="/settings"><button class="sysbox-buttons settings-btn"><i class="fa fa-cog fa-2x" aria-hidden="true"></i></button></a>
+                </div>
             </div>
-            <button id="shut-btn" class="shut-button"><i class="fa fa-power-off fa-2x"></i></button>
-            <button id="restart-btn" class="restart-button"><i class="fa fa-refresh fa-2x"></i></button>
-            <a href="/settings"><button class="settings-btn"><i class="fa fa-cog fa-2x" aria-hidden="true"></i></button></a>
         </div>
         <div class="rectangle">
             <div class="storage-title-container">
@@ -68,18 +94,22 @@
                     <div id="dot" class="dot">
                         <span id="cpu_util_div" class="circle-values"></span>
                         <span class="circle-titles">CPU</span>
+                        <div class="resources-details" id="cpu-name"></div>
                     </div>
                     <div id="ram-dot" class="dot">
                         <span id="ram_util_div" class="circle-values"></span>
                         <span class="circle-titles">RAM</span>
+                        <div class="resources-details" id="ram-usage"></div>
                     </div>
                     <div id="gpu-dot" class="dot">
                         <span id="gpu_util_div" class="circle-values"></span>
                         <span class="circle-titles" id="gpu-dot-title">GPU</span>
+                        <div class="resources-details" id="gpu-name"></div>
                     </div>
                     <div id="vram-dot" class="dot">
                         <span id="vram_util_div" class="circle-values"></span>
                         <span class="circle-titles" id="vram-dot-title">VRAM</span>
+                        <div class="resources-details" id="vram-usage"></div>
                     </div>
                 </div>
                 <div class="fan-rectangle" id="fan-rectangle">

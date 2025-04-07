@@ -16,6 +16,9 @@ import json
 from logging.handlers import RotatingFileHandler
 import traceback
 import re
+import fastfetch_parse
+import timeit
+from time import sleep
 
 initialize_db()
 settings_db.initialize_db()
@@ -186,8 +189,7 @@ def get_gpu_pwr():
 @app.route('/sysinfo')
 def get_sysinfo():
     try:
-        sysinfo_comm = check_output("neofetch --backend '' | sed 's/\x1B\[[0-9;]*m//g' | sed 's/,//g'", shell=True, encoding='cp850').split('\n')[2:][:-5]
-        return jsonify(sysinfo = sysinfo_comm)
+        return jsonify(fastfetch_parse.parseOutput())
     except Exception as e:
         log.error(f"Couldn't retrieve system information: {e}")
         return Response(
@@ -455,6 +457,41 @@ def get_storage_usage():
             "Couldn't retrieve storage usage",
             status=500
         )
+
+@app.route('/netio')
+def get_netio():
+    oldDown = psutil.net_io_counters().bytes_recv
+    oldUp = psutil.net_io_counters().bytes_sent
+
+    sleep(1)
+
+    newDown = psutil.net_io_counters().bytes_recv
+    newUp = psutil.net_io_counters().bytes_sent
+
+    down = newDown - oldDown
+    up = newUp - oldUp
+
+    if 1024 < down < 1048576:
+        down /= 1024
+        down = str(round(down, 2)) + "KiB/s"
+    elif 1048576 <= down < 1073741824:
+        down /= 1048576
+        down = str(round(down, 2)) + "MiB/s"
+    elif down >= 1073741824:
+        down /= 1073741824
+        down = str(round(down, 2)) + "GiB/s"
+
+    if 1024 < up < 1048576:
+        up /= 1024
+        up = str(round(up, 2)) + "KiB/s"
+    elif 1048576 <= up < 1073741824:
+        up /= 1048576
+        up = str(round(up, 2)) + "MiB/s"
+    elif up >= 1073741824:
+        up /= 1073741824
+        up = str(round(up, 2)) + "GiB/s"
+
+    return [down, up]
     
 log.info("App started succesfully")
-#By Riccardo Luongo, 01/04/2025
+#By Riccardo Luongo, 07/04/2025
