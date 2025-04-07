@@ -17,7 +17,6 @@ from logging.handlers import RotatingFileHandler
 import traceback
 import re
 import fastfetch_parse
-import timeit
 from time import sleep
 
 initialize_db()
