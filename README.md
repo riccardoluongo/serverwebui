@@ -1,10 +1,13 @@
 # serverWebUI
-A simple dashboard for your Ubuntu server, running on a Flask backend.
+A simple dashboard for your server, running on a Flask backend.
 
-This program parses hardware and performance information (such as CPU and GPU temperature, fan speed and power consupmtion, storage information such as SMART data and zpool stats) from various monitoring tools and shows it in a simple web interface, together with basic system controls and a bookmark feature, for quick access to your self-hosted services or favorite websites.
+![alt text](screenshot.png)
+*the disgusting font rendering is because of my computer, it will look fine for you*
+
+This program gathers hardware and performance information from various monitoring tools and shows it in a simple web interface, together with basic system controls and a bookmark feature, for quick access to your self-hosted services or favorite websites.
 
 ## Compatibility
-Supported on Ubuntu. Other Debian-based distributions should be supported, although might have problems with dependencies, which will need to be installed manually.
+Only tested on Debian-based distributions. Other distros should work but they might have problems with dependencies.
 
 Both Intel and AMD CPUs are supported, meanwhile only Nvidia GPUs are supported as of now. Support for Intel and AMD in the works.
 
@@ -15,7 +18,7 @@ If you plan to install using the auto install script, you may skip the installat
 Packages:
 ```
 linux-tools-generic
-neofetch
+fastfetch
 pipx
 smartmontools
 linux-tools-$(uname-r)
