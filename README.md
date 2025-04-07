@@ -18,7 +18,7 @@ If you plan to install using the auto install script, you may skip the installat
 Packages:
 ```
 linux-tools-generic
-neofetch
+fastfetch
 pipx
 smartmontools
 linux-tools-$(uname-r)
