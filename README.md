@@ -85,7 +85,7 @@ sudo systemctl start webui.service
 ```
 
 ### Automatic installation
-## WARNING!!
+#### WARNING!!
 The script will not install fastfetch automatically, as it requires the installation of third party repositories. 
 You will need to install it manually before using this program.
 
