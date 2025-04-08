@@ -73,6 +73,7 @@ or create a systemd service to automatically start it at boot:
 >* Edit webui.service
 >* Replace DIR with the current directory ($PWD)
 >* Replace PORT with the port you want to use
+>* Replace WORKERS with the number of gunicorn workers you want to use (higher = more performance at the cost of higher memory usage)
 >* Copy the file to the systemd services directory:
 ```
 sudo cp webui.service /etc/systemd/system/
