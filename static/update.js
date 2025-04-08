@@ -573,17 +573,10 @@ function updateNetIo(){
 
 function chooseLogo() {
     const osLogoImg = document.getElementById("os-logo");
-
+    
     fetch("/sysinfo")
-        .then(function(response) {
-            if (!response.ok) {
-                osLogoImg.setAttribute("src", "/static/logos/x.svg");
-            } else {
-                return response.json();
-            }
-        })
+        .then((response) => response.json()) 
         .then((data) => {
-            if (data) {
                 const os = data["os"].toLowerCase();
 
                 if(os.indexOf("ubuntu") > -1){
@@ -607,8 +600,7 @@ function chooseLogo() {
                 else{
                     osLogoImg.setAttribute("src", "/static/logos/linux.svg");
                 }
-            }
-        });
+            })
 }
 
 function shutdown() {
