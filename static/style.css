@@ -333,6 +333,7 @@ progress::-moz-progress-bar {
     overflow: scroll;
     height: 100%;
     padding-left: 15px;
+    font-size: large;
 }
 .link-grid-container {
     border: 2px solid;
@@ -741,7 +742,7 @@ th, td,tr, table {
 }
 .disk-stats{
     color: white;
-    font-size: 15px;
+    font-size: large;
     position: relative;
     top: 5px;
 }
