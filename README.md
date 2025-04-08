@@ -2,7 +2,6 @@
 A simple dashboard for your Linux server, running on a Flask backend.
 
 ![alt text](screenshot.png)
-*the disgusting font rendering is because of my computer, it will look fine for you*
 
 This program gathers hardware and performance information from various monitoring tools and shows it in a simple web interface, together with basic system controls and a bookmark feature, for quick access to your self-hosted services or favorite websites.
 
