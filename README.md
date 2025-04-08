@@ -1,5 +1,5 @@
 # serverWebUI
-A simple dashboard for your server, running on a Flask backend.
+A simple dashboard for your linux server, running on a Flask backend.
 
 ![alt text](screenshot.png)
 *the disgusting font rendering is because of my computer, it will look fine for you*
