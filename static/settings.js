@@ -2,10 +2,11 @@ function updateMaxLogFilesDiv() {
     fetch('/get_settings')
         .then(response => response.json())
         .then(data => {
-            let files_num = document.getElementsByName('files-num')[0];
-            let files_ran = document.getElementsByName('files-ran')[0];
-            files_num.value = data[0][2];
-            files_ran.value = files_num.value
+            const filesNumber = document.getElementsByName('files-num')[0];
+            const filesRange = document.getElementsByName('files-ran')[0];
+
+            filesNumber.value = data[0][2];
+            filesRange.value = filesNumber.value
         })
 }
 
@@ -13,10 +14,11 @@ function updateMaxLogFileSize() {
     fetch('/get_settings')
         .then(response => response.json())
         .then(data => {
-            let files_num = document.getElementsByName('size-num')[0];
-            let files_ran = document.getElementsByName('size-ran')[0];
-            files_num.value = data[3][2]
-            files_ran.value = files_num.value
+            const filesNumber = document.getElementsByName('size-num')[0];
+            const filesRange = document.getElementsByName('size-ran')[0];
+
+            filesNumber.value = data[3][2]
+            filesRange.value = filesNumber.value
         })
 }
 
@@ -30,10 +32,10 @@ async function resetDefault() {
             })
             .then((response) => {
                 if (response.ok) {
-                    updateMaxLogFilesDiv()
-                    updateLogLevelSelector()
-                    updateRefreshDiv()
-                    updateMaxLogFileSize()
+                    updateMaxLogFilesDiv();
+                    updateLogLevelSelector();
+                    updateRefreshDiv();
+                    updateMaxLogFileSize();
                 } else {
                     alert("Couldn't reset the settings. Check the logs for further information.");
                 }
@@ -54,8 +56,9 @@ function updateLogLevelSelector() {
     fetch('/get_settings')
         .then(response => response.json())
         .then(data => {
-            let value = data[1][2];
-            let dropdown = document.getElementById("log-selector");
+            const value = data[1][2];
+            const dropdown = document.getElementById("log-selector");
+            
             setSelectedIndex(dropdown, value);
         })
 }
@@ -64,34 +67,31 @@ function updateRefreshDiv() {
     fetch('/get_settings')
         .then(response => response.json())
         .then(data => {
-            let refresh_num = document.getElementsByName('refresh-num')[0];
-            refresh_num.value = data[2][2]
-            let refresh_ran = document.getElementsByName('refresh-ran')[0];
-            refresh_ran.value = refresh_num.value
+            const refreshNumber = document.getElementsByName('refresh-num')[0];
+            const refreshRange = document.getElementsByName('refresh-ran')[0];
+
+            refreshNumber.value = data[2][2]
+            refreshRange.value = refreshNumber.value
         })
 }
 
 window.onload = function() {
-    let reset_btn = document.getElementById("reset-btn");
-    let sliders = document.getElementsByClassName("slider");
+    const resetButton = document.getElementById("reset-btn");
+    const sliders = document.getElementsByClassName("slider");
 
     for (let i = 0; i < sliders.length; i++) {
         let range = document.getElementsByClassName("slider")[i];
         let number = document.getElementsByClassName("number")[i];
 
-        range.addEventListener("input", (e) => {
-            number.value = e.target.value;
-        })
-        number.addEventListener("input", (e) => {
-            range.value = e.target.value;
-        })
+        range.addEventListener("input", (e) => {number.value = e.target.value;});
+        number.addEventListener("input", (e) => {range.value = e.target.value;});
     }
 
-    reset_btn.addEventListener("click", resetDefault);
+    resetButton.addEventListener("click", resetDefault);
 
-    updateMaxLogFileSize()
-    updateMaxLogFilesDiv()
-    updateLogLevelSelector()
-    updateRefreshDiv()
+    updateMaxLogFileSize();
+    updateMaxLogFilesDiv();
+    updateLogLevelSelector();
+    updateRefreshDiv();
 }
-//by Riccardo Luongo, 27/12/2024
+//by Riccardo Luongo, 08/04/2025

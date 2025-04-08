@@ -538,7 +538,7 @@ th, td,tr, table {
     border-radius: 12px;
     width: 90%;
     margin: auto;
-    height: fit-content;
+    height: 85%;
     background-color: rgb(31, 31, 31);
     min-height: 550px;
 }
@@ -663,7 +663,7 @@ th, td,tr, table {
     height: 70px;
 }
 .link-table-container{
-    height: fit-content;
+    height: 85%;
     width: fit-content;
     background-color: rgb(31, 31, 31);
     position: relative;
