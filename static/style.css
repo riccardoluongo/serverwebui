@@ -552,11 +552,13 @@ th, td,tr, table {
 .box-na{
     color: grey;
     font-size: 80px;
-    left: 180;
     position: relative;
-    width: 0;
-    top: 70;
-    height: 0;
+    display: flex;
+    justify-content: center;
+    height: 460px;
+    align-items: center;
+    background-color: rgb(31, 31, 31);
+    border-radius: 12px;
 }
 .raid-text{
     right: 80px;

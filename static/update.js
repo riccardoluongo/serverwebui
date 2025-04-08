@@ -503,6 +503,11 @@ function UpdatePoolInfoDiv() {
 }
 
 function updateSysInfo(gpuIndex) {
+    const cpuNameDiv = document.getElementById("cpu-name");
+    const ramUsageDiv = document.getElementById("ram-usage");
+    const gpuNameDiv = document.getElementById("gpu-name");
+    const vramUsageDiv = document.getElementById("vram-usage");
+
     fetch("/sysinfo")
         .then(function(response) {
             if (!response.ok) {
@@ -512,19 +517,20 @@ function updateSysInfo(gpuIndex) {
                     sysInfoBox.removeChild(sysInfoBox.firstChild);
                 }
 
-                const err_div = sysInfoBox.appendChild(document.createElement("span"));
-                err_div.setAttribute("class", "box-na");
-                err_div.innerText = "N/A";
+                const errDiv = sysInfoBox.appendChild(document.createElement("div"));
+                errDiv.setAttribute("class", "box-na");
+                errDiv.innerText = "N/A";
+
+                cpuNameDiv.innerText = "N/A";
+                ramUsageDiv.innerText = "N/A";
+                gpuNameDiv.innerText = "N/A";
+                vramUsageDiv.innerText = "N/A";
             } else {
                 return response.json();
             }
         })
         .then((data) => {
             if (data) {
-                const cpuNameDiv = document.getElementById("cpu-name");
-                const ramUsageDiv = document.getElementById("ram-usage");
-                const gpuNameDiv = document.getElementById("gpu-name");
-                const vramUsageDiv = document.getElementById("vram-usage");
                 const totalVram = (data["vram"][gpuIndex]["total"] / 1073741824).toFixed(1);
                 const usedVram = (data["vram"][gpuIndex]["used"] / 1073741824).toFixed(1);
                 const osNameDiv = document.getElementById("os-name");
