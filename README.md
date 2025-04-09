@@ -37,7 +37,6 @@ A very rudimentary installation script is available, but it is recommended to fo
 ### Manual installation
 
 Clone the repository: 
-
 ```
 git clone https://github.com/riccardoluongo/serverwebui
 cd serverwebui
