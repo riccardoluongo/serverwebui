@@ -10,9 +10,6 @@
     display: flex;
     gap: 20px;
 }
-.body::-webkit-scrollbar {
-    display: none;
-}
 .rectangle {
     width: 100%;
     height: 540px;
@@ -84,11 +81,8 @@
     position:relative;
     border-radius: 12px;
     padding: 10px;
-    overflow-y: scroll;
+    overflow-y: overlay;
     display: inline-block;
-}
-.temp-rectangle::-webkit-scrollbar {
-    display: none;
 }
 .mini-box-title{
     font-size: 25px;
@@ -109,14 +103,11 @@
     bottom: 0.5rem;
     border-radius: 12px;
     padding: 10px;
-    overflow: scroll;
+    overflow: overlay;
     color: white;
     font-size: x-large;
     font-weight: normal;
     position: relative;
-}
-.raid-box::-webkit-scrollbar {
-    display: none;
 }
 .storage-box{
     position: absolute;
@@ -256,9 +247,6 @@ progress::-moz-progress-bar {
     margin: auto;
     top: 10px;
 }
-.system-box::-webkit-scrollbar {
-    display: none;
-}
 .form-control-search{
     height: 50;
     font-size: 20px;
@@ -330,10 +318,12 @@ progress::-moz-progress-bar {
     border-radius: 10px;
     margin-right: 10px;
     white-space: nowrap;
-    overflow: scroll;
+    overflow-x: overlay;
     height: 100%;
     padding-left: 15px;
     font-size: large;
+    scrollbar-width:thin;
+    scrollbar-gutter:inherit;
 }
 .link-grid-container {
     border: 2px solid;
@@ -341,13 +331,10 @@ progress::-moz-progress-bar {
     height: 90%;
     margin: auto;
     background-color: rgb(48, 48, 48);
-    overflow: scroll;
+    overflow: overlay;
     border-radius: 10px;
     padding: 14px;
     min-width: 670px;
-}
-.link-grid-container::-webkit-scrollbar{
-    display: none;
 }
 .title {
     font-size: xx-large;
@@ -569,16 +556,12 @@ th, td,tr, table {
     height: 14%;
     background-color: rgb(31, 31, 31);
     border-radius: 12px;
-    overflow-x: hidden;
     position: relative;
     width: 100%;
     display: flex;
     gap: 15px;
     flex-wrap: wrap;
     margin-top: 50px;
-}
-.fan-rectangle::-webkit-scrollbar {
-    display: none;
 }
 .fan{
     position: relative;
@@ -616,7 +599,7 @@ th, td,tr, table {
     background-color: rgb(31, 31, 31);
     position: relative;
     border: 3px rgb(155, 155, 155);
-    overflow: scroll;
+    overflow: overlay;
     height: 95%;
 }
 .smart-tr{
@@ -639,15 +622,16 @@ th, td,tr, table {
     border: 2px solid rgb(155, 155, 155) 
 }
 .storage-box-wrapper{
-    overflow: scroll;
-    -ms-overflow-style: none;
+    overflow: overlay;
     height: 500px;
 }
 .storage-title-container{
     display: flex;
     height: 3rem;
     white-space: nowrap;
-    overflow: scroll;
+    overflow-x: overlay;
+    overflow-y: hidden;
+    scrollbar-width: thin;
 }
 .radio-form{
     margin: 0;
@@ -655,9 +639,6 @@ th, td,tr, table {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-}
-.storage-box-wrapper::-webkit-scrollbar {
-    display: none;
 }
 .home-container{
     width: 100%;
@@ -771,12 +752,11 @@ th, td,tr, table {
     margin: auto;
     text-align:center;
     width: 100%;
-    font-size: large;
+    font-size: medium;
     height: 50px;
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow-y: scroll;
 }
 .dot-container{
     position: relative;
@@ -794,8 +774,6 @@ th, td,tr, table {
     height: 130px;
     border-radius: 12px;
     display: flex;
-    overflow-x: scroll;
-    overflow-y: hidden;
     margin-bottom: 10px;
 }
 .os-logo{
