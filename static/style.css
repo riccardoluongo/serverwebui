@@ -562,6 +562,8 @@ th, td,tr, table {
     gap: 15px;
     flex-wrap: wrap;
     margin-top: 50px;
+    overflow-y: overlay;
+    font-size: large;
 }
 .fan{
     position: relative;
@@ -573,12 +575,10 @@ th, td,tr, table {
 .fan-title{
     position: relative;
     font-weight: bold;
-    font-size: 20px;
     margin: auto;
 }
 .fan-value{
     position: relative;
-    font-size: 20px;
     margin: auto;
 }
 .toggles{
@@ -646,7 +646,7 @@ th, td,tr, table {
 }
 .link-table-container{
     height: 85%;
-    width: fit-content;
+    width: 100%;
     background-color: rgb(31, 31, 31);
     position: relative;
     border-radius: 8px;
@@ -765,6 +765,14 @@ th, td,tr, table {
 }
 @media screen and (max-width: 1500px) {
     .resources-details {
+        font-size: 15px;
+    }
+    .fan-rectangle {
+        font-size: 17px;
+    }
+}
+@media screen and (max-width: 1415px) {
+    .fan-rectangle {
         font-size: 15px;
     }
 }

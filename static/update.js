@@ -174,7 +174,7 @@ function updateGpuDiv(gpuIndex) {
                 if (data.length == 0) {
                     document.getElementById("gpu_util_div").innerText = "N/A";
                     changeCircle("red", "gpu-dot", "0");
-                    updateVramDiv(currentIndex);
+                    updateVramDiv(0);
                 }
             }
         });
@@ -783,7 +783,7 @@ function updateGpuFanDiv() {
 
                     const gpuFanValueSpan = gpuFanContainer.appendChild(document.createElement("span"));
                     gpuFanValueSpan.setAttribute("class", "fan-value");
-                    gpuFanValueSpan.innerText = `No fan available.`;
+                    gpuFanValueSpan.innerText = `No fan available`;
                 }
                 if (data.length > 0) {
                     const gpuFanContainer = document.getElementById('gpu-fan-container');
@@ -838,7 +838,7 @@ function updateSystemFanDiv() {
 
                     const cpuFanValueSpan = cpuFanContainer.appendChild(document.createElement("span"));
                     cpuFanValueSpan.setAttribute("class", "fan-value");
-                    cpuFanValueSpan.innerText = `No fan available.`;
+                    cpuFanValueSpan.innerText = `No fan available`;
                 }
                 if (data[0].length > 0) {
                     let i = -1;
