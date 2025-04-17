@@ -6,7 +6,7 @@ A simple dashboard for your Linux server, running on a Flask backend.
 This program gathers hardware and performance information from various monitoring tools and shows it in a simple web interface, together with basic system controls and a bookmark feature, for quick access to your self-hosted services or favorite websites.
 
 ## Compatibility
-Only tested on Debian-based distributions. Other distros should work but they might have problems with dependencies.
+Only tested on Debian and Arch based distributions. Other distros should work but they might have problems with dependencies.
 
 Both Intel and AMD CPUs are supported, meanwhile only Nvidia GPUs are supported as of now. Support for Intel and AMD in the works.
 
