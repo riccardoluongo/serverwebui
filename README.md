@@ -11,10 +11,10 @@ Only tested on Debian-based distributions. Other distros should work but they mi
 Both Intel and AMD CPUs are supported, meanwhile only Nvidia GPUs are supported as of now. Support for Intel and AMD in the works.
 
 ## Dependencies
-Make sure you have the following dependencies installed before trying to use this project!
-If you plan to install using the auto install script, you may skip the installation of these (fastfetch must still be installed manually).
+Make sure you have the appropriate dependencies for your distribution!
+If you plan to install using the auto install script (Debian-based only), you may skip the installation of these (fastfetch must still be installed manually).
 
-Packages:
+Debian/Ubuntu:
 ```
 linux-tools-generic
 fastfetch
@@ -24,12 +24,13 @@ linux-cpupower
 jq
 ```
 
-Python packages (to be installed in the virtual environment; see below.):
+Arch:
 ```
-flask
-nvitop
-psutil
-gunicorn
+turbostat
+fastfetch
+smartmontools
+cpupower
+jq
 ```
 
 ## Installation
