@@ -68,8 +68,10 @@ function showEdit(id, name, url) {
                 body: JSON.stringify([nameInput.value, urlInput.value, id])
             })
             .then((response) => {
-                if (!response.ok) {
-                    alert("Couldn't delete links. Check the logs for further information.");
+                if (response.status == 400) {
+                    alert("Couldn't modify link: URL not valid.");
+                } else if (response.status == 500) {
+                    alert("Couldn't modify link: Check the logs for further information.");
                 }
                 updateLinkTable();
             })
@@ -166,4 +168,4 @@ window.onload = function() {
 
     updateLinkTable();
 }
-//By Riccardo Luongo, 19/01/2025
+//By Riccardo Luongo, 17/04/2025

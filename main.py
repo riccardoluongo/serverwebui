@@ -164,7 +164,6 @@ def get_gpu_temp():
 @app.route('/cpu_pwr')
 def get_cpu_pwr():
     try:
-        #this is unstable since it relies on turbostat and may break in case of a kernel update. In that case, update the linux-tools-common package
         cpu_power = nospace(check_output("turbostat --Summary --quiet --show PkgWatt --interval 1 -n1 | sed -n '2p'", shell=True, encoding='cp850').lower().split('\n')[0])
         return jsonify(cpu_pwr = str(cpu_power))
     except Exception as e:
@@ -430,12 +429,19 @@ def edit_link():
         url = data[1]
         id = data[2]
         
-        mod_link(name, url, id)
-        log.info(f"Modified link #{id}")
-        return Response(
-            f"Modified link #{id}",
-            status=200
-        )
+        if is_valid(url):
+            mod_link(name, url, id)
+            log.info(f"Modified link #{id}")
+            return Response(
+                f"Modified link #{id}",
+                status=200
+            )
+        else:
+            log.error(f"Couldn't modify link #{id}: URL is not valid!")
+            return Response(
+                f"URL not valid",
+                status=400
+            )
     except Exception as e:
         log.error(f"Couldn't modify link #{id}: {e}")
         return Response(
