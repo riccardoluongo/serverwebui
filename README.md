@@ -21,6 +21,7 @@ fastfetch
 smartmontools
 linux-tools-$(uname-r)
 linux-cpupower
+jq
 ```
 
 Python packages (to be installed in the virtual environment; see below.):
