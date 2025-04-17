@@ -1261,4 +1261,4 @@ window.onload = function() {
     updateGpuFanDiv();
     chooseLogo();
 };
-//By Riccardo Luongo, 08/04/2025
+//By Riccardo Luongo, 17/04/2025
