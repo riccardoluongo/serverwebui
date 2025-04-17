@@ -18,7 +18,6 @@ Packages:
 ```
 linux-tools-generic
 fastfetch
-pipx
 smartmontools
 linux-tools-$(uname-r)
 linux-cpupower
