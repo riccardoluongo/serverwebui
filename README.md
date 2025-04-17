@@ -21,6 +21,7 @@ fastfetch
 smartmontools
 linux-tools-$(uname-r)
 linux-cpupower
+jq
 ```
 
 Python packages (to be installed in the virtual environment; see below.):
@@ -41,9 +42,10 @@ git clone https://github.com/riccardoluongo/serverwebui
 cd serverwebui
 ```
 
-Create the log directory:
+Create the log and database directory:
 ```
 mkdir log
+mkdir database
 ```
 
 Create and activate a python virtual environment:
