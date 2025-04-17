@@ -5,6 +5,7 @@ apt install linux-tools-generic pipx smartmontools linux-tools-$kernel_ver smart
 python3 -m pipx install flask nvitop psutil gunicorn
 python3 -m pipx ensurepath
 mkdir log
+mkdir database
 
 IS_ACTIVE=$(sudo systemctl is-active webui)
 if [ "$IS_ACTIVE" == "active" ]; then
