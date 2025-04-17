@@ -44,13 +44,19 @@ app.logger.setLevel(log_levels[app_settings[1][2]])
 log = app.logger
 app.secret_key = 'nigga' #not tryna make it secure, only used because it's required to use flash()
 
-url_pattern = re.compile( #regex to match valid URLs, used in bookmarks
-    r"^(https?|ftp):\/\/" 
-    r"([a-zA-Z0-9.-]+)\.([a-zA-Z]{2,6})"
-    r"(:\d{1,5})?"
-    r"(\/[^\s]*)?"
-    r"(\?[^\s#]*)?"
-    r"(#[^\s]*)?$",
+url_pattern = re.compile( #url validation, used in bookmarks
+    r"^https?:\/\/"
+    r"("                                         
+        r"(localhost)"
+        r"|"                                     
+        r"([a-zA-Z0-9.-]+\.[a-zA-Z]{2,6})"       #domain
+        r"|"                                     
+        r"(\d{1,3}(\.\d{1,3}){3})"               #IP
+    r")"
+    r"(:\d{1,5})?"                               #ort
+    r"(\/[^\s]*)?"                               #path
+    r"(\?[^\s#]*)?"                              #query
+    r"(#[^\s]*)?$",                              #fragment
     re.IGNORECASE
 )
 
@@ -493,4 +499,4 @@ def get_netio():
     return [down, up]
     
 log.info("App started succesfully")
-#By Riccardo Luongo, 08/04/2025
+#By Riccardo Luongo, 17/04/2025
