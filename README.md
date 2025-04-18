@@ -21,6 +21,7 @@ fastfetch
 smartmontools
 linux-tools-$(uname-r)
 linux-cpupower
+python3-pip
 jq
 ```
 
@@ -30,6 +31,7 @@ turbostat
 fastfetch
 smartmontools
 cpupower
+python-pip
 jq
 ```
 
