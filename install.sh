@@ -1,9 +1,10 @@
 #!/usr/bin/bash
 cd "$(dirname "$0")"
 kernel_ver=$(uname -r)
-apt install linux-tools-generic pipx smartmontools linux-tools-$kernel_ver smartmontools linux-cpupower -y 
-python3 -m pipx install flask nvitop psutil gunicorn
-python3 -m pipx ensurepath
+sudo apt install linux-tools-generic python3-venv smartmontools linux-tools-$kernel_ver smartmontools linux-cpupower jq -y 
+python3 -m venv venv
+source venv/bin/activate
+python3 -m pip install -r requirements.txt 
 mkdir log
 mkdir database
 
