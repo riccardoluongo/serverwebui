@@ -12,7 +12,7 @@ Both Intel and AMD CPUs are supported, meanwhile only Nvidia GPUs are supported 
 
 ## Dependencies
 Make sure you have the appropriate dependencies for your distribution!
-If you plan to install using the auto install script (Debian-based only), you may skip the installation of these (fastfetch must still be installed manually).
+If you plan to install using the auto install script (Ubuntu only), you may skip the installation of these.
 
 Debian/Ubuntu:
 ```
@@ -20,7 +20,7 @@ linux-tools-generic
 fastfetch
 smartmontools
 linux-tools-$(uname-r)
-linux-cpupower
+linux-cpupower (only needed for Debian)
 python3-pip
 jq
 ```
@@ -36,7 +36,7 @@ jq
 ```
 
 ## Installation
-A very rudimentary installation script is available, but it is recommended to follow the instructions and install manually.
+If you're on Ubuntu, a very rudimentary installation script is available, but it is recommended to follow the instructions and install manually.
 ### Manual installation
 
 Clone the repository: 
@@ -88,10 +88,6 @@ sudo systemctl start webui.service
 ```
 
 ### Automatic installation
-#### WARNING!!
-The script will not install fastfetch automatically, as it requires the installation of third party repositories. 
-You will need to install it manually before using this program.
-
 Make the install and start scripts executable:
 ```
 sudo chmod +x install.sh
@@ -100,8 +96,8 @@ sudo chmod +x start.sh
 
 Run the install script:
 ```
-sudo ./install.sh
+./install.sh
 ```
-During the installation, you will be prompted for the port to use for the web server. Once entered, the installation should complete on its own.
+During the installation, you will be prompted for the port to use and the number of workers. Once entered, the installation should complete on its own.
 
 The dashboard should now be reachable at the port of choice.
