@@ -12,7 +12,7 @@ Both Intel and AMD CPUs are supported, meanwhile only Nvidia GPUs are supported 
 
 ## Dependencies
 Make sure you have the appropriate dependencies for your distribution!
-If you plan to install using the auto install script (Ubuntu only), you may skip the installation of these.
+If you plan to install using the auto install script (Ubuntu and Arch only), you may skip the installation of these.
 
 Debian/Ubuntu:
 ```
@@ -36,7 +36,7 @@ jq
 ```
 
 ## Installation
-If you're on Ubuntu, a very rudimentary installation script is available, but it is recommended to follow the instructions and install manually.
+If you're on Ubuntu or Arch, an automatic installation script is available, but it is recommended to follow the instructions and install manually.
 ### Manual installation
 
 Clone the repository: 
@@ -53,7 +53,7 @@ mkdir database
 
 Create and activate a python virtual environment:
 ```
-python -m venv venv
+python3 -m venv venv
 source venv/bin/activate
 ```
 
