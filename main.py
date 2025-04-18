@@ -452,7 +452,7 @@ def edit_link():
 @app.route('/get_storage_usage')
 def get_storage_usage():
     try:
-        command = """df -h --exclude-type=overlay --exclude-type=tmpfs --exclude-type=efivarfs | tr -s ' '   | jq -sR   'split("\n") | .[1:-1] | map(split(" ")) |
+        command = """df -h | grep -vE '^(overlay|tmpfs|devtmpfs|squashfs|proc|sysfs|efivarfs|cgroup2?|debugfs|tracefs|pstore|securityfs|devpts|fusectl|mqueue|autofs|rpc_pipefs|binfmt_misc|bpf)' | tr -s ' ' | jq -sR 'split("\n") | .[1:-1] | map(split(" ")) |
         map({"file_system": .[0],
             "total": .[1],
             "used": .[2],
@@ -505,4 +505,4 @@ def get_netio():
     return [down, up]
     
 log.info("App started succesfully")
-#By Riccardo Luongo, 17/04/2025
+#By Riccardo Luongo, 18/04/2025
