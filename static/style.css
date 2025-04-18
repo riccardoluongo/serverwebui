@@ -723,7 +723,6 @@ th, td,tr, table {
 }
 .disk-stats{
     color: white;
-    font-size: large;
     position: relative;
     top: 5px;
 }
