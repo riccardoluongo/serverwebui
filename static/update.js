@@ -553,6 +553,27 @@ function updateSysInfo(gpuIndex) {
                 hostDiv.innerText = data["host"];
                 processesDiv.innerText = `${data["processes"]} processes running`;
 
+                if(cpuNameDiv.scrollHeight > cpuNameDiv.clientHeight){
+                    cpuNameDiv.style.alignItems = "unset";
+                    cpuNameDiv.style.overflowY = "scroll";
+                    cpuNameDiv.style.overflowX = "hidden";
+                }
+                if(ramUsageDiv.scrollHeight > ramUsageDiv.clientHeight){
+                    ramUsageDiv.style.alignItems = "unset";
+                    ramUsageDiv.style.overflowY = "scroll";
+                    ramUsageDiv.style.overflowX = "hidden";
+                }
+                if(gpuNameDiv.scrollHeight > gpuNameDiv.clientHeight){
+                    gpuNameDiv.style.alignItems = "unset";
+                    gpuNameDiv.style.overflowY = "scroll";
+                    gpuNameDiv.style.overflowX = "hidden";
+                }
+                if(vramUsageDiv.scrollHeight > vramUsageDiv.clientHeight){
+                    vramUsageDiv.style.alignItems = "unset";
+                    vramUsageDiv.style.overflowY = "scroll";
+                    vramUsageDiv.style.overflowX = "hidden";
+                }
+
                 if(data["ip"] != "N/A"){
                     interfaceDiv.innerText = data["interface"];
                     ipDiv.innerText = data["ip"];

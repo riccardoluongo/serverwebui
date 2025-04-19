@@ -507,6 +507,6 @@ def get_netio():
         up = str(round(up, 2)) + "GiB/s"
 
     return [down, up]
-    
+
 log.info("App started succesfully")
 #By Riccardo Luongo, 19/04/2025
