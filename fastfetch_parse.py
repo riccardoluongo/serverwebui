@@ -29,8 +29,8 @@ def parseOutput():
         "memory" : f"{round(jsonOutput[7]['result']['used']/1073741824, 1)}GiB / {round(jsonOutput[7]['result']['total']/1073741824, 1)}GiB",
         "processes" : jsonOutput[8]["result"],
         "packages" : jsonOutput[9]["result"]["all"],
-        "ip" : jsonOutput[10]["result"][0]["ipv4"],
-        "interface" : jsonOutput[10]["result"][0]["name"]
+        "ip" : jsonOutput[10]["result"][0]["ipv4"] if len(jsonOutput[10]["result"]) > 0 else "N/A",
+        "interface" : jsonOutput[10]["result"][0]["name"] if len(jsonOutput[10]["result"]) > 0 else "N/A"
     }
     return sysInfo
-#by Riccardo Luongo, 06/04/2025
+#by Riccardo Luongo, 19/04/2025

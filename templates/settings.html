@@ -2,16 +2,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Server Dashboard - Settings</title>
     <link rel="stylesheet" href="/static/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/static/font-awesome.min.css">
+    <script src="/static/font-awesome.js"></script>
     <link rel = "icon" href = "/static/favicon.ico" type = "image/x-icon">
     <link rel="stylesheet" href="/static/bootstrap.css">
-    <script src="/static/bootstrap.js"></script>
     <script src="/static/settings.js"></script>
 </head>
 <body class="body">
-    <a href="/">
-        <button class="home-button"><i class="fa fa-home fa-3x home-icon"></i></button>
-    </a>
+    <div class="home-container">
+        <a href="/">
+            <i class="fa fa-home fa-2x home-icon"></i>
+        </a>
+    </div>
     <div class="link-grid-container">
         <span class="title">Settings</span>
         {% with messages = get_flashed_messages() %}

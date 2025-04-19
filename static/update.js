@@ -552,9 +552,15 @@ function updateSysInfo(gpuIndex) {
                 uptimeDiv.innerText = `up ${data["uptime"]}`;
                 hostDiv.innerText = data["host"];
                 processesDiv.innerText = `${data["processes"]} processes running`;
-                interfaceDiv.innerText = data["interface"];
-                ipDiv.innerText = data["ip"];
-                updateNetIo();
+
+                if(data["ip"] != "N/A"){
+                    interfaceDiv.innerText = data["interface"];
+                    ipDiv.innerText = data["ip"];
+                    updateNetIo();
+                }
+                else {
+                    ipDiv.innerText = "No network connection";
+                }
             }
         });
 }
@@ -1261,4 +1267,4 @@ window.onload = function() {
     updateGpuFanDiv();
     chooseLogo();
 };
-//By Riccardo Luongo, 17/04/2025
+//By Riccardo Luongo, 19/04/2025
