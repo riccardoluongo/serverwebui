@@ -482,6 +482,8 @@ def get_netio():
     down = newDown - oldDown
     up = newUp - oldUp
 
+    if down < 1024:
+        down = str(down) + "B/s"
     if 1024 < down < 1048576:
         down /= 1024
         down = str(round(down, 2)) + "KiB/s"
@@ -492,6 +494,8 @@ def get_netio():
         down /= 1073741824
         down = str(round(down, 2)) + "GiB/s"
 
+    if up < 1024:
+        up = str(up) + "B/s"
     if 1024 < up < 1048576:
         up /= 1024
         up = str(round(up, 2)) + "KiB/s"
@@ -505,4 +509,4 @@ def get_netio():
     return [down, up]
     
 log.info("App started succesfully")
-#By Riccardo Luongo, 18/04/2025
+#By Riccardo Luongo, 19/04/2025
