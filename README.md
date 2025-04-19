@@ -12,6 +12,7 @@ Both Intel and AMD CPUs are supported, meanwhile only Nvidia GPUs are supported 
 
 ## Dependencies
 Make sure you have the appropriate dependencies for your distribution!
+
 If you plan to install using the auto install script (Ubuntu and Arch only), you may skip the installation of these.
 
 Debian/Ubuntu:
