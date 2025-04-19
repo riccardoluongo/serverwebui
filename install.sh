@@ -6,7 +6,7 @@ cd "$(dirname "$0")"
 if grep -iwq "ubuntu" <<< $os_name; then
     sudo add-apt-repository ppa:zhangsongcui3371/fastfetch
     sudo apt update
-    sudo apt install linux-tools-generic python3.12-venv smartmontools linux-tools-$kernel_ver smartmontools jq fastfetchS-y
+    sudo apt install linux-tools-generic python3.12-venv smartmontools linux-tools-$kernel_ver smartmontools jq fastfetch -y
 elif grep -iwq "arch" <<< $os_name; then
     sudo pacman -Syu turbostat fastfetch smartmontools cpupower python-pip jq
 fi
