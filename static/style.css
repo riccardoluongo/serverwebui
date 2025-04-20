@@ -166,7 +166,7 @@ progress::-webkit-progress-bar {
     border-radius: 5px;
 }
 progress::-webkit-progress-value {
-    height: 100%;
+    height: 40px;
     text-align: center;
     appearance: none;
     border: 0;
