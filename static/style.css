@@ -734,6 +734,7 @@ th, td,tr, table {
     display: flex;
     justify-content: center;
     align-items: center;
+    scrollbar-width: thin;
 }
 .dot-container{
     position: relative;
