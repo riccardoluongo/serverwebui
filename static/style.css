@@ -83,6 +83,8 @@
     padding: 10px;
     overflow-y: overlay;
     display: inline-block;
+    scrollbar-width:thin;
+    scrollbar-gutter:inherit;
 }
 .mini-box-title{
     font-size: 25px;
@@ -108,6 +110,8 @@
     font-size: x-large;
     font-weight: normal;
     position: relative;
+    scrollbar-width:thin;
+    scrollbar-gutter:inherit;
 }
 .storage-box{
     position: absolute;
@@ -309,6 +313,8 @@ progress::-moz-progress-bar {
     border-radius: 10px;
     padding: 14px;
     min-width: 670px;
+    scrollbar-width:thin;
+    scrollbar-gutter:inherit;
 }
 .title {
     font-size: xx-large;
@@ -532,6 +538,8 @@ th, td,tr, table {
     margin-top: 50px;
     overflow-y: overlay;
     font-size: large;
+    scrollbar-width:thin;
+    scrollbar-gutter:inherit;
 }
 .fan{
     position: relative;
@@ -569,6 +577,8 @@ th, td,tr, table {
     border: 3px rgb(155, 155, 155);
     overflow: overlay;
     height: 95%;
+    scrollbar-width:thin;
+    scrollbar-gutter:inherit;
 }
 .smart-tr{
     background-color: rgb(31, 31, 31);
@@ -592,6 +602,8 @@ th, td,tr, table {
 .storage-box-wrapper{
     overflow: overlay;
     height: 500px;
+    scrollbar-width:thin;
+    scrollbar-gutter:inherit;
 }
 .storage-title-container{
     display: flex;
@@ -600,6 +612,7 @@ th, td,tr, table {
     overflow-x: overlay;
     overflow-y: hidden;
     scrollbar-width: thin;
+    scrollbar-gutter:inherit;
 }
 .radio-form{
     margin: 0;
