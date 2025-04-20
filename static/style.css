@@ -60,7 +60,7 @@
     margin: auto;
 }
 .circle-values{
-    font-size: 2rem;
+    font-size: 34px;
     text-align: center;
     font-weight: bold;
 }
@@ -732,19 +732,6 @@ th, td,tr, table {
     margin: auto;
     display: flex
 }
-@media screen and (max-width: 1500px) {
-    .resources-details {
-        font-size: 15px;
-    }
-    .fan-rectangle {
-        font-size: 17px;
-    }
-}
-@media screen and (max-width: 1415px) {
-    .fan-rectangle {
-        font-size: 15px;
-    }
-}
 .sysinfo-smallbox{
     position: relative;
     background-color: rgb(31, 31, 31);
@@ -788,4 +775,19 @@ th, td,tr, table {
     right: 0;
     border-radius: 12px;
     color: white;
+}
+@media screen and (max-width: 1640px) {
+    .circle-values {
+        font-size: 28px;
+    }
+}
+@media screen and (max-width: 1415px) {
+    .fan-rectangle {
+        font-size: 15px;
+    }
+}
+@media screen and (max-width: 1500px) {
+    .fan-rectangle {
+        font-size: 17px;
+    }
 }
