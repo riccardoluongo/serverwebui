@@ -158,7 +158,7 @@
     width: 100%;
 }
 progress::-webkit-progress-bar {
-    height: 100%;
+    height: 40px;
     text-align: center;
     appearance: none;
     border: 0;
@@ -175,7 +175,7 @@ progress::-webkit-progress-value {
     border-radius: 5px;
 }
 progress::-moz-progress-bar {
-    height: 100%;
+    height: 40px;
     text-align: center;
     appearance: none;
     border: 0;
