@@ -414,7 +414,6 @@ th, td,tr, table {
     right: 1;
 }
 .slider {
-    -webkit-appearance: none;
     width: 50%;
     height: 12px;
     background: #d3d3d3;
