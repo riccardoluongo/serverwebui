@@ -8,12 +8,14 @@ if grep -iwq "ubuntu" <<< $os_name; then
     sudo apt update
     sudo apt install linux-tools-generic python3.12-venv smartmontools linux-tools-$kernel_ver smartmontools jq fastfetch -y
 elif grep -iwq "arch" <<< $os_name; then
-    sudo pacman -Syu turbostat fastfetch smartmontools cpupower python-pip jq
+    sudo pacman -Syu turbostat fastfetch smartmontools cpupower python-pip jq --noconfirm
+elif grep -iwq "fedora" <<< $os_name; then
+    sudo dnf install fastfetch smartmontools cpupower python-pip jq --assumeyes
 fi
 
 python3 -m venv venv
 source venv/bin/activate
-python3 -m pip install -r requirements.txt 
+python3 -m pip install -r requirements.txt
 
 mkdir log
 mkdir database
