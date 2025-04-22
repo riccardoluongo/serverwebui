@@ -43,10 +43,10 @@ jq
 ```
 
 ## Installation
-If you're on Ubuntu or Arch, an automatic installation script is available, but it is recommended to follow the instructions and install manually.
+If you're on Ubuntu, Arch or Fedora, an automatic installation script is available, but it is recommended to follow the instructions and install manually.
 ### Manual installation
 
-Clone the repository: 
+Clone the repository:
 ```
 git clone https://github.com/riccardoluongo/serverwebui
 cd serverwebui
