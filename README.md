@@ -29,6 +29,7 @@ smartmontools
 linux-tools-$(uname-r)
 linux-cpupower (only needed for Debian)
 python3-pip
+python3-venv
 jq
 ```
 
