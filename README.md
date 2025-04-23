@@ -21,16 +21,24 @@ Make sure you have the appropriate dependencies for your distribution!
 
 If you plan to install using the auto install script (Ubuntu and Arch only), you may skip the installation of these.
 
-Debian/Ubuntu:
+Debian:
 ```
-linux-tools-generic
 fastfetch
 smartmontools
-linux-tools-$(uname-r)
-linux-cpupower (only needed for Debian)
+linux-cpupower
 python3-pip
 python3-venv
 jq
+```
+
+Ubuntu:
+```
+fastfetch
+smartmontools
+python3-pip
+python3-venv
+jq
+linux-tools-$(uname -r)
 ```
 
 Arch/Fedora:
