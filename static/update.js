@@ -577,7 +577,7 @@ function updateSysInfo(gpuIndex) {
                 if(data["ip"] != "N/A"){
                     interfaceDiv.innerText = data["interface"];
                     ipDiv.innerText = data["ip"];
-                    updateNetIo();
+                    updateNetIo(data["interface"]);
                 }
                 else {
                     ipDiv.innerText = "No network connection";
@@ -586,9 +586,9 @@ function updateSysInfo(gpuIndex) {
         });
 }
 
-function updateNetIo(){
+function updateNetIo(interface){
     const netioDiv = document.getElementById("netio");
-    fetch("/netio")
+    fetch(`/netio?interface=${interface}`)
     .then(function(response){
             if(!response.ok){
                 netioDiv.innerText = "N/A";
@@ -1288,4 +1288,4 @@ window.onload = function() {
     updateGpuFanDiv();
     chooseLogo();
 };
-//By Riccardo Luongo, 19/04/2025
+//By Riccardo Luongo, 29/04/2025

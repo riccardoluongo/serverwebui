@@ -471,13 +471,16 @@ def get_storage_usage():
 
 @app.route('/netio')
 def get_netio():
-    oldDown = psutil.net_io_counters().bytes_recv
-    oldUp = psutil.net_io_counters().bytes_sent
+    interface = request.args['interface']
+    counter = psutil.net_io_counters(pernic=True, nowrap=True)[interface]
+    oldDown = counter.bytes_recv
+    oldUp = counter.bytes_sent
 
     sleep(1)
 
-    newDown = psutil.net_io_counters().bytes_recv
-    newUp = psutil.net_io_counters().bytes_sent
+    counter = psutil.net_io_counters(pernic=True, nowrap=True)[interface]
+    newDown = counter.bytes_recv
+    newUp = counter.bytes_sent
 
     down = newDown - oldDown
     up = newUp - oldUp
@@ -509,4 +512,4 @@ def get_netio():
     return [down, up]
 
 log.info("App started succesfully")
-#By Riccardo Luongo, 20/04/2025
+#By Riccardo Luongo, 29/04/2025
