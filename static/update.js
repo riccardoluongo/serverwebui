@@ -12,7 +12,7 @@ function changeCircle(color, id, value) {
         const match = backgroundStr[1].match(/(\d+)%/);
         return match ? parseInt(match[1], 10) : 0;
     }
-    
+
     function update() {
         const elapsed = performance.now() - startTime;
         const progress = Math.min(elapsed / duration, 1);
@@ -810,7 +810,7 @@ function updateGpuFanDiv() {
 
                     const gpuFanValueSpan = gpuFanContainer.appendChild(document.createElement("span"));
                     gpuFanValueSpan.setAttribute("class", "fan-value");
-                    gpuFanValueSpan.innerText = `No fan available`;
+                    gpuFanValueSpan.innerText = `N/A`;
                 }
                 if (data.length > 0) {
                     const gpuFanContainer = document.getElementById('gpu-fan-container');
@@ -865,7 +865,7 @@ function updateSystemFanDiv() {
 
                     const cpuFanValueSpan = cpuFanContainer.appendChild(document.createElement("span"));
                     cpuFanValueSpan.setAttribute("class", "fan-value");
-                    cpuFanValueSpan.innerText = `No fan available`;
+                    cpuFanValueSpan.innerText = `N/A`;
                 }
                 if (data[0].length > 0) {
                     let i = -1;

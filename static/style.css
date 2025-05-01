@@ -531,13 +531,15 @@ th, td,tr, table {
     overflow-y: overlay;
     font-size: large;
     scrollbar-width:thin;
+    overflow-x: hidden;
 }
 .fan{
     position: relative;
     top: 25px;
-    left: 10px;
+    left: 15px;
     margin-bottom: 25px;
     height: fit-content;
+    min-width: 45%;
 }
 .fan-title{
     position: relative;
@@ -779,15 +781,5 @@ th, td,tr, table {
 @media screen and (max-width: 1640px) {
     .circle-values {
         font-size: 28px;
-    }
-}
-@media screen and (max-width: 1415px) {
-    .fan-rectangle {
-        font-size: 15px;
-    }
-}
-@media screen and (max-width: 1500px) {
-    .fan-rectangle {
-        font-size: 17px;
     }
 }
