@@ -65,6 +65,12 @@ def is_valid(url):
 
 devices = Device.all()
 
+try:
+    zfscheck.poolname()
+    zfs_is_installed = True
+except:
+    zfs_is_installed = False
+
 def nospace(string):
     """Removes spaces from a string"""
     result = ""
@@ -285,40 +291,49 @@ def delete_link_url():
 
 @app.route('/pools_name')
 def get_pools_name():
-    try:
-        return jsonify(zfscheck.poolname())
-    except Exception as e:
-        log.error(f"Couldn't retrieve the ZFS pools in the system: {e}")
-        return Response(
-            f"Couldn't retrieve the ZFS pools in the system: {e}",
-            status=500
-        )
+    if zfs_is_installed:
+        try:
+            return jsonify(zfscheck.poolname())
+        except Exception as e:
+            log.error(f"Couldn't retrieve the ZFS pools in the system: {e}")
+            return Response(
+                f"Couldn't retrieve the ZFS pools in the system: {e}",
+                status=500
+            )
+    else:
+        return Response(status=501)
 
 @app.route('/get_disks')
 def get_disks_from_pool():
-    try:
-        pool = request.args["pool"]
-        zfsinfo = zfscheck.zfscheck(pool)
-        return jsonify(zfsinfo)
-    except Exception as e:
-        log.error(f"Couldn't check the status of the ZFS pool '{pool}': {e}")
-        return Response(
-            f"Couldn't check the status of the ZFS pool '{pool}': {e}",
-            status=500
-        )
+    if zfs_is_installed:
+        try:
+            pool = request.args["pool"]
+            zfsinfo = zfscheck.zfscheck(pool)
+            return jsonify(zfsinfo)
+        except Exception as e:
+            log.error(f"Couldn't check the status of the ZFS pool '{pool}': {e}")
+            return Response(
+                f"Couldn't check the status of the ZFS pool '{pool}': {e}",
+                status=500
+            )
+    else:
+        return Response(status=501)
 
 @app.route('/pool_stats')
 def get_pool_stats():
-    try:
-        pool = request.args["pool"]
-        pool_stats = zfscheck.getpoolinfo(pool)
-        return jsonify(pool_stats)
-    except Exception as e:
-        log.error(f"Couldn't retrieve information about the ZFS pool '{pool}': {e}")
-        return Response(
-            f"Couldn't retrieve information about the ZFS pool '{pool}': {e}",
-            status=500
-        )
+    if zfs_is_installed:
+        try:
+            pool = request.args["pool"]
+            pool_stats = zfscheck.getpoolinfo(pool)
+            return jsonify(pool_stats)
+        except Exception as e:
+            log.error(f"Couldn't retrieve information about the ZFS pool '{pool}': {e}")
+            return Response(
+                f"Couldn't retrieve information about the ZFS pool '{pool}': {e}",
+                status=500
+            )
+    else:
+        return Response(status=501)
 
 @app.route('/settings', methods=["GET", "POST"])
 def settings():
