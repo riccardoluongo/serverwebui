@@ -46,11 +46,11 @@ app.secret_key = 'nigga' #not tryna make it secure, only used because it's requi
 
 url_pattern = re.compile( #url validation, used in bookmarks
     r"^https?:\/\/"
-    r"("                                         
+    r"("
         r"(localhost)"
-        r"|"                                     
+        r"|"
         r"([a-zA-Z0-9.-]+\.[a-zA-Z]{2,6})"       #domain
-        r"|"                                     
+        r"|"
         r"(\d{1,3}(\.\d{1,3}){3})"               #IP
     r")"
     r"(:\d{1,5})?"                               #port
@@ -68,8 +68,10 @@ devices = Device.all()
 try:
     zfscheck.poolname()
     zfs_is_installed = True
+    app.logger.info("zpool command test successful")
 except:
     zfs_is_installed = False
+    app.logger.warning("ZFS information parsing was disabled due to the command exiting with a non-zero exit code (is zfs installed?)")
 
 def nospace(string):
     """Removes spaces from a string"""
@@ -154,7 +156,7 @@ def get_cpu_temp():
 @app.route('/gpu_temp')
 def get_gpu_temp():
     try:
-        gpu_temps = [] 
+        gpu_temps = []
         for dev in devices:
             if type(dev.temperature()) == int:
                 gpu_temps.append(dev.temperature())
@@ -270,7 +272,7 @@ def delete_all_links():
             f"Couldn't delete all the links: {e}",
             status=500
         )
-    
+
 @app.route('/del_link', methods = ["POST"])
 def delete_link_url():
     link_id = request.get_json()
@@ -287,7 +289,7 @@ def delete_link_url():
         return Response(
             f"Couldn't delete link #{link_id}: {e}",
             status=500
-        )    
+        )
 
 @app.route('/pools_name')
 def get_pools_name():
@@ -348,7 +350,7 @@ def settings():
             settings_db.edit_settings(('max_files', max_log_files, 1))
             settings_db.edit_settings(('log_level', log_level, 2))
             settings_db.edit_settings(('refresh_rate', refresh_rate, 3))
-            
+
             log.info("Settings changed successfully")
             return redirect(url_for("settings"))
         except Exception as e:
@@ -423,7 +425,7 @@ def get_smart_data():
             f"Couldn't retrieve SMART data: {e}",
             status=500
         )
-    
+
 @app.route('/get_drives')
 def get_drives():
     try:
@@ -443,7 +445,7 @@ def edit_link():
         name = data[0]
         url = data[1]
         id = data[2]
-        
+
         if is_valid(url):
             mod_link(name, url, id)
             log.info(f"Modified link #{id}")
@@ -527,4 +529,4 @@ def get_netio():
     return [down, up]
 
 log.info("App started succesfully")
-#By Riccardo Luongo, 29/04/2025
+#By Riccardo Luongo, 05/05/2025
