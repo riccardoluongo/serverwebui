@@ -1,7 +1,8 @@
 from os import listdir
-from subprocess import check_output
+from subprocess import run, STDOUT, PIPE
 from re import search
 import json
+import main
 
 def get_drives():
     drives = [dev for dev in listdir("/dev/") if search("^[hs]d.$", dev) != None]
@@ -12,11 +13,16 @@ def get_drives():
 
 def smartcheck(drive):
     drive = '/dev/' + drive
-    attr_json = check_output(f'/usr/sbin/smartctl -a {drive} --json', shell=True, encoding='cp850')
-    attributes = json.loads(attr_json)
+
+    attr_json = run(f'/usr/sbin/smartctl -a {drive} --json', shell=True, text=True, stdout=PIPE, stderr=STDOUT)
+    if attr_json.returncode == 1:
+        main.app.logger.error(f"Couldn't retrieve SMART data for drive {drive}: {e}")
+        return
+
+    attributes = json.loads(attr_json.stdout)
 
     if 'nvme' in drive:
         return ('nvme',attributes['nvme_smart_health_information_log'])
     else:
         return ('ata',attributes['ata_smart_attributes'])
-#by Riccardo Luongo, 16/12/2024
+#by Riccardo Luongo, 21/05/2025

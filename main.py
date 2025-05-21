@@ -88,7 +88,7 @@ def index():
 @app.route('/cpu_util')
 def get_cpu_util():
     try:
-        return jsonify(cpu_util = str(psutil.cpu_percent(1)))
+        return jsonify(cpu_util = psutil.cpu_percent(1))
     except Exception as e:
         log.error(f"Couldn't retrieve the CPU usage: {e}")
         return Response(
@@ -529,4 +529,4 @@ def get_netio():
     return [down, up]
 
 log.info("App started succesfully")
-#By Riccardo Luongo, 05/05/2025
+#By Riccardo Luongo, 21/05/2025

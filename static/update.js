@@ -35,10 +35,10 @@ function updateCpuDiv() {
         .then(function(response) {
             if (!response.ok) {
                 document.getElementById("cpu_util_div").innerText = "N/A";
-            } else 
+            } else{
                 return response.json();
             }
-        )
+        })
         .then((data) => {
             if (data) {
                 if (data.length == 0) {
