@@ -540,6 +540,8 @@ th, td,tr, table {
     margin-bottom: 25px;
     height: fit-content;
     min-width: 45%;
+    display: flex;
+    gap: 15px;
 }
 .fan-title{
     position: relative;
@@ -782,4 +784,8 @@ th, td,tr, table {
     .circle-values {
         font-size: 28px;
     }
+}
+.fan-element{
+    position: relative;
+    white-space: nowrap;
 }

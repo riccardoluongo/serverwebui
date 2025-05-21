@@ -868,16 +868,16 @@ function updateSystemFanDiv() {
                     cpuFanValueSpan.innerText = `N/A`;
                 }
                 if (data[0].length > 0) {
-                    let i = -1;
-                    const cpuFanContainer = document.getElementById('cpu-fan-container');
+                    let i = 0;
+                    const cpuFanContainer = document.getElementById('sys-fan-container');
 
                     while (cpuFanContainer.firstChild) {
                         cpuFanContainer.removeChild(cpuFanContainer.firstChild);
                     }
 
                     for (fan in data[0]) {
-                        i++;
                         const fanWrapper = cpuFanContainer.appendChild(document.createElement("span"));
+                        fanWrapper.classList.add('fan-element');
 
                         const fanIcon = fanWrapper.appendChild(document.createElement("i"));
                         fanIcon.setAttribute("class", "fa-solid fa-fan fan-icon fa-2xl");
@@ -895,6 +895,7 @@ function updateSystemFanDiv() {
                         }
 
                         fanValue.innerText = ` ${data[0][fan][1]} RPM`;
+                        i++;
                     }
                 }
             }
@@ -1288,4 +1289,4 @@ window.onload = function() {
     updateGpuFanDiv();
     chooseLogo();
 };
-//By Riccardo Luongo, 29/04/2025
+//By Riccardo Luongo, 21/05/2025
