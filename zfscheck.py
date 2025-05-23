@@ -1,4 +1,4 @@
-from subprocess import check_output
+from subprocess import run, check_output, STDOUT, PIPE
 
 def zfscheck(pool: str):
     status_output = check_output(f'zpool status {pool} -L', shell=True, encoding='cp850')
@@ -23,7 +23,12 @@ def getpoolinfo(pool: str):
     return pool_stats
 
 def poolname():
-    names = check_output('zpool list -Ho name', shell=True, encoding='cp850')
-    pools_lines = names.strip().split('\n')
-    return pools_lines
-#by Riccardo Luongo, 17/12/2024
+    command = run('zpool list -Ho name', shell=True, encoding='cp850', stdout=PIPE, stderr=STDOUT)
+
+    if command.returncode == 0:
+        pools = command.stdout.strip().split('\n')
+    else:
+        pools = command.returncode
+
+    return pools
+#by Riccardo Luongo, 23/05/2025

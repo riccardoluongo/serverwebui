@@ -65,13 +65,16 @@ def is_valid(url):
 
 devices = Device.all()
 
-try:
-    zfscheck.poolname()
+pools = zfscheck.poolname()
+if type(pools) != int:
     zfs_is_installed = True
     app.logger.info("zpool command test successful")
-except:
+else:
     zfs_is_installed = False
-    app.logger.warning("ZFS information parsing was disabled due to the command exiting with a non-zero exit code (is zfs installed?)")
+    if pools == 127:
+        app.logger.warning("Disabling ZFS information parsing, the command is not available.")
+    else:
+        app.logger.error("Disabling ZFS information parsing, command failed with code " + pools)
 
 def nospace(string):
     """Removes spaces from a string"""
@@ -529,4 +532,4 @@ def get_netio():
     return [down, up]
 
 log.info("App started succesfully")
-#By Riccardo Luongo, 21/05/2025
+#By Riccardo Luongo, 23/05/2025
