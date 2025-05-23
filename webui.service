@@ -3,8 +3,8 @@ Description=This service will start serverWebUI at system startup
 
 [Service]
 User=root
-WorkingDirectory=/home/ric/serverwebui
-ExecStart=/home/ric/serverwebui/start.sh -p 8001 -w 12
+WorkingDirectory={$DIR}
+ExecStart=start.sh -p 8001 -w 12
 
 [Install]
 WantedBy=default.target
