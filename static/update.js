@@ -755,8 +755,8 @@ function updateGpuFanDiv() {
           gpuTitle.innerText = " GPU: ";
           gpuValue.innerText = "No fan found";
 
-          upArrow.style.borderColor = "gray";
-          downArrow.style.borderColor = "gray";
+          upArrow.classList.add("gray-border");
+          downArrow.classList.add("gray-border");
         }
         if (data.length > 0) {
           const gpuCount = data.length;
@@ -766,14 +766,14 @@ function updateGpuFanDiv() {
 
           function updateDisplay() {
             if (selectedGpuFan <= 0)
-              upArrow.style.borderColor = "gray";
+              upArrow.classList.add("gray-border");
             else
-              upArrow.style.borderColor = "white";
+              upArrow.classList.remove("gray-border");
 
             if (selectedGpuFan >= gpuCount - 1)
-              downArrow.style.borderColor = "gray";
+              downArrow.classList.add("gray-border");
             else
-              downArrow.style.borderColor = "white";
+              downArrow.classList.remove("gray-border");
 
             gpuTitle.innerText = ` GPU${selectedGpuFan}:`;
             gpuValue.innerText = ` ${data[selectedGpuFan]}%`;
@@ -818,8 +818,8 @@ function updateSystemFanDiv() {
           sysTitle.innerText = " SYS: ";
           sysValue.innerText = "No fan found";
 
-          upArrow.style.borderColor = "gray";
-          downArrow.style.borderColor = "gray";
+          upArrow.classList.add("gray-border");
+          downArrow.classList.add("gray-border");
         }
         if (data[0].length > 0) {
           const fanCount = data[0].length;
@@ -829,14 +829,14 @@ function updateSystemFanDiv() {
 
           function updateDisplay() {
             if (selectedSystemFan <= 0)
-              upArrow.style.borderColor = "gray";
+              upArrow.classList.add("gray-border");
             else
-              upArrow.style.borderColor = "white";
+              upArrow.classList.remove("gray-border");
 
             if (selectedSystemFan >= fanCount - 1)
-              downArrow.style.borderColor = "gray";
+              downArrow.classList.add("gray-border");
             else
-              downArrow.style.borderColor = "white";
+              downArrow.classList.remove("gray-border");
 
             if (data[0][selectedSystemFan][0] == "")
               sysTitle.innerText = ` SYS${selectedSystemFan}:`;
