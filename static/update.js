@@ -729,8 +729,8 @@ function setRefreshRate() {
       setInterval(() => updateGpuTempDiv(), refresh_rate);
       setInterval(() => updateCpuPwrDiv(), refresh_rate);
       setInterval(() => updateGpuPwrDiv(), refresh_rate);
-      setInterval(() => updateGpuFanDiv(), refresh_rate);
-      setInterval(() => updateSystemFanDiv(), refresh_rate);
+      gpuFanInterval = setInterval(() => updateGpuFanDiv(), refresh_rate);
+      sysFanInterval = setInterval(() => updateSystemFanDiv(), refresh_rate);
     });
 }
 
@@ -744,42 +744,22 @@ function updateGpuFanDiv() {
     })
     .then((data) => {
       if (data) {
-        const gpuFanContainer = document.getElementById("gpu-fan-container");
-
-        while (gpuFanContainer.firstChild)
-          gpuFanContainer.removeChild(gpuFanContainer.firstChild);
+        const upArrow = document.getElementById("gpu-up-arrow");
+        const downArrow = document.getElementById("gpu-down-arrow");
+        const gpuTitle = document.getElementById("gpu-fan-title");
+        const gpuValue = document.getElementById("gpu-fan-value");
 
         if (data.length == 0) {
-          const fanWrapper = gpuFanContainer.appendChild(document.createElement("span"));
-          const gpuFanIcon = fanWrapper.appendChild(document.createElement("i"));
-          const gpuFanTitleSpan = fanWrapper.appendChild(document.createElement("span"));
-          const gpuFanValueSpan = fanWrapper.appendChild(document.createElement("span"));
+          clearInterval(gpuFanInterval);
 
-          fanWrapper.className = "fan-element";
-          gpuFanTitleSpan.className = "fan-title";
-          gpuFanValueSpan.className = "fan-value";
-          gpuFanIcon.classList.add("fa-solid", "fa-fan", "fan-icon", "fa-2xl");
+          gpuTitle.innerText = " GPU: ";
+          gpuValue.innerText = "No fan found";
 
-          gpuFanTitleSpan.innerText = " GPU: ";
-          gpuFanValueSpan.innerText = "No fan found";
+          upArrow.style.borderColor = "gray";
+          downArrow.style.borderColor = "gray";
         }
         if (data.length > 0) {
           const gpuCount = data.length;
-          const fanWrapper = gpuFanContainer.appendChild(document.createElement("span"));
-          const fanIcon = fanWrapper.appendChild(document.createElement("i"));
-          const gpuTitle = fanWrapper.appendChild(document.createElement("span"));
-          const gpuValue = fanWrapper.appendChild(document.createElement("span"));
-          const arrowWrapper = gpuFanContainer.appendChild(document.createElement("div"));
-          const upArrow = arrowWrapper.appendChild(document.createElement("i"));
-          const downArrow = arrowWrapper.appendChild(document.createElement("i"));
-
-          fanWrapper.className = "fan-element";
-          gpuTitle.className = "fan-title";
-          gpuValue.className = "fan-value";
-          arrowWrapper.className = "arrow-wrapper";
-          upArrow.className = "up-arrow";
-          downArrow.className = "down-arrow";
-          fanIcon.classList.add("fa-solid", "fa-fan", "fan-icon", "fa-2xl");
 
           upArrow.onclick = prevFan;
           downArrow.onclick = nextFan;
@@ -827,42 +807,22 @@ function updateSystemFanDiv() {
     })
     .then((data) => {
       if (data) {
-        const cpuFanContainer = document.getElementById("sys-fan-container");
-
-        while (cpuFanContainer.firstChild)
-          cpuFanContainer.removeChild(cpuFanContainer.firstChild);
+        const upArrow = document.getElementById("sys-up-arrow");
+        const downArrow = document.getElementById("sys-down-arrow");
+        const sysTitle = document.getElementById("sys-fan-title");
+        const sysValue = document.getElementById("sys-fan-value");
 
         if (data[0].length == 0) {
-          const fanWrapper = cpuFanContainer.appendChild(document.createElement("span"));
-          const cpuFanIcon = fanWrapper.appendChild(document.createElement("i"));
-          const cpuFanTitleSpan = fanWrapper.appendChild(document.createElement("span"));
-          const cpuFanValueSpan = fanWrapper.appendChild(document.createElement("span"));
+          clearInterval(sysFanInterval);
 
-          fanWrapper.classList.add("fan-element");
-          cpuFanTitleSpan.className = "fan-title";
-          cpuFanValueSpan.className = "fan-value";
-          cpuFanIcon.classList.add("fa-solid", "fa-fan", "fan-icon", "fa-2xl");
+          sysTitle.innerText = " SYS: ";
+          sysValue.innerText = "No fan found";
 
-          cpuFanTitleSpan.innerText = " SYS: ";
-          cpuFanValueSpan.innerText = "No fan found";
+          upArrow.style.borderColor = "gray";
+          downArrow.style.borderColor = "gray";
         }
         if (data[0].length > 0) {
           const fanCount = data[0].length;
-          const fanWrapper = cpuFanContainer.appendChild(document.createElement("span"));
-          const fanIcon = fanWrapper.appendChild(document.createElement("i"));
-          const fanTitle = fanWrapper.appendChild(document.createElement("span"));
-          const fanValue = fanWrapper.appendChild(document.createElement("span"));
-          const arrowWrapper = cpuFanContainer.appendChild(document.createElement("div"));
-          const upArrow = arrowWrapper.appendChild(document.createElement("i"));
-          const downArrow = arrowWrapper.appendChild(document.createElement("i"));
-
-          fanWrapper.className = "fan-element";
-          fanTitle.className = "fan-title";
-          fanValue.className = "fan-value";
-          arrowWrapper.className = "arrow-wrapper";
-          upArrow.className = "up-arrow";
-          downArrow.className = "down-arrow";
-          fanIcon.classList.add("fa-solid", "fa-fan", "fan-icon", "fa-2xl");
 
           upArrow.onclick = prevFan;
           downArrow.onclick = nextFan;
@@ -879,10 +839,11 @@ function updateSystemFanDiv() {
               downArrow.style.borderColor = "white";
 
             if (data[0][selectedSystemFan][0] == "")
-              fanTitle.innerText = ` SYS${selectedSystemFan}:`;
-            else fanTitle.innerText = ` ${data[0][selectedSystemFan][0]}`;
+              sysTitle.innerText = ` SYS${selectedSystemFan}:`;
+            else
+              sysTitle.innerText = ` ${data[0][selectedSystemFan][0]}`;
 
-            fanValue.innerText = ` ${data[0][selectedSystemFan][1]} RPM`;
+            sysValue.innerText = ` ${data[0][selectedSystemFan][1]} RPM`;
           }
           function prevFan() {
             if (selectedSystemFan - 1 >= 0) {

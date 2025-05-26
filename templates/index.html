@@ -113,8 +113,28 @@
                     </div>
                 </div>
                 <div class="fans-wrapper">
-                    <div class="fan-rectangle" id="sys-fan-container"></div>
-                    <div class="fan-rectangle" id="gpu-fan-container"></div>
+                    <div class="fan-rectangle" id="sys-fan-container">
+                        <span class="fan-element" id="sys-fan">
+                            <i class="fa-solid fa-fan fan-icon fa-2xl"></i>
+                            <span class="fan-title" id="sys-fan-title"></span>
+                            <span class="fan-value" id="sys-fan-value"></span>
+                        </span>
+                        <div class="arrow-wrapper">
+                            <i class="up-arrow" id="sys-up-arrow"></i>
+                            <i class="down-arrow" id="sys-down-arrow"></i>
+                        </div>
+                    </div>
+                    <div class="fan-rectangle" id="gpu-fan-container">
+                        <span class="fan-element" id="gpu-fan">
+                            <i class="fa-solid fa-fan fan-icon fa-2xl"></i>
+                            <span class="fan-title" id="gpu-fan-title"></span>
+                            <span class="fan-value" id="gpu-fan-value"></span>
+                        </span>
+                        <div class="arrow-wrapper">
+                            <i class="up-arrow" id="gpu-up-arrow"></i>
+                            <i class="down-arrow" id="gpu-down-arrow"></i>
+                        </div>
+                    </div>
                 </div>
                 <div class="temp-wrapper">
                     <span class="temp-rectangle" id="pwr-rectangle">
