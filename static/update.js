@@ -773,13 +773,13 @@ function updateGpuFanDiv() {
           const upArrow = arrowWrapper.appendChild(document.createElement("i"));
           const downArrow = arrowWrapper.appendChild(document.createElement("i"));
 
-          fanWrapper.classList.add("fan-element");
-          fanIcon.setAttribute("class", "fa-solid fa-fan fan-icon fa-2xl");
-          gpuTitle.setAttribute("class", "fan-title");
-          gpuTitle.setAttribute("class", "fan-value");
+          fanWrapper.className = "fan-element";
+          gpuTitle.className = "fan-title";
+          gpuValue.className = "fan-value";
           arrowWrapper.className = "arrow-wrapper";
           upArrow.className = "up-arrow";
           downArrow.className = "down-arrow";
+          fanIcon.classList.add("fa-solid", "fa-fan", "fan-icon", "fa-2xl");
 
           upArrow.onclick = prevFan;
           downArrow.onclick = nextFan;
@@ -856,13 +856,13 @@ function updateSystemFanDiv() {
           const upArrow = arrowWrapper.appendChild(document.createElement("i"));
           const downArrow = arrowWrapper.appendChild(document.createElement("i"));
 
-          fanWrapper.classList.add("fan-element");
-          fanIcon.setAttribute("class", "fa-solid fa-fan fan-icon fa-2xl");
-          fanTitle.setAttribute("class", "fan-title");
-          fanValue.setAttribute("class", "fan-value");
+          fanWrapper.className = "fan-element";
+          fanTitle.className = "fan-title";
+          fanValue.className = "fan-value";
           arrowWrapper.className = "arrow-wrapper";
           upArrow.className = "up-arrow";
           downArrow.className = "down-arrow";
+          fanIcon.classList.add("fa-solid", "fa-fan", "fan-icon", "fa-2xl");
 
           upArrow.onclick = prevFan;
           downArrow.onclick = nextFan;
