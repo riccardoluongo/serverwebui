@@ -751,7 +751,7 @@ function updateGpuFanDiv() {
 
         if (data.length == 0) {
           const fanWrapper = gpuFanContainer.appendChild(document.createElement("span"));
-          const gpuFanIcon = gpuFanContainer.appendChild(document.createElement("i"));
+          const gpuFanIcon = fanWrapper.appendChild(document.createElement("i"));
           const gpuFanTitleSpan = fanWrapper.appendChild(document.createElement("span"));
           const gpuFanValueSpan = fanWrapper.appendChild(document.createElement("span"));
 
