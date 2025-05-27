@@ -599,6 +599,7 @@ table {
     overflow: overlay;
     height: 500px;
     scrollbar-width: thin;
+    color: white;
 }
 .storage-title-container {
     display: flex;
@@ -847,4 +848,23 @@ table {
 .gray-border:hover {
     cursor: default;
     border-color: gray;
+}
+.warning-icon {
+    position: relative;
+    align-self: center;
+    margin-left: 10px;
+    margin-right: 5px;
+}
+.disk-selector-wrapper {
+    display: flex;
+    margin-top: 10px;
+    position: relative;
+    text-align: center;
+}
+.warning-text {
+    height: fit-content;
+    align-self: center;
+}
+#warning-wrapper {
+    display: flex;
 }
