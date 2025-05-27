@@ -4,7 +4,7 @@ Description=This service will start serverWebUI at system startup
 [Service]
 User=root
 WorkingDirectory={$DIR}
-ExecStart=start.sh -p 8001 -w 12
+ExecStart=start.sh -p {PORT} -w {WORKERS}
 
 [Install]
 WantedBy=default.target
