@@ -11,7 +11,6 @@ from datetime import datetime
 import settings_db
 from flask import Response
 import smartcheck
-from system_fans import get_system_fans
 import json
 from logging.handlers import RotatingFileHandler
 import traceback
@@ -125,7 +124,7 @@ def get_ram_util():
         return Response(
             f"Couldn't retrieve the RAM usage: {e}",
             status=500
-        )        
+        )
 
 @app.route('/vram_util')
 def get_vram_util():
@@ -409,13 +408,16 @@ def get_gpu_fan_speed():
 @app.route('/system_fans_speed')
 def get_system_fans_speed():
     try:
-        return get_system_fans()
+        fans = psutil.sensors_fans()
+        fan_list = []
+        for key in fans:
+            for fan in fans[key]:
+                fan_list.append(fan)
+
+        return jsonify(fan_list)
     except Exception as e:
         log.error(f"Couldn't retrieve the speed of the fans in the system: {e}")
-        return Response(
-            f"Couldn't retrieve the speed of the fans in the system: {e}",
-            status=500
-        )
+        return Response(status=500)
 
 @app.route('/smart_data')
 def get_smart_data():
@@ -532,4 +534,4 @@ def get_netio():
     return [down, up]
 
 log.info("App started succesfully")
-#By Riccardo Luongo, 23/05/2025
+#By Riccardo Luongo, 27/05/2025

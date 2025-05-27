@@ -812,7 +812,7 @@ function updateSystemFanDiv() {
         const sysTitle = document.getElementById("sys-fan-title");
         const sysValue = document.getElementById("sys-fan-value");
 
-        if (data[0].length == 0) {
+        if (data.length == 0) {
           clearInterval(sysFanInterval);
 
           sysTitle.innerText = " SYS: ";
@@ -821,8 +821,8 @@ function updateSystemFanDiv() {
           upArrow.classList.add("gray-border");
           downArrow.classList.add("gray-border");
         }
-        if (data[0].length > 0) {
-          const fanCount = data[0].length;
+        if (data.length > 0) {
+          const fanCount = data.length;
 
           upArrow.onclick = prevFan;
           downArrow.onclick = nextFan;
@@ -838,12 +838,12 @@ function updateSystemFanDiv() {
             else
               downArrow.classList.remove("gray-border");
 
-            if (data[0][selectedSystemFan][0] == "")
+            if (data[selectedSystemFan][0] == "")
               sysTitle.innerText = ` SYS${selectedSystemFan}:`;
             else
-              sysTitle.innerText = ` ${data[0][selectedSystemFan][0]}`;
+              sysTitle.innerText = ` ${data[selectedSystemFan][0]}`;
 
-            sysValue.innerText = ` ${data[0][selectedSystemFan][1]} RPM`;
+            sysValue.innerText = ` ${data[selectedSystemFan][1]} RPM`;
           }
           function prevFan() {
             if (selectedSystemFan - 1 >= 0) {
@@ -1241,4 +1241,4 @@ window.onload = function () {
   updateGpuFanDiv();
   chooseLogo();
 };
-//By Riccardo Luongo, 26/05/2025
+//By Riccardo Luongo, 27/05/2025
