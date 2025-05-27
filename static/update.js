@@ -28,6 +28,11 @@ function changeCircle(color, id, value) {
   requestAnimationFrame(update);
 }
 
+function removeChildren(element) {
+  while (element.firstChild)
+    element.removeChild(element.firstChild);
+}
+
 function updateCpuDiv() {
   fetch("/cpu_util")
     .then(function (response) {
@@ -98,8 +103,7 @@ function updateGpuDiv(gpuIndex) {
         const rightI = document.createElement("i");
         const titleSpan = document.createElement("span");
 
-        while (gpuDot.firstChild)
-          gpuDot.removeChild(gpuDot.firstChild);
+        removeChildren(gpuDot);
 
         function prevGpu() {
           currentIndex = (currentIndex - 1 + data.length) % data.length;
@@ -232,9 +236,7 @@ function updateVramDiv(gpuIndex) {
           const rightI = document.createElement("i");
           const titleSpan = document.createElement("span");
 
-          while (vramDot.firstChild) {
-            vramDot.removeChild(vramDot.firstChild);
-          }
+          removeChildren(vramDot);
 
           function prevGpu() {
             currentIndex = (currentIndex - 1 + data.length) % data.length;
@@ -339,16 +341,14 @@ function updateGpuTempDiv() {
         const initialTempContainer = document.getElementById("initial-gpu-temp-container");
         const gpusTempContainer = tempRectangle.appendChild(document.createElement("div"));
 
-        while (initialTempContainer.firstChild)
-          initialTempContainer.removeChild(initialTempContainer.firstChild);
+        removeChildren(initialTempContainer);
 
         if (document.getElementById("gpus-temp-container") != null)
           document.getElementById("gpus-temp-container").remove();
 
         gpusTempContainer.setAttribute("id", "gpus-temp-container");
 
-        while (gpusTempContainer.firstChild)
-          gpusTempContainer.removeChild(gpusTempContainer.firstChild);
+        removeChildren(gpusTempContainer);
 
         for (const gpu in data) {
           const gpuTempTitle = gpusTempContainer.appendChild(document.createElement("div"));
@@ -403,8 +403,7 @@ function updateGpuPwrDiv() {
         const pwrRectangle = document.getElementById("pwr-rectangle");
         const initialPowerContainer = document.getElementById("initial-gpu-pwr-container");
 
-        while (initialPowerContainer.firstChild)
-          initialPowerContainer.removeChild(initialPowerContainer.firstChild);
+        removeChildren(initialPowerContainer);
 
         if (document.getElementById("gpus-pwr-container") != null)
           document.getElementById("gpus-pwr-container").remove();
@@ -412,8 +411,7 @@ function updateGpuPwrDiv() {
         const gpusPwrContainer = pwrRectangle.appendChild(document.createElement("div"));
         gpusPwrContainer.setAttribute("id", "gpus-pwr-container");
 
-        while (gpusPwrContainer.firstChild)
-          gpusPwrContainer.removeChild(gpusPwrContainer.firstChild);
+        removeChildren(gpusPwrContainer);
 
         for (const gpu in data) {
           const gpuPowerTitle = gpusPwrContainer.appendChild(document.createElement("div"));
@@ -481,9 +479,7 @@ function updateSysInfo(gpuIndex) {
       if (!response.ok) {
         const sysInfoBox = document.getElementById("system-box");
 
-        while (sysInfoBox.firstChild) {
-          sysInfoBox.removeChild(sysInfoBox.firstChild);
-        }
+        removeChildren(sysInfoBox);
 
         const errDiv = sysInfoBox.appendChild(document.createElement("div"));
         errDiv.setAttribute("class", "box-na");
@@ -698,9 +694,7 @@ function FetchDisks() {
     .then((data) => {
       const box = document.getElementById("raid-box");
 
-      while (box.firstChild) {
-        box.removeChild(box.firstChild);
-      }
+      removeChildren(box);
 
       for (line in data) {
         const boxText = box.appendChild(document.createElement("div"));
@@ -879,8 +873,7 @@ function showSmart() {
   }
 
   const storageBoxWrapper = document.getElementById("storage-box-wrapper");
-  while (storageBoxWrapper.firstChild)
-    storageBoxWrapper.removeChild(storageBoxWrapper.firstChild);
+  removeChildren(storageBoxWrapper);
 
   updateDiskSelector();
 
@@ -1048,8 +1041,7 @@ function initializeZpoolInfo() {
   }
 
   const storageBoxWrapper = document.getElementById("storage-box-wrapper");
-  while (storageBoxWrapper.firstChild)
-    storageBoxWrapper.removeChild(storageBoxWrapper.firstChild);
+  removeChildren(storageBoxWrapper);
 
   const poolSelDiv = storageBoxWrapper.appendChild(document.createElement("div"));
   const poolSelector = poolSelDiv.appendChild(document.createElement("select"));
@@ -1138,9 +1130,9 @@ function updateStorageInfo() {
 
   fetch("/get_storage_usage")
     .then(function (response) {
+      removeChildren(storageBoxWrapper);
+
       if (!response.ok) {
-        while (storageBoxWrapper.firstChild)
-          storageBoxWrapper.removeChild(storageBoxWrapper.firstChild);
         storageBoxWrapper.innerHTML = `<h1 class="disk-na">N/A</h1>`;
       } else {
         return response.json();
@@ -1148,9 +1140,6 @@ function updateStorageInfo() {
     })
     .then((data) => {
       if (data) {
-        while (storageBoxWrapper.firstChild)
-          storageBoxWrapper.removeChild(storageBoxWrapper.firstChild);
-
         for (const disk in data) {
           const diskWrapper = storageBoxWrapper.appendChild(document.createElement("div"));
           diskWrapper.classList.add("disk-wrapper");

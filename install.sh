@@ -28,7 +28,7 @@ if [ "$IS_ACTIVE" == "active" ]; then
     echo "Service restarted"
 else
     read -p "Enter the port to use for the web interface: " PORT
-    read -p "Enter the number of gunicorn workers to use:" WORKERS
+    read -p "Enter the number of gunicorn workers to use: " WORKERS
     echo "Creating service file"
     sed -i -e "s|{DIR}|$PWD|g" webui.service
     sed -i -e "s/{PORT}/$PORT/g" webui.service
