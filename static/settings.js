@@ -27,7 +27,7 @@ function updateSettings() {
       refreshNumber.value = settings["refresh_rate"];
       refreshRange.value = refreshNumber.value;
 
-      activeFansCheckbox.checked = settings["active_fans"] ? true : false;
+      activeFansCheckbox.checked = settings["active_fans"] == "on" ? true : false;
       activeFansText.innerText = activeFansCheckbox.checked ? "Yes" : "No";
       activeFansCheckbox.addEventListener("click", () => { activeFansText.innerText = activeFansCheckbox.checked ? "Yes" : "No" });
     })

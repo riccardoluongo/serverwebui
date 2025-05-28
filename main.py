@@ -348,10 +348,10 @@ def settings():
     if request.method == "POST":
         try:
             settings = {
-                'max_files' : request.form.get("files-num"),
+                'max_files' : int(request.form.get("files-num")),
                 'log_level' : request.form.get("log-selector"),
-                'refresh_rate' : request.form.get("refresh-num"),
-                'max_size' : request.form.get("size-num"),
+                'refresh_rate' : int(request.form.get("refresh-num")),
+                'max_size' : int(request.form.get("size-num")),
                 'active_fans' : request.form.get("active-fans")
             }
             edit_settings(settings)

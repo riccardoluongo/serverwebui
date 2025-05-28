@@ -1,4 +1,5 @@
 from json import dump, load
+from types import NoneType
 
 PATH = 'settings/settings.json'
 DEFAULT_SETTINGS = {
@@ -6,7 +7,7 @@ DEFAULT_SETTINGS = {
     'log_level' : 'info',
     'refresh_rate' : 2000,
     'max_size' : 2000,
-    'active_fans' : False
+    'active_fans' : None
 }
 
 def create_default():
@@ -28,8 +29,12 @@ def settings_are_valid():
         return False
 
     for key in settings.keys():
-        if type(settings[key]) != type(DEFAULT_SETTINGS[key]):
-            return False
+        if key != "active_fans":
+            if type(settings[key]) != type(DEFAULT_SETTINGS[key]):
+                return False
+        else:
+            if type(settings[key]) != NoneType and type(settings[key]) != str:
+                return False
 
     return True
 
