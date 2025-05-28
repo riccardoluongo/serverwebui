@@ -715,7 +715,9 @@ function setRefreshRate() {
   fetch("/get_settings")
     .then((response) => response.json())
     .then((data) => {
-      const refresh_rate = data[2][2];
+      updateSystemFanDiv(data["active_fans"]);
+      const refresh_rate = data["refresh_rate"];
+
       setInterval(() => updateCpuDiv(), refresh_rate);
       setInterval(() => updateRamDiv(), refresh_rate);
       setInterval(() => updateGpuDiv(), refresh_rate);
@@ -724,7 +726,7 @@ function setRefreshRate() {
       setInterval(() => updateCpuPwrDiv(), refresh_rate);
       setInterval(() => updateGpuPwrDiv(), refresh_rate);
       gpuFanInterval = setInterval(() => updateGpuFanDiv(), refresh_rate);
-      sysFanInterval = setInterval(() => updateSystemFanDiv(), refresh_rate);
+      sysFanInterval = setInterval(() => updateSystemFanDiv(data["active_fans"]), refresh_rate);
     });
 }
 
@@ -791,8 +793,9 @@ function updateGpuFanDiv() {
     });
 }
 
-function updateSystemFanDiv() {
-  fetch("/system_fans_speed")
+function updateSystemFanDiv(activeFans) {
+  const group = activeFans ? "active" : "all"
+  fetch("/system_fans_speed?group=" + group)
     .then(function (response) {
       if (!response.ok)
         alert("Unable to retrieve system fans");
@@ -1044,9 +1047,6 @@ function updateSmartDiv() {
     });
 }
 
-setRefreshRate();
-setInterval(() => UpdateTimeDiv(), 1000);
-
 function setAttributes(el, attrs) {
   for (const key in attrs)
     el.setAttribute(key, attrs[key]);
@@ -1215,6 +1215,9 @@ window.onload = function () {
   selectedSystemFan = 0;
   selectedGpuFan = 0;
 
+  setRefreshRate();
+  setInterval(() => UpdateTimeDiv(), 1000);
+
   radios[0].addEventListener("click", initializeStorageInfo);
   poolsExist().then((exists) => {
     if (exists)
@@ -1244,8 +1247,7 @@ window.onload = function () {
   updateCpuPwrDiv();
   updateGpuPwrDiv();
   UpdateLinksDiv();
-  updateSystemFanDiv();
   updateGpuFanDiv();
   chooseLogo();
 };
-//By Riccardo Luongo, 27/05/2025
+//Riccardo Luongo, 29/05/2025

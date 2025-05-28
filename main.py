@@ -8,7 +8,6 @@ from nvitop import Device
 from db import *
 import logging
 from datetime import datetime
-import settings_db
 from flask import Response
 import smartcheck
 import json
@@ -17,14 +16,16 @@ import traceback
 import re
 import fastfetch_parse
 from time import sleep
+from settings import *
 
 initialize_db()
-settings_db.initialize_db()
+if not settings_are_valid():
+    create_default()
 
 now = datetime.now()
 dt_string = now.strftime("%d_%m_%Y_%H_%M_%S")
 app = Flask(__name__)
-app_settings = settings_db.get_settings()
+app_settings = read_settings()
 
 log_levels = {
     'debug': logging.DEBUG,
@@ -33,13 +34,16 @@ log_levels = {
     'error': logging.ERROR,
     'critical': logging.CRITICAL
 }
+max_size = app_settings['max_size'] * 1000
+backup_count = app_settings['max_files']
+log_level = log_levels[app_settings['log_level']]
 
-handler = RotatingFileHandler('log/main.log', maxBytes=int(app_settings[3][2])*1000, backupCount=int(app_settings[0][2]))
-handler.setLevel(log_levels[app_settings[1][2]])
+handler = RotatingFileHandler('log/main.log', maxBytes=max_size, backupCount=backup_count)
+handler.setLevel(log_level)
 formatter = logging.Formatter('[%(levelname)s] [%(asctime)s] - %(message)s')
 handler.setFormatter(formatter)
 app.logger.addHandler(handler)
-app.logger.setLevel(log_levels[app_settings[1][2]])
+app.logger.setLevel(log_level)
 log = app.logger
 app.secret_key = 'nigga' #not tryna make it secure, only used because it's required to use flash()
 
@@ -343,15 +347,14 @@ def get_pool_stats():
 def settings():
     if request.method == "POST":
         try:
-            max_log_file_size = request.form.get("size-num")
-            max_log_files = request.form.get("files-num")
-            log_level = request.form.get("log-selector")
-            refresh_rate = request.form.get("refresh-num")
-
-            settings_db.edit_settings(('max_size', max_log_file_size, 4))
-            settings_db.edit_settings(('max_files', max_log_files, 1))
-            settings_db.edit_settings(('log_level', log_level, 2))
-            settings_db.edit_settings(('refresh_rate', refresh_rate, 3))
+            settings = {
+                'max_files' : request.form.get("files-num"),
+                'log_level' : request.form.get("log-selector"),
+                'refresh_rate' : request.form.get("refresh-num"),
+                'max_size' : request.form.get("size-num"),
+                'active_fans' : request.form.get("active-fans")
+            }
+            edit_settings(settings)
 
             log.info("Settings changed successfully")
             return redirect(url_for("settings"))
@@ -364,29 +367,21 @@ def settings():
 @app.route('/get_settings')
 def get_settings():
     try:
-        return jsonify(settings_db.get_settings())
+        return jsonify(read_settings())
     except Exception as e:
         log.error(f"Couldn't retrieve settings: {e}")
-        return Response(
-            f"Couldn't retrieve settings: {e}",
-            status=500
-        )
+        return Response(status=500)
 
 @app.route('/reset_settings', methods = ["POST"])
 def reset_settings():
     try:
-        settings_db.reset()
+        create_default()
+
         log.info("Restored default settings")
-        return Response(
-            f"Restored default settings",
-            status=200
-        )
+        return Response(status=200)
     except Exception as e:
         log.error(f"Couldn't restore the default settings: {e}")
-        return Response(
-            f"Couldn't restore the default settings: {e}",
-            status=500
-        )
+        return Response(status=500)
 
 @app.route('/gpu_fan_speed')
 def get_gpu_fan_speed():
@@ -409,12 +404,22 @@ def get_gpu_fan_speed():
 def get_system_fans_speed():
     try:
         fans = psutil.sensors_fans()
+        group = request.args["group"]
         fan_list = []
+
         for key in fans:
             for fan in fans[key]:
                 fan_list.append(fan)
 
-        return jsonify(fan_list)
+        if group == "active":
+            active_fans = []
+            for fan in fan_list:
+                if fan[1] == 0:
+                    active_fans.append(fan)
+            return jsonify(active_fans)
+        elif group == "all":
+            return jsonify(fan_list)
+
     except Exception as e:
         log.error(f"Couldn't retrieve the speed of the fans in the system: {e}")
         return Response(status=500)
@@ -534,4 +539,4 @@ def get_netio():
     return [down, up]
 
 log.info("App started succesfully")
-#By Riccardo Luongo, 27/05/2025
+#Riccardo Luongo, 29/05/2025

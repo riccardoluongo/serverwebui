@@ -61,10 +61,11 @@ git clone https://github.com/riccardoluongo/serverwebui
 cd serverwebui
 ```
 
-Create the log and database directory:
+Create the necessary directories:
 ```
 mkdir log
 mkdir database
+mkdir settings
 ```
 
 Create and activate a python virtual environment:

@@ -19,6 +19,7 @@ python3 -m pip install -r requirements.txt
 
 mkdir log
 mkdir database
+mkdir settings
 
 IS_ACTIVE=$(sudo systemctl is-active webui)
 if [ "$IS_ACTIVE" == "active" ]; then

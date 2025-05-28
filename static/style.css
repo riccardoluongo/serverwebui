@@ -301,7 +301,7 @@ progress::-moz-progress-bar {
 .link-grid-container {
     border: 2px solid;
     width: 55%;
-    height: 90%;
+    height: 800px;
     margin: auto;
     background-color: rgb(48, 48, 48);
     overflow: overlay;
@@ -836,7 +836,7 @@ table {
     position: relative;
     width: 20px;
     height: 100%;
-    left: 4%;
+    left: 3%;
     gap: 5px;
     display: flex;
     flex-direction: column;
@@ -867,4 +867,16 @@ table {
 }
 #warning-wrapper {
     display: flex;
+}
+.active-fans-checkbox {
+    height: 20px;
+    width: 20px;
+}
+.active-fan-text {
+    color: white;
+}
+.setting-body {
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
