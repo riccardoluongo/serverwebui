@@ -16,6 +16,14 @@ Other distros should work but they might have problems with dependencies.
 
 Both Intel and AMD CPUs are supported, meanwhile only Nvidia GPUs are supported as of now. Support for Intel and AMD in the works.
 
+## Roadmap
+Features coming in the future!
+
+- RAID information (mdadm)
+- Better ZFS info (current one is horrible)
+- Better selection of file systems in usage info (current one shows a lot of irrelevant system file systems)
+- AMD and Intel GPUs support
+
 ## Dependencies
 Make sure you have the appropriate dependencies for your distribution!
 
