@@ -2,3 +2,4 @@ flask
 nvitop
 psutil
 gunicorn
+zpool_status

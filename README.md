@@ -20,7 +20,6 @@ Both Intel and AMD CPUs are supported, meanwhile only Nvidia GPUs are supported 
 Features coming in the future!
 
 - RAID information (mdadm)
-- Better ZFS info (current one is horrible)
 - Better selection of file systems in usage info (current one shows a lot of irrelevant system file systems)
 - AMD and Intel GPUs support
 

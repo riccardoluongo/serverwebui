@@ -457,12 +457,12 @@ function UpdatePoolInfoDiv() {
     })
     .then((data) => {
       if (data) {
-        document.getElementById("pool-status").innerText = `${data["health"]}`;
-        document.getElementById("used-of").innerText = `${data["allocated"]} of ${data["size"]}`;
-        document.getElementById("free-space").innerText = `${data["free"]}`;
-        document.getElementById("%-used").innerText = `${data["capacity"]} used`;
+        document.getElementById("pool-status").innerText = `${data[9]}`;
+        document.getElementById("used-of").innerText = `${data[2]} of ${data[1]}`;
+        document.getElementById("free-space").innerText = `${data[3]}`;
+        document.getElementById("%-used").innerText = `${data[7]} used`;
 
-        const percUsed = data["capacity"].slice(0, -1);
+        const percUsed = data[7].slice(0, -1);
         document.getElementById("storage-bar").setAttribute("value", percUsed);
       }
     });
@@ -671,42 +671,260 @@ function UpdateDropPools() {
 
       for (const pool in data) {
         const poolsButtons = poolsDrop.appendChild(document.createElement("option"));
-        poolsButtons.setAttribute("value", `${data[pool]}`);
-        poolsButtons.appendChild(document.createTextNode(`${data[pool]}`));
+        poolsButtons.setAttribute("value", data[pool]);
+        poolsButtons.innerText = data[pool];
       }
 
       poolsDrop.setAttribute("value", data[0]);
 
-      FetchDisks();
-      if (disk_interval_set == false) {
-        disk_interval = setInterval(() => FetchDisks(), 10000);
-        disk_interval_set = true;
-      }
-      sel_pool.addEventListener("change", FetchDisks);
+      updateZfsInfo();
+      sel_pool.addEventListener("change", updateZfsInfo);
     });
 }
 
-function FetchDisks() {
+function updateZfsInfo() {
   const dropValue = document.getElementById("pool-selector").value;
+  let foldCount = 0;
 
   fetch(`/get_disks?pool=${dropValue}`)
     .then((response) => response.json())
     .then((data) => {
       const box = document.getElementById("raid-box");
+      const showScanButton = document.getElementById("show-scan-btn");
+      const showErrorsButton = document.getElementById("show-errors-btn");
+      const vdevWrapper = box.appendChild(document.createElement("div"));
+      const vdevTitleContainer = vdevWrapper.appendChild(document.createElement("div"));
+      const foldButton = vdevTitleContainer.appendChild(document.createElement("i"));
+      const vdevName = vdevTitleContainer.appendChild(document.createElement("span"));
+      const vdevDrop = document.getElementById("vdev-selector");
+      const disksContainer = vdevWrapper.appendChild(document.createElement("div"));
+      const logsWrapper = box.appendChild(document.createElement("div"));
+      const cacheWrapper = box.appendChild(document.createElement("div"));
 
-      removeChildren(box);
+      removeChildren(vdevDrop);
 
-      for (line in data) {
-        const boxText = box.appendChild(document.createElement("div"));
-        boxText.setAttribute("id", `l${line}`);
-        boxText.classList.add("raid-text");
-        boxText.innerText = data[line];
+      vdevDrop.addEventListener('change', updateDisplay);
+
+      vdevTitleContainer.className = "vdev-container";
+      disksContainer.className = "disks-container";
+
+      foldButton.className = "down-arrow";
+      foldButton.onclick = () => {
+        foldCount++;
+
+        if(foldCount % 2 != 0){
+          foldButton.className = "right-arrow";
+          disksContainer.style.display = "none";
+        } else{
+          foldButton.className = "down-arrow";
+          disksContainer.style.display = "initial";
+        }
       }
 
-      UpdatePoolInfoDiv();
-      if (poolinfo_interval_set == false) {
-        poolinfo_interval = setInterval(() => UpdatePoolInfoDiv(), 10000);
-        poolinfo_interval_set = true;
+      const logTitleContainer = logsWrapper.appendChild(document.createElement("div"));
+      const logFoldButton = logTitleContainer.appendChild(document.createElement("i"));
+      const logName = logTitleContainer.appendChild(document.createElement("span"));
+      const logContainer = logsWrapper.appendChild(document.createElement('div'));
+
+      logTitleContainer.className = "vdev-container";
+      logContainer.className = "disks-container";
+
+      logFoldButton.className = "down-arrow";
+      logFoldButton.onclick = () => {
+        foldCount++;
+
+        if(foldCount % 2 != 0){
+          logFoldButton.className = "right-arrow";
+          logContainer.style.display = "none";
+        } else{
+          logFoldButton.className = "down-arrow";
+          logContainer.style.display = "initial";
+        }
+      }
+
+      logName.innerText = "logs";
+
+      const cacheTitleContainer = cacheWrapper.appendChild(document.createElement("div"));
+      const cacheFoldButton = cacheTitleContainer.appendChild(document.createElement("i"));
+      const cacheName = cacheTitleContainer.appendChild(document.createElement("span"));
+      const cacheContainer = cacheWrapper.appendChild(document.createElement('div'));
+
+      cacheTitleContainer.className = "vdev-container";
+      cacheContainer.className = "disks-container";
+
+      cacheFoldButton.className = "down-arrow";
+      cacheFoldButton.onclick = () => {
+        foldCount++;
+
+        if(foldCount % 2 != 0){
+          cacheFoldButton.className = "right-arrow";
+          cacheContainer.style.display = "none";
+        } else{
+          cacheFoldButton.className = "down-arrow";
+          cacheContainer.style.display = "initial";
+        }
+      }
+
+      cacheName.innerText = "cache";
+
+      for(const vdev of data['config'][0]['virtual devices']){
+        const option = vdevDrop.appendChild(document.createElement('option'));
+        option.setAttribute('value', vdev['name']);
+        option.innerText = vdev['name'];
+      }
+
+      if(data['scan'].length != 0){
+        showScanButton.classList.add("show-scan-btn-hover");
+        showScanButton.onclick = () => {alert(data['scan'])};
+        showScanButton.title = "Show scrub log";
+      } else{
+        showScanButton.classList.remove("show-scan-btn-hover");
+        showScanButton.title = "No scans have been ran";
+      }
+
+      if(data['errors'] != "No known data errors"){
+        showErrorsButton.classList.add("show-scan-btn-hover");
+        showErrorsButton.onclick = () => {alert(data['errors'])};
+        showErrorsButton.title = "Show errors";
+      } else{
+        showErrorsButton.classList.remove("show-scan-btn-hover");
+        showErrorsButton.title = "All good! No errors at this time";
+      }
+
+      function updateDisplay(){
+        vdevName.innerText = vdevDrop.value;
+
+        removeChildren(disksContainer);
+        for (const disk of data['config'][0]['virtual devices'][vdevDrop.selectedIndex]['devices']){
+          if(disk['type'] == 'device'){
+            const diskDiv = disksContainer.appendChild(document.createElement('div'));
+            const statusIcon = diskDiv.appendChild(document.createElement('img'));
+            const diskName = diskDiv.appendChild(document.createElement('span'));
+
+            diskDiv.className = "zfs-disk";
+            diskName.className = "zfs-disk-name";
+            statusIcon.className = "disk-status-icon";
+
+            diskName.innerText = disk['name'];
+            switch(disk['state']){
+              case 'ONLINE' :
+                statusIcon.src = 'static/logos/green-circle.svg';
+                statusIcon.title = 'ONLINE';
+                break;
+              case 'DEGRADED' : case 'DEGRADED (REDUNDANT)' : case 'EIO' :
+                const icon = document.createElement('svg');
+                statusIcon.replaceWith(icon);
+                icon.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" height="24" width="24" viewBox="0 0 512 512"><path fill="#FFD43B" d="M256 32c14.2 0 27.3 7.5 34.5 19.8l216 368c7.3 12.4 7.3 27.7 .2 40.1S486.3 480 472 480L40 480c-14.3 0-27.6-7.7-34.7-20.1s-7-27.8 .2-40.1l216-368C228.7 39.5 241.8 32 256 32zm0 128c-13.3 0-24 10.7-24 24l0 112c0 13.3 10.7 24 24 24s24-10.7 24-24l0-112c0-13.3-10.7-24-24-24zm32 224a32 32 0 1 0 -64 0 32 32 0 1 0 64 0z"/></svg>';
+                icon.title = disk['state'];
+                break;
+              case 'FAULTED' : case 'CLOSED' : case 'UNAVAILABLE' : case 'MISSING':
+                statusIcon.src = 'static/logos/x.svg';
+                statusIcon.title = disk['state'];
+                break;
+              case 'REMOVED' : case 'OFFLINE':
+                statusIcon.src = 'static/logos/x-grey.svg';
+                statusIcon.title = disk['state'];
+                break;
+              default:
+                statusIcon.src = 'static/logos/question.svg';
+                statusIcon.title = disk['state'];
+                break;
+            }
+          }
+        }
+        updateLogInfo();
+        updateCacheInfo();
+        UpdatePoolInfoDiv();
+      }
+
+      function updateLogInfo() {
+        removeChildren(logContainer);
+
+        for(const disk of data['config'][1]['devices']){
+          if(disk['type'] == 'device'){
+            const diskDiv = logContainer.appendChild(document.createElement('div'));
+            const statusIcon = diskDiv.appendChild(document.createElement('img'));
+            const diskName = diskDiv.appendChild(document.createElement('span'));
+
+            diskDiv.className = "zfs-disk";
+            diskName.className = "zfs-disk-name"
+            statusIcon.className = "disk-status-icon";
+
+            diskName.innerText = disk['name'];
+            switch(disk['state']){
+              case 'ONLINE' :
+                statusIcon.src = 'static/logos/green-circle.svg';
+                statusIcon.title = 'ONLINE';
+                break;
+              case 'DEGRADED' : case 'DEGRADED (REDUNDANT)' : case 'EIO' :
+                const icon = document.createElement('svg');
+                statusIcon.replaceWith(icon);
+                icon.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" height="24" width="24" viewBox="0 0 512 512"><path fill="#FFD43B" d="M256 32c14.2 0 27.3 7.5 34.5 19.8l216 368c7.3 12.4 7.3 27.7 .2 40.1S486.3 480 472 480L40 480c-14.3 0-27.6-7.7-34.7-20.1s-7-27.8 .2-40.1l216-368C228.7 39.5 241.8 32 256 32zm0 128c-13.3 0-24 10.7-24 24l0 112c0 13.3 10.7 24 24 24s24-10.7 24-24l0-112c0-13.3-10.7-24-24-24zm32 224a32 32 0 1 0 -64 0 32 32 0 1 0 64 0z"/></svg>';
+                icon.title = disk['state'];
+                break;
+              case 'FAULTED' : case 'CLOSED' : case 'UNAVAILABLE' : case 'MISSING':
+                statusIcon.src = 'static/logos/x.svg';
+                statusIcon.title = disk['state'];
+                break;
+              case 'REMOVED' : case 'OFFLINE':
+                statusIcon.src = 'static/logos/x-grey.svg';
+                statusIcon.title = disk['state'];
+                break;
+              default:
+                statusIcon.src = 'static/logos/question.svg';
+                statusIcon.title = disk['state'];
+                break;
+            }
+          }
+        }
+      }
+
+      function updateCacheInfo(){
+        removeChildren(cacheContainer);
+
+        for(const disk of data['config'][2]['devices']){
+          if(disk['type'] == 'device'){
+            const diskDiv = cacheContainer.appendChild(document.createElement('div'));
+            const statusIcon = diskDiv.appendChild(document.createElement('img'));
+            const diskName = diskDiv.appendChild(document.createElement('span'));
+
+            diskDiv.className = "zfs-disk";
+            diskName.className = "zfs-disk-name"
+            statusIcon.className = "disk-status-icon";
+
+            diskName.innerText = disk['name'];
+            switch(disk['state']){
+              case 'ONLINE' :
+                statusIcon.src = 'static/logos/green-circle.svg';
+                statusIcon.title = 'ONLINE';
+                break;
+              case 'DEGRADED' : case 'DEGRADED (REDUNDANT)' : case 'EIO' :
+                const icon = document.createElement('svg');
+                statusIcon.replaceWith(icon);
+                icon.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" height="24" width="24" viewBox="0 0 512 512"><path fill="#FFD43B" d="M256 32c14.2 0 27.3 7.5 34.5 19.8l216 368c7.3 12.4 7.3 27.7 .2 40.1S486.3 480 472 480L40 480c-14.3 0-27.6-7.7-34.7-20.1s-7-27.8 .2-40.1l216-368C228.7 39.5 241.8 32 256 32zm0 128c-13.3 0-24 10.7-24 24l0 112c0 13.3 10.7 24 24 24s24-10.7 24-24l0-112c0-13.3-10.7-24-24-24zm32 224a32 32 0 1 0 -64 0 32 32 0 1 0 64 0z"/></svg>';
+                icon.title = disk['state'];
+                break;
+              case 'FAULTED' : case 'CLOSED' : case 'UNAVAILABLE' : case 'MISSING':
+                statusIcon.src = 'static/logos/x.svg';
+                statusIcon.title = disk['state'];
+                break;
+              case 'REMOVED' : case 'OFFLINE':
+                statusIcon.src = 'static/logos/x-grey.svg';
+                statusIcon.title = disk['state'];
+                break;
+              default:
+                statusIcon.src = 'static/logos/question.svg';
+                statusIcon.title = disk['state'];
+                break;
+            }
+          }
+        }
+      }
+
+      updateDisplay();
+      if (disk_interval_set == false) {
+        disk_interval = setInterval(() => updateDisplay(), 60000);
+        disk_interval_set = true;
       }
     });
 }
@@ -1063,19 +1281,33 @@ function initializeZpoolInfo() {
 
   const poolSelDiv = storageBoxWrapper.appendChild(document.createElement("div"));
   const poolSelector = poolSelDiv.appendChild(document.createElement("select"));
+  const vdevSelector = poolSelDiv.appendChild(document.createElement("select"));
+  const showScansButton = poolSelDiv.appendChild(document.createElement("button"));
+  const showErrorsButton = poolSelDiv.appendChild(document.createElement("button"));
   setAttributes(poolSelector, {
     id: "pool-selector",
     class: "pool-selector",
-    name: "pool-selector",
     title: "Choose a ZFS pool",
   });
-
-  const poolPre = storageBoxWrapper.appendChild(document.createElement("pre"));
-  const raidBox = poolPre.appendChild(document.createElement("div"));
-  setAttributes(raidBox, {
-    class: "raid-box",
-    id: "raid-box",
+  setAttributes(vdevSelector, {
+    id: "vdev-selector",
+    class: "pool-selector",
+    title: "Choose a virtual device",
   });
+  setAttributes(showScansButton, {
+    id: 'show-scan-btn',
+    class : 'show-scan-btn fa fa-history fa-lg',
+    title : 'No scans have been ran'
+  });
+  setAttributes(showErrorsButton, {
+    id: 'show-errors-btn',
+    class : 'show-scan-btn fa fa-exclamation-triangle fa-lg',
+    title : 'All good! No errors at this time'
+  })
+
+  const raidBox = storageBoxWrapper.appendChild(document.createElement("div"));
+  raidBox.className = "raid-box";
+  raidBox.id = "raid-box";
 
   const storageBox = storageBoxWrapper.appendChild(document.createElement("div"));
   storageBox.setAttribute("class", "storage-box");
@@ -1177,7 +1409,7 @@ function updateStorageInfo() {
       }
     });
   if (storageInfo_interval_set == false) {
-    storageInfo_interval = setInterval(() => updateStorageInfo(), 10000);
+    storageInfo_interval = setInterval(() => updateStorageInfo(), 60000);
     storageInfo_interval_set = true;
   }
 }
@@ -1250,4 +1482,4 @@ window.onload = function () {
   updateGpuFanDiv();
   chooseLogo();
 };
-//Riccardo Luongo, 29/05/2025
+//Riccardo Luongo, 13/06/2025

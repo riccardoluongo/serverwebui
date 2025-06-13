@@ -99,27 +99,22 @@
     left: 20px;
 }
 .raid-box {
-    width: 95%;
-    height: 53%;
-    background: rgb(31, 31, 31);
-    bottom: 0.5rem;
-    border-radius: 12px;
     padding: 10px;
-    overflow: overlay;
+    margin-bottom: 5px;
+    height: 285px;
     color: white;
-    font-size: x-large;
-    font-weight: normal;
     position: relative;
-    scrollbar-width: thin;
+    background-color: rgb(31, 31, 31);
+    margin-top: 10px;
+    border-radius: 12px;
+    overflow: overlay;
 }
 .storage-box {
-    position: absolute;
-    left: 1%;
-    bottom: 10px;
-    padding: 14px;
+    position: relative;
     color: white;
-    width: 100%;
-    right: 10%;
+    margin: auto;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 .pool-info-container {
     display: flex;
@@ -127,14 +122,12 @@
 }
 .pool-info-titles {
     font-size: 20px;
-    padding-bottom: 5px;
     font-weight: bold;
     color: white;
     display: flex;
 }
 .pool-info-values {
     font-size: 20px;
-    padding-bottom: 5px;
     font-weight: normal;
     color: white;
     display: flex;
@@ -146,7 +139,8 @@
     appearance: none;
     border-radius: 5px;
     border: 0;
-    width: 93.5%;
+    width: 100%;
+    margin-top: 5px;
 }
 .storage-info-bar {
     height: 40px;
@@ -363,6 +357,7 @@ table {
     border-radius: 6px;
     color: white;
     font-weight: bold;
+    margin-right: 10px;
 }
 .pool-selector:hover {
     border-color: rgba(137, 218, 255, 0.822);
@@ -424,7 +419,6 @@ table {
     background: #d3d3d3;
     outline: none;
     opacity: 0.7;
-    -webkit-transition: 0.2s;
     transition: opacity 0.2s;
     border-radius: 7px;
 }
@@ -450,13 +444,11 @@ table {
 }
 .slider::-moz-range-thumb:hover {
     transition: opacity 0.2s;
-    -webkit-transition: 0.2s;
     border: none;
     border: none;
 }
 .slider::-webkit-slider-thumb:hover {
     transition: opacity 0.2s;
-    -webkit-transition: 0.2s;
     border: none;
 }
 .setting-div {
@@ -520,7 +512,6 @@ table {
     border-radius: 12px;
 }
 .raid-text {
-    right: 80px;
     position: relative;
 }
 .fan-rectangle {
@@ -596,9 +587,9 @@ table {
     border: 2px solid rgb(155, 155, 155);
 }
 .storage-box-wrapper {
-    overflow: overlay;
-    height: 500px;
+    overflow-y: overlay;
     scrollbar-width: thin;
+    height: 500px;
     color: white;
 }
 .storage-title-container {
@@ -648,7 +639,6 @@ table {
     border-width: 0 3px 3px 0;
     padding: 3px;
     transform: rotate(135deg);
-    -webkit-transform: rotate(135deg);
     position: relative;
     display: inline-block;
 }
@@ -662,7 +652,6 @@ table {
     border-width: 0 3px 3px 0;
     padding: 3px;
     transform: rotate(-45deg);
-    -webkit-transform: rotate(-45deg);
     position: relative;
     display: inline-block;
 }
@@ -762,10 +751,11 @@ table {
 }
 .os-data-container {
     position: relative;
-    width: fit-content;
     height: fit-content;
     top: 50%;
     transform: translateY(-50%);
+    width: 70%;
+    overflow-x: scroll;
 }
 .btn-container {
     position: relative;
@@ -810,7 +800,6 @@ table {
     padding: 3px;
     position: relative;
     transform: rotate(-135deg);
-    -webkit-transform: rotate(-135deg);
     width: fit-content;
 }
 .up-arrow:hover {
@@ -823,7 +812,6 @@ table {
     border-width: 0 3px 3px 0;
     padding: 3px;
     transform: rotate(45deg);
-    -webkit-transform: rotate(45deg);
     position: relative;
     width: fit-content;
 }
@@ -879,4 +867,61 @@ table {
     display: flex;
     align-items: center;
     gap: 10px;
+}
+.show-scan-btn{
+    height: 26px;
+    background: transparent;
+    border: 0;
+    color: grey;
+    margin-right: 10px;
+}
+.show-scan-btn-hover{
+    cursor: pointer;
+    color: white;
+}
+.show-scan-btn-hover:hover{
+    color: rgb(202, 202, 202);
+}
+.right-arrow {
+    border: solid rgb(255, 255, 255);
+    border-width: 0 3px 3px 0;
+    padding: 3px;
+    transform: rotate(-45deg);
+    position: relative;
+    width: fit-content;
+}
+.right-arrow:hover {
+    border: solid #00b7ff;
+    border-width: 0 3px 3px 0;
+    cursor: pointer;
+}
+.vdev-container{
+    position: relative;
+    color: white;
+    display: flex;
+    gap: 10px;
+    margin-top: 5px;
+    margin-left: 5px;
+    align-items: center;
+    font-weight: 600;
+}
+.zfs-disk{
+    position: relative;
+    display: flex;
+    gap: 10px;
+    margin-top: 5px;
+    margin-left: 25px;
+    align-items: center;
+}
+.zfs-disk-name{
+    font-weight: 500;
+    width: 90%;
+    overflow-x: scroll;
+    white-space: nowrap;
+    scrollbar-width: thin;
+}
+.disk-status-icon{
+    height: 20px;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
 }
