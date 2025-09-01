@@ -27,7 +27,7 @@ Features coming in the future!
 ## Dependencies
 Make sure you have the appropriate dependencies for your distribution!
 
-If you plan to install using the auto install script (Ubuntu and Arch only), you may skip the installation of these.
+If you plan to install using the auto install script (Ubuntu, Arch and Fedora only), you may skip the installation of these.
 
 Debian:
 ```
